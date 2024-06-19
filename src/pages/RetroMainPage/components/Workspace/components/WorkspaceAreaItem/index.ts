@@ -1,0 +1,1 @@
+export {WorkspaceAreaItem} from './WorkspaceAreaItem'
