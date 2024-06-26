@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const WorkspaceItem = styled.div`
-    width:30%;
+    width: calc(33% - 10px);
     height: 100px;
-    padding: 20px;
-    margin: 10px;
-    font-size: 20px;
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
     display: flex;
     flex-direction: column;
     border-radius: 10px;

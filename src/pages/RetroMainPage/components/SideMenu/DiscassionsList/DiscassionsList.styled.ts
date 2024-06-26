@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const WorkspaceList = styled.div`
+export const DiscassionsList = styled.div`
     width: 100%;
     margin-top: 20px;
     display: flex;

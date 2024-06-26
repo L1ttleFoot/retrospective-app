@@ -10,6 +10,8 @@ export const WorkspaceAreaHeader = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 `
 
 export const WorkspaceAreaBody = styled.div`
@@ -20,7 +22,7 @@ export const WorkspaceAreaBody = styled.div`
 
 export const Input = styled.textarea`
     border: none;
-    font-size: 20px;
+    font-size: 16px;
     height: 100%;
     resize: none;
 

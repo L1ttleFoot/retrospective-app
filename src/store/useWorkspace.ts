@@ -1,38 +1,67 @@
 import {create} from 'zustand'
 
 export interface IWorkspaceAreaItem {
-    id: number;
+    id: string;
     text: string;
     votes: number
 }
 
 export interface IWorkspaceArea {
-    id: number;
+    id: string;
     title: string;
     items: IWorkspaceAreaItem[];
 }
 
+export interface IWorkspaceAreaCreator {
+    id: string;
+    title: string;
+}
+
 export interface Workspace {
-    id: number;
+    id: string;
     name: string;
     date: Date;
     areas: IWorkspaceArea[];
+    areasCreator: IWorkspaceAreaCreator[],
     current?: boolean;
 }
 
 interface ListStore {
-    workspaceList: Workspace[],
-    addWorkspace: (name: string) => void,
-    deleteWorkspace: (id: number) => void,
-    currentWorkspace?: number
-    setCurrentWorkspace: (id: number) => void,
-    addItem: (workspaceId: number, areaId: number, item: IWorkspaceAreaItem) => void;
-    deleteItem: (workspaceId: number, areaId: number, itemId: number) => void;
+    workspaceData: Workspace[],
+    setWorkspaceData: (data: Workspace[]) => void,
+    currentWorkspace?: Workspace,
+    setCurrentWorkspace: (id: string) => void
+
+    addItem: (workspaceId: string, areaId: string, item: IWorkspaceAreaItem) => void;
+    deleteItem: (workspaceId: string, areaId: string, itemId: string) => void;
+    deleteWorkspace: (id: string) => void,
 }
 
 export const useWorkspace = create<ListStore>()((set) => ({
+    workspaceData: [],
     currentWorkspace: undefined,
-    workspaceList: [{
+    setWorkspaceData: (data) => set(() => ({workspaceData: [...data]})), 
+    setCurrentWorkspace: (id) => set((state)=>({currentWorkspace: state.workspaceData.find(item => item.id === id)})),
+    addItem: (workspaceId, areaId, item) => set(state => ({
+        workspaceData: state.workspaceData.map((workspace) => workspace.id === workspaceId ? {
+            ...workspace,
+            areas: workspace.areas.map(area => area.id === areaId ? {...area, items: area.items ? [...area.items, item] : [item]} : area)
+        } : workspace)
+    })),
+    deleteItem: (workspaceId, areaId, itemId) => set(state => ({
+        workspaceData: state.workspaceData.map((workspace) => workspace.id === workspaceId ? {
+            ...workspace,
+            areas: workspace.areas.map(area => area.id === areaId ? {
+                ...area,
+                items: area.items.filter(item => item.id !== itemId)
+            } : area)
+        } : workspace)
+    })),
+    deleteWorkspace: (id) => set(state => ({workspaceData: state.workspaceData.filter(item => item.id !== id)})),
+}))
+
+/*
+{
         id: 1,
         name: 'new Name',
         date: new Date(),
@@ -45,38 +74,23 @@ export const useWorkspace = create<ListStore>()((set) => ({
             title: 'Что было плохо',
             items: [{id: 1, text: 'вот так вот', votes: 1}, {id: 2, text: 'ага ага', votes: 1}]
         }]
-    }],
-    addItem: (workspaceId, areaId, item) => set(state => ({
-        workspaceList: state.workspaceList.map((workspace) => workspace.id === workspaceId ? {
-            ...workspace,
-            areas: workspace.areas.map(area => area.id === areaId ? {...area, items: [...area.items, item]} : area)
-        } : workspace)
-    })),
-    deleteItem: (workspaceId, areaId, itemId) => set(state => ({
-        workspaceList: state.workspaceList.map((workspace) => workspace.id === workspaceId ? {
-            ...workspace,
-            areas: workspace.areas.map(area => area.id === areaId ? {
-                ...area,
-                items: area.items.filter(item => item.id !== itemId)
-            } : area)
-        } : workspace)
-    })),
-    setCurrentWorkspace: (id) => set((state) => ({
-        workspaceList: state.workspaceList.map(item => item.id === id ? ({
-            ...item,
-            current: true
-        }) : ({
-            ...item,
-            current: false
-        }))
-    })),
-    addWorkspace: (name) => set((state) => ({
-        workspaceList: [...state.workspaceList, {
-            name: name,
-            id: new Date().getTime(),
-            date: new Date(),
-            areas: [],
-        }], currentWorkspace: new Date().getTime(),
-    })),
-    deleteWorkspace: (id) => set(state => ({workspaceList: state.workspaceList.filter(item => item.id !== id)})),
-}))
+    }, {
+        id: 2,
+        name: 'new Name 2',
+        date: new Date(),
+        areas: [{
+            id: 1,
+            title: 'Что было хорошо',
+            items: [{id: 1, text: 'вот так вот', votes: 1}, {id: 2, text: 'ага ага', votes: 1}]
+        }, {
+            id: 2,
+            title: 'Что было плохо',
+            items: [{id: 1, text: 'вот так вот', votes: 1}, {id: 2, text: 'ага ага', votes: 1}]
+        }, {
+            id: 3,
+            title: 'Планы на будущее',
+            items: [{id: 1, text: 'вот так вот', votes: 1}, {id: 2, text: 'ага ага', votes: 1}]
+        }]
+    }
+
+*/
