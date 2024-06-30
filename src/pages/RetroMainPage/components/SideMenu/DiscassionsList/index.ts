@@ -1,1 +1,1 @@
-export {DiscassionsList} from './DiscassionsList'
+export {DiscassionsList} from './DiscassionsList';

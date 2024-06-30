@@ -1,4 +1,4 @@
-import {initializeApp, getApps} from 'firebase/app'
+import {initializeApp, getApps} from 'firebase/app';
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_APIKEY,
@@ -8,12 +8,12 @@ const firebaseConfig = {
     storageBucket: process.env.REACT_APP_STORAGEBUCKET,
     messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
     appId: process.env.REACT_APP_APPID,
-  };
-  
+};
+
 const initFirebase = () => {
-    if(!getApps.length){
+    if (!getApps.length) {
         initializeApp(firebaseConfig);
     }
-}
+};
 
-initFirebase()
+initFirebase();

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const DiscassionsList = styled.div`
     width: 100%;
@@ -6,4 +6,4 @@ export const DiscassionsList = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
-`
+`;

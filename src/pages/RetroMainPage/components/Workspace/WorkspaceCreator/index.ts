@@ -1,1 +1,1 @@
-export {WorkspaceCreator} from './WorkspaceCreator'
+export {WorkspaceCreator} from './WorkspaceCreator';

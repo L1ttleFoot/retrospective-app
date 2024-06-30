@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const WorkspaceArea = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-`
+`;
 
 export const WorkspaceAreaHeader = styled.div`
     width: 100%;
@@ -12,13 +12,13 @@ export const WorkspaceAreaHeader = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-`
+`;
 
 export const WorkspaceAreaBody = styled.div`
-    width: 100%;    
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
-`
+`;
 
 export const Input = styled.textarea`
     border: none;
@@ -29,7 +29,7 @@ export const Input = styled.textarea`
     &:focus {
         outline: none;
     }
-`
+`;
 
 /*export const Input = styled.input`
     width:30%;

@@ -1,27 +1,18 @@
-import * as Styled from "./WorkspaceAreaItem.styled";
-import {IWorkspaceAreaItem} from "../../../../../../store/useWorkspace";
-import {ReactNode} from "react";
+import * as Styled from './WorkspaceAreaItem.styled';
+import {IWorkspaceAreaItem} from '../../../../../../store/useWorkspace';
+import {ReactNode} from 'react';
 
 interface IWorkspaceItem extends Partial<IWorkspaceAreaItem> {
     type?: string;
-    input?: ReactNode
+    input?: ReactNode;
 }
 
-export const WorkspaceAreaItem = (props:IWorkspaceItem) => {
+export const WorkspaceAreaItem = (props: IWorkspaceItem) => {
+    const {text, type, input} = props;
 
-    const {text, type, input} = props
-
-    if(type === 'input'){
-        return(
-            <Styled.WorkspaceItem>
-                {input}
-            </Styled.WorkspaceItem>
-        )
+    if (type === 'input') {
+        return <Styled.WorkspaceItem>{input}</Styled.WorkspaceItem>;
     }
 
-    return(
-        <Styled.WorkspaceItem>
-            {text}
-        </Styled.WorkspaceItem>
-    )
-}
+    return <Styled.WorkspaceItem>{text}</Styled.WorkspaceItem>;
+};

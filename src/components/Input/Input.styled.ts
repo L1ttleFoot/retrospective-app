@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Input = styled.input`
     display: block;
@@ -15,8 +15,8 @@ export const Input = styled.input`
     border-bottom: 1px solid #3d486c;
     color: #3d486c;
     margin: 10px;
-    
-    &:focus{
+
+    &:focus {
         outline: none;
     }
-`
+`;

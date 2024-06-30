@@ -1,7 +1,5 @@
-import * as Styled from './Spacer.styled'
+import * as Styled from './Spacer.styled';
 
 export const Spacer = () => {
-    return(
-        <Styled.Spacer/>
-    )
-}
+    return <Styled.Spacer />;
+};

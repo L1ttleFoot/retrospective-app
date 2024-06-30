@@ -1,1 +1,1 @@
-export {WorkspaceListItem} from './WorkspaceListItem'
+export {WorkspaceListItem} from './WorkspaceListItem';

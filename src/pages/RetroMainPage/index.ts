@@ -1,1 +1,1 @@
-export {RetroMainPage} from './RetroMainPage'
+export {RetroMainPage} from './RetroMainPage';

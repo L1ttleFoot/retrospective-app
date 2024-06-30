@@ -1,1 +1,1 @@
-export {WorkspaceCreatorArea} from './WorkspaceCreatorArea'
+export {WorkspaceCreatorArea} from './WorkspaceCreatorArea';

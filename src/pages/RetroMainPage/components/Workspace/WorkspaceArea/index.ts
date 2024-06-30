@@ -1,1 +1,1 @@
-export {WorkspaceArea} from './WorkspaceArea'
+export {WorkspaceArea} from './WorkspaceArea';

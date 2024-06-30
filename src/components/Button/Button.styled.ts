@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Button = styled.button`
     //width: 0;
@@ -16,4 +16,4 @@ export const Button = styled.button`
     font-weight: 500;
     position: relative;
     cursor: pointer;
-`
+`;
