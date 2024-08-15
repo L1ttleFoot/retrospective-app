@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const WorkspaceListItem = styled.div<{$isCurrent?: boolean}>`
+export const DiscassionsListItem = styled.div<{$isCurrent?: boolean}>`
     padding: 10px;
     height: 100%;
     width: 100%;

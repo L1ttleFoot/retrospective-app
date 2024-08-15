@@ -1,7 +1,5 @@
 import {create} from 'zustand';
 
-type Tstatus = 'incomplete' | 'inprogress' | 'complete';
-
 export interface IWorkspaceArea {
     id: string;
     title?: string;
@@ -11,7 +9,6 @@ export interface WorkspaceCreator {
     id: string;
     date: Date;
     areas: IWorkspaceArea[];
-    status: Tstatus;
 }
 
 interface ListStore {
@@ -24,8 +21,6 @@ interface ListStore {
 
     addArea: (workspaceId: string, item: IWorkspaceArea) => void;
     addItem: (workspaceId: string, areaId: string, title: string) => void;
-
-    setStatus: (workspaceId: string, status: Tstatus) => void;
 }
 
 export const useWorkspaceCreator = create<ListStore>()((set) => ({
@@ -60,12 +55,6 @@ export const useWorkspaceCreator = create<ListStore>()((set) => ({
                           ),
                       }
                     : workspace,
-            ),
-        })),
-    setStatus: (workspaceId, status) =>
-        set((state) => ({
-            workspaceCreatorData: state.workspaceCreatorData.map((workspace) =>
-                workspace.id === workspaceId ? {...workspace, status} : workspace,
             ),
         })),
 }));

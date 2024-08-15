@@ -2,7 +2,7 @@ import {getDatabase, ref, set} from 'firebase/database';
 import {Spacer} from '../../../../../../../components/Spacer';
 import {IDiscassion, useDiscassions} from '../../../../../../../store/useDiscassions';
 import {formatDate} from '../../../../../../../utils/dateUtils';
-import * as Styled from './WorkspaceListItem.styled';
+import * as Styled from './DiscassionsListItem.styled';
 import {useNavigate} from 'react-router-dom';
 import Close from '../../../../../../../assets/close';
 import {IconButton} from '../../../../../../../components/IconButton';
@@ -12,7 +12,7 @@ interface IWorkspaceItem {
     setCurrent: () => void;
 }
 
-export const WorkspaceListItem = (props: IWorkspaceItem) => {
+export const DiscassionsListItem = (props: IWorkspaceItem) => {
     const navigate = useNavigate();
 
     const db = getDatabase();
@@ -33,7 +33,10 @@ export const WorkspaceListItem = (props: IWorkspaceItem) => {
     };
 
     return (
-        <Styled.WorkspaceListItem onClick={setCurrent} $isCurrent={item.id === currentDiscassionId}>
+        <Styled.DiscassionsListItem
+            onClick={setCurrent}
+            $isCurrent={item.id === currentDiscassionId}
+        >
             <Styled.Info>
                 <Styled.Label>{item.name}</Styled.Label>
                 <Styled.Date>{formatDate(item.date)}</Styled.Date>
@@ -42,6 +45,6 @@ export const WorkspaceListItem = (props: IWorkspaceItem) => {
             <IconButton onClick={(e) => deleteDiscassion(e)}>
                 <Close />
             </IconButton>
-        </Styled.WorkspaceListItem>
+        </Styled.DiscassionsListItem>
     );
 };

@@ -16,4 +16,12 @@ export const Button = styled.button`
     font-weight: 500;
     position: relative;
     cursor: pointer;
+    transition: 0.3s ease-in-out;
+    transition-property: background-color;
+
+    &:disabled {
+        background-color: #f5f5f7;
+        color: #c0c9d8;
+        cursor: default;
+    }
 `;

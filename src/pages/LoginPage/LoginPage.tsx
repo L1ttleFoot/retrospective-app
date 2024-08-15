@@ -11,7 +11,7 @@ type Inputs = {
 };
 
 export const LoginPage = () => {
-    const {register, handleSubmit, watch} = useForm<Inputs>({
+    const {register, handleSubmit} = useForm<Inputs>({
         mode: 'onChange',
         defaultValues: {login: '', password: ''},
     });
@@ -25,13 +25,13 @@ export const LoginPage = () => {
         navigate('/');
     };
 
-    watch(['login', 'password']);
+    //watch(['login', 'password']);
 
     return (
         <Styled.Wrapper>
             <Styled.FormWrapper>
                 <Styled.Form onSubmit={handleSubmit(onSubmit)}>
-                    <Input {...register('login')} required placeholder={'Логин'} />
+                    <Input required placeholder={'Логин'} {...register('login')} />
                     <Input
                         {...register('password')}
                         required

@@ -1,1 +1,0 @@
-export {WorkspaceListItem} from './WorkspaceListItem';

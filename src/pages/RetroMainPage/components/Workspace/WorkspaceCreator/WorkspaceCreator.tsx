@@ -10,7 +10,7 @@ export const WorkspaceCreator = () => {
     const db = getDatabase();
 
     const {currentDiscassionId} = useDiscassions();
-    const {workspaceCreatorData, addArea, setStatus} = useWorkspaceCreator();
+    const {workspaceCreatorData, addArea} = useWorkspaceCreator();
 
     const creatArea = () => {
         if (!currentDiscassionId) return;
@@ -22,10 +22,8 @@ export const WorkspaceCreator = () => {
 
     const handleReady = () => {
         if (!current || !currentDiscassionId) return;
-
+        
         update(ref(db, 'workspaces/' + currentDiscassionId), {areas: current.areas});
-
-        setStatus(currentDiscassionId, 'complete');
     };
 
     return (
