@@ -1,0 +1,1 @@
+export {VoteUp} from './VoteUp';

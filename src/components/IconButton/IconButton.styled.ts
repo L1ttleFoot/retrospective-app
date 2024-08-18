@@ -6,7 +6,6 @@ export const IconButton = styled.button`
     width: 32px;
     height: 32px;
     padding: 5px;
-
     transition: opacity 0.3s ease-in-out;
 
     &:hover {
@@ -14,7 +13,7 @@ export const IconButton = styled.button`
     }
 
     & svg {
-        max-width: 100%;
-        max-height: 100%;
+        max-width: 32px;
+        max-height: 32px;
     }
 `;

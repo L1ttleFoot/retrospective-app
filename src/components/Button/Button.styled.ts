@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-export const Button = styled.button`
-    //width: 0;
+export const Button = styled.button<{fullWidth?: boolean}>`
+    max-width: ${({fullWidth}) => (fullWidth ? undefined : '180px')};
+    width: 100%;
     height: 40px;
     display: block;
     border: none;
@@ -10,9 +11,8 @@ export const Button = styled.button`
     text-align: center;
     font-size: 16px;
     line-height: 1.25;
-    background-color: #3d3bee;
+    background-color: ${({theme}) => theme.colors.primary};
     color: #ffffff;
-    min-width: 180px;
     font-weight: 500;
     position: relative;
     cursor: pointer;
