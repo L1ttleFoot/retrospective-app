@@ -1,1 +1,0 @@
-export {DiscassionsList} from './DiscassionsList';

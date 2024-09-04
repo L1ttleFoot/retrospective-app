@@ -9,19 +9,19 @@ export default function Add() {
         >
             <path
                 d="M12 7v10m-5-5h10"
-                stroke="#3d3bee"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                stroke="#52b788"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
             />
             <circle
                 cx="12"
                 cy="12"
                 r="10"
-                stroke="#3d3bee"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                stroke="#52b788"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
             />
         </svg>
     );

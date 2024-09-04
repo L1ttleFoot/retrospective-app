@@ -1,55 +1,49 @@
 import {useState} from 'react';
 import {Input} from '../../../../../components/Input';
 import {Button} from '../../../../../components/Button';
-import {useWorkspace} from '../../../../../store/useWorkspace';
 import {capitalize} from '../../../../../utils/capitalize';
-import {getDatabase, onValue, ref, set} from 'firebase/database';
-import {useDiscassions} from '../../../../../store/useDiscassions';
-import {useWorkspaceCreator} from '../../../../../store/useWorkspaceCreator';
+import {useDiscussions} from '../../../../../store/useDiscussions';
+import {doc, setDoc} from 'firebase/firestore';
+import {db} from '../../../../../initFirebase';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {v4} from 'uuid';
 
-export const CreateDiscassion = () => {
-    const db = getDatabase();
+export const CreateDiscussion = () => {
+    const client = useQueryClient();
 
-    const {setWorkspaceData} = useWorkspace();
-    const {setDiscassionsData, setCurrentDiscassionId} = useDiscassions();
-    const {addtWorkspaceCreatorData} = useWorkspaceCreator();
+    const {setCurrentDiscussionId} = useDiscussions();
 
     const [name, setName] = useState('');
 
-    const handleCreate = () => {
+    const {mutate: mutateWorkspaces} = useMutation({
+        mutationFn: async (id: string) => {
+            await setDoc(doc(db, 'workspaces', id), {
+                date: new Date().valueOf(),
+                discussionId: id,
+                areas: [],
+            });
+        },
+    });
+
+    const {mutate: mutateDiscussions} = useMutation({
+        mutationFn: async (id: string) => {
+            await setDoc(doc(db, 'discussions', id), {
+                name,
+                date: new Date().valueOf(),
+            });
+
+            return id;
+        },
+        onSuccess: (id) => {
+            setName('');
+            setCurrentDiscussionId(id);
+            client.invalidateQueries({queryKey: ['discussions']});
+        },
+    });
+
+    const handleCreate = async () => {
         const id = v4();
-
-        setName('');
-
-        const discassionsRef = ref(db, `discassions/`);
-        const workspacesRef = ref(db, `workspaces/`);
-
-        set(ref(db, 'discassions/' + id), {
-            id: id,
-            name: name,
-            date: new Date().valueOf(),
-        });
-
-        set(ref(db, 'workspaces/' + id), {
-            id: id,
-            date: new Date().valueOf(),
-        });
-
-        onValue(discassionsRef, (snapshot) => {
-            if (snapshot.exists()) {
-                setDiscassionsData(Object.values(snapshot.val()));
-            } else setDiscassionsData([]);
-        });
-
-        onValue(workspacesRef, (snapshot) => {
-            if (snapshot.exists()) {
-                setWorkspaceData(Object.values(snapshot.val()));
-            } else setWorkspaceData([]);
-        });
-
-        setCurrentDiscassionId(id);
-        addtWorkspaceCreatorData(id);
+        mutateDiscussions(id);
     };
 
     return (

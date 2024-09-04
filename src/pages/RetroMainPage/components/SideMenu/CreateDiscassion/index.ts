@@ -1,1 +1,1 @@
-export {CreateDiscassion} from './CreateDiscassion';
+export {CreateDiscussion} from './CreateDiscassion';

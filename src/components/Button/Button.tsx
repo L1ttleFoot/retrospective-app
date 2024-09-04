@@ -1,5 +1,9 @@
 import * as Styled from './Button.styled';
 
-export const Button = ({...props}: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
+type ButtonType = {
+    fullWidth?: boolean;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+export const Button = ({...props}: ButtonType) => {
     return <Styled.Button {...props} />;
 };

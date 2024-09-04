@@ -1,1 +1,0 @@
-export {WorkspaceCreatorArea} from './WorkspaceCreatorArea';
