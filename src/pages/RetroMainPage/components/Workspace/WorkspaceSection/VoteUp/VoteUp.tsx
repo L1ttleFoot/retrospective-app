@@ -1,5 +1,4 @@
 import {useState} from 'react';
-import {IconButton} from '../../../../../../components/IconButton';
 import * as Styled from './VoteUp.styled';
 import Thumb from '../../../../../../assets/thumb';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
@@ -37,9 +36,9 @@ export const VoteUp = ({votes, id}: {id?: string; votes?: number}) => {
 
     return (
         <Styled.VoteUp>
-            <IconButton onClick={handleClick}>
+            <Styled.VoteUpButton onClick={handleClick}>
                 <Thumb fill={active ? 'green' : undefined} />
-            </IconButton>
+            </Styled.VoteUpButton>
             {votes}
         </Styled.VoteUp>
     );

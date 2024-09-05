@@ -14,6 +14,11 @@ export const Workspace = styled.div`
     box-shadow:
         0 4px 16px 0 rgba(61, 72, 108, 0.16),
         inset 0 -3px 28px 0 rgba(255, 255, 255, 0.4);
+
+    @media screen and (max-width: 660px) {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
 `;
 
 export const EmptyWorkspace = styled.div`
