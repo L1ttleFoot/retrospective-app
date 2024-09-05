@@ -1,7 +1,8 @@
 import {Button} from '../../../../../components/Button';
-import {ModalForm} from './Modal';
+
 import {Backdrop} from '../../../../../components/Backdrop';
 import {useModal} from '../../../../../hooks/useModal';
+import {ModalForm} from './ModalForm';
 
 export const CreateSections = () => {
     const {open, handleOpen, handleClose} = useModal();
@@ -11,7 +12,7 @@ export const CreateSections = () => {
             <Button onClick={handleOpen}>Создать области</Button>
             {open && (
                 <Backdrop onClose={handleClose}>
-                    <ModalForm hanldeClose={handleClose} />
+                    <ModalForm handleClose={handleClose} />
                 </Backdrop>
             )}
         </>

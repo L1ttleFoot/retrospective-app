@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Selector = styled.div`
-    padding: 20px;
+    padding: 15px;
     height: 100%;
     display: flex;
     flex-direction: column;

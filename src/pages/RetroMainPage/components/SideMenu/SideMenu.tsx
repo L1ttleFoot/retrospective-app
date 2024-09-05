@@ -18,7 +18,6 @@ export const SideMenu = () => {
 
     const handleLogout = () => {
         resetUser();
-        navigate('/login');
     };
 
     const handleLogin = () => {
