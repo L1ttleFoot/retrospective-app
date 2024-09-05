@@ -25,7 +25,9 @@ export const WorkspaceArea = (props: Area & {index: number; messages: Messages})
                 </IconButton>
             </Styled.WorkspaceSectionHeader>
             <Styled.WorkspaceSectionBody>
-                {messages[index]?.map((item) => <Message key={item.id} {...item} color={color} />)}
+                {messages[index]
+                    ?.sort((a, b) => a.timestamp - b.timestamp)
+                    .map((item) => <Message key={item.id} {...item} color={color} />)}
                 {showInput && (
                     <AddItem
                         index={index}

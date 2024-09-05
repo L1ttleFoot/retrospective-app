@@ -29,7 +29,14 @@ export const AddItem = ({index, messages, handleShowInput, color}: AddItemType) 
     const {mutate} = useMutation({
         mutationFn: (id: string) =>
             updateDoc(doc(db, 'messages', currentDiscussionId!), {
-                [id]: {id, areaId: `${currentDiscussionId}`, areaIndex: index, text, votes: 0},
+                [id]: {
+                    id,
+                    areaId: `${currentDiscussionId}`,
+                    areaIndex: index,
+                    text,
+                    votes: 0,
+                    timestamp: new Date().getTime(),
+                },
             }),
         onSuccess: () => {
             setText('');
