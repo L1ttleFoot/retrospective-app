@@ -8,6 +8,7 @@ export const Workspace = styled.div`
     justify-content: space-around;
     align-items: stretch;
     gap: 20px;
+    overflow-y: auto;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.7);
     box-shadow:

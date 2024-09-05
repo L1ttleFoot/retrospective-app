@@ -18,4 +18,8 @@ export const Message = styled.div<{color?: string}>`
         inset 0 -3px 28px 0 rgba(255, 255, 255, 0.4);
     word-wrap: break-word;
     overflow: hidden;
+
+    @media screen and (max-width: 955px) {
+        width: 100%;
+    }
 `;

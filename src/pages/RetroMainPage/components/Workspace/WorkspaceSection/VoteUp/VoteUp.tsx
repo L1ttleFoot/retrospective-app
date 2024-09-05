@@ -16,7 +16,7 @@ export const VoteUp = ({votes, id}: {id?: string; votes?: number}) => {
     const {mutate} = useMutation({
         mutationFn: ({id, votes}: {id: string; votes?: number}) =>
             updateDoc(doc(db, 'messages', currentDiscussionId!), {
-                [`${id}.votes`]: (votes ?? 0) + 1,
+                [`${id}.votes`]: votes,
             }),
         onSuccess: () => {
             client.invalidateQueries({queryKey: ['messages']});
@@ -24,9 +24,15 @@ export const VoteUp = ({votes, id}: {id?: string; votes?: number}) => {
     });
 
     const handleClick = () => {
-        if (active || !id) return;
-        setActive(true);
-        mutate({id, votes});
+        if (!id) return;
+
+        if (active) {
+            setActive(false);
+            mutate({id, votes: (votes ?? 0) - 1});
+        } else {
+            setActive(true);
+            mutate({id, votes: (votes ?? 0) + 1});
+        }
     };
 
     return (
