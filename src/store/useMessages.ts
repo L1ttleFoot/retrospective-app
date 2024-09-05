@@ -1,7 +1,14 @@
 import {create} from 'zustand';
 
 export interface Messages {
-    [key: string]: {id: string; areaId: string; areaIndex: number; text: string; votes: number}[];
+    [key: string]: {
+        id: string;
+        areaId: string;
+        areaIndex: number;
+        text: string;
+        votes: number;
+        timestamp: number;
+    }[];
 }
 
 interface MessagesStore {
