@@ -4,6 +4,9 @@ import {useLogin} from '../../store/useLogin';
 import {useNavigate} from 'react-router-dom';
 import {Input} from '../../components/Input';
 import {Button} from '../../components/Button';
+import {browserLocalPersistence, setPersistence, signInWithEmailAndPassword} from 'firebase/auth';
+import {auth} from '../../initFirebase';
+import {Navigate} from 'react-router-dom';
 
 type Inputs = {
     login: string;
@@ -18,18 +21,26 @@ export const LoginPage = () => {
 
     const navigate = useNavigate();
 
-    const {setLogin} = useLogin();
+    const {setUserData} = useLogin();
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        setLogin(data.login);
-        navigate('/');
-    };
+        setPersistence(auth, browserLocalPersistence)
+            .then(() => {
+                return signInWithEmailAndPassword(auth, data.login, data.password);
+            })
+            .then((userCredential) => {
+                const user = userCredential.user;
 
-    //watch(['login', 'password']);
+                setUserData({email: user.email, userUid: user.uid});
+                navigate('/');
+            })
+            .catch((error) => console.log(error));
+    };
 
     return (
         <Styled.Wrapper>
             <Styled.FormWrapper>
+                {!!auth.currentUser && <Navigate to="/" />}
                 <Styled.Form onSubmit={handleSubmit(onSubmit)}>
                     <Input required placeholder={'Логин'} {...register('login')} />
                     <Input

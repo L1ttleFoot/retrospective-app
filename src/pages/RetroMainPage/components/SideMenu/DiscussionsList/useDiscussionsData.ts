@@ -1,13 +1,19 @@
 import {IDiscussion, useDiscussions} from '../../../../../store/useDiscussions';
-import {collection, getDocs, orderBy, query} from 'firebase/firestore';
+import {collection, getDocs, orderBy, query, where} from 'firebase/firestore';
 import {db} from '../../../../../initFirebase';
 import {useQuery} from '@tanstack/react-query';
 import {useEffect} from 'react';
+import {useLogin} from '../../../../../store/useLogin';
 
 export const useDiscussionData = () => {
     const {setDiscussionsData} = useDiscussions();
+    const {userData} = useLogin();
 
-    const q = query(collection(db, 'discussions'), orderBy('date', 'desc'));
+    const q = query(
+        collection(db, 'discussions'),
+        where('userUid', '==', userData?.userUid ?? ''),
+        orderBy('createdAt', 'desc'),
+    );
 
     const getDiscussions = async () => {
         const quertySnapshot = await getDocs(q);
