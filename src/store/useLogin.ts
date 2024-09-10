@@ -1,15 +1,15 @@
 import {create} from 'zustand';
 
+type userDataType = {email?: string | null; userUid?: string | null};
+
 interface LoginStore {
-    login?: string;
-    isLoggedIn: boolean;
-    setLogin: (login: string) => void;
+    userData?: userDataType;
+    setUserData: (userData: userDataType) => void;
     resetUser: () => void;
 }
 
 export const useLogin = create<LoginStore>()((set) => ({
-    login: undefined,
-    isLoggedIn: false,
-    setLogin: (login) => set(() => ({login: login, isLoggedIn: true})),
-    resetUser: () => set(() => ({login: undefined, isLoggedIn: false})),
+    userData: undefined,
+    setUserData: (userData) => set(() => ({userData})),
+    resetUser: () => set(() => ({userData: undefined})),
 }));

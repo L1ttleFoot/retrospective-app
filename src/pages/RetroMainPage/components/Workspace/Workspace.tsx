@@ -1,21 +1,22 @@
 import * as Styled from './Workspace.styled';
 import {WorkspaceArea} from './WorkspaceSection';
-import {useLogin} from '../../../../store/useLogin';
 import {useDiscussions} from '../../../../store/useDiscussions';
 import {useAreas} from '../../../../store/useAreas';
 import {useWorkspaceData} from './useWorkspaceData';
 import {useMessages} from '../../../../store/useMessages';
 import {CreateSections} from './CreateSections';
+import {getCurrentUser} from '../../../../utils/getCurrentUser';
 
 export const Workspace = () => {
     useWorkspaceData();
 
-    const {isLoggedIn} = useLogin();
+    const currentUser = getCurrentUser();
+
     const {currentDiscussionId} = useDiscussions();
     const {areasData} = useAreas();
     const {messagesData} = useMessages();
 
-    if (!isLoggedIn && !currentDiscussionId) {
+    if (!currentUser && !currentDiscussionId) {
         return <Styled.EmptyWorkspace>Для продолжения авторизуйтесь</Styled.EmptyWorkspace>;
     }
 

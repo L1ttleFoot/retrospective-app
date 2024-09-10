@@ -3,8 +3,7 @@ import {create} from 'zustand';
 export interface IDiscussion {
     id: string;
     name: string;
-    date: number;
-    current?: boolean;
+    createdAt: number;
 }
 
 interface IDiscussionsStore {

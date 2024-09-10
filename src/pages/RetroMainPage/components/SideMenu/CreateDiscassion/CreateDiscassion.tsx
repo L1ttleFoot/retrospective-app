@@ -7,11 +7,13 @@ import {doc, setDoc} from 'firebase/firestore';
 import {db} from '../../../../../initFirebase';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {v4} from 'uuid';
+import {useLogin} from '../../../../../store/useLogin';
 
 export const CreateDiscussion = () => {
     const client = useQueryClient();
 
     const {setCurrentDiscussionId} = useDiscussions();
+    const {userData} = useLogin();
 
     const [name, setName] = useState('');
 
@@ -28,8 +30,9 @@ export const CreateDiscussion = () => {
     const {mutate: mutateDiscussions} = useMutation({
         mutationFn: async (id: string) => {
             await setDoc(doc(db, 'discussions', id), {
+                userUid: userData?.userUid,
                 name,
-                date: new Date().valueOf(),
+                createdAt: new Date().valueOf(),
             });
 
             return id;

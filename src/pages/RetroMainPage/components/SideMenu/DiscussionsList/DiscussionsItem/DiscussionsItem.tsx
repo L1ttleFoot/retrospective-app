@@ -49,7 +49,7 @@ export const DiscussionsItem = (props: IWorkspaceItem) => {
         <Styled.DiscussionsItem onClick={setCurrent} $isCurrent={item.id === currentDiscussionId}>
             <Styled.Info>
                 <Styled.Label>{item.name}</Styled.Label>
-                <Styled.Date>{formatDate(item.date)}</Styled.Date>
+                <Styled.Date>{formatDate(item.createdAt)}</Styled.Date>
             </Styled.Info>
             <Spacer />
             <IconButton onClick={(e) => deleteDiscussion(e)}>

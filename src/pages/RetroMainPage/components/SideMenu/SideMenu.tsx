@@ -7,17 +7,23 @@ import {CreateDiscussion} from './CreateDiscassion';
 import {DiscussionsList} from './DiscussionsList';
 import {useDiscussions} from '../../../../store/useDiscussions';
 import {useEffect} from 'react';
+import {signOut} from 'firebase/auth';
+import {auth} from '../../../../initFirebase';
+import {getCurrentUser} from '../../../../utils/getCurrentUser';
 
 export const SideMenu = () => {
+    const currentUser = getCurrentUser();
+
     const navigate = useNavigate();
 
     const {search} = useLocation();
     const {setCurrentDiscussionId} = useDiscussions();
 
-    const {resetUser, isLoggedIn} = useLogin();
+    const {resetUser} = useLogin();
 
     const handleLogout = () => {
         resetUser();
+        signOut(auth);
     };
 
     const handleLogin = () => {
@@ -34,14 +40,14 @@ export const SideMenu = () => {
 
     return (
         <Styled.Selector>
-            {isLoggedIn && (
+            {currentUser && (
                 <>
                     <CreateDiscussion />
                     <DiscussionsList />
                 </>
             )}
             <Spacer />
-            {isLoggedIn ? (
+            {currentUser ? (
                 <Button onClick={handleLogout}>Выйти</Button>
             ) : (
                 <Button onClick={handleLogin}>Войти</Button>
