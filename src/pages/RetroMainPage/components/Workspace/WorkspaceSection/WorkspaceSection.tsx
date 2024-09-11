@@ -1,7 +1,7 @@
 import * as Styled from './WorkspaceSection.styled';
 import {Message} from './Message';
 import {useState} from 'react';
-import Add from '../../../../../assets/add';
+import Add from '@assets/add.svg?react';
 import {IconButton} from '../../../../../components/IconButton';
 import {Area} from '../../../../../store/useAreas';
 import {Messages} from '../../../../../store/useMessages';

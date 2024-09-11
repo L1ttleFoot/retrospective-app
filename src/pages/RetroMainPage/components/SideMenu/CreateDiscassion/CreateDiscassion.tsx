@@ -1,6 +1,6 @@
 import {useState} from 'react';
-import {Input} from '../../../../../components/Input';
-import {Button} from '../../../../../components/Button';
+import {Input} from '@components/Input';
+import {Button} from '@components/Button';
 import {capitalize} from '../../../../../utils/capitalize';
 import {useDiscussions} from '../../../../../store/useDiscussions';
 import {doc, setDoc} from 'firebase/firestore';

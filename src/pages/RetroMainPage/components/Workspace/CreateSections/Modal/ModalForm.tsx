@@ -1,16 +1,16 @@
 import {useFieldArray, useForm} from 'react-hook-form';
 import * as Styled from './ModalForm.styled';
-import {Input} from '../../../../../../components/Input';
-import {Button} from '../../../../../../components/Button';
-import {IconButton} from '../../../../../../components/IconButton';
-import Close from '../../../../../../assets/close';
+import {Input} from '@components/Input';
+import {Button} from '@components/Button';
+import {IconButton} from '@components/IconButton';
+import Close from '@assets/close.svg?react';
 import {doc, setDoc} from 'firebase/firestore';
 import {db} from '../../../../../../initFirebase';
-import {useDiscussions} from '../../../../../../store/useDiscussions';
+import {useDiscussions} from '@store/useDiscussions';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {v4} from 'uuid';
 import {ColorPicker} from '../ColorPicker';
-import {Area} from '../../../../../../store/useAreas';
+import {Area} from '@store/useAreas';
 import {colorsList} from '../ColorPicker/ColorPicker.consts';
 
 type IModalForm = {
