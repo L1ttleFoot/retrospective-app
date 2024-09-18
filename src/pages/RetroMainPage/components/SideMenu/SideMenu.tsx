@@ -19,7 +19,7 @@ export const SideMenu = () => {
     const {search} = useLocation();
     const {setCurrentDiscussionId} = useDiscussions();
 
-    const {resetUser} = useLogin();
+    const {resetUser, userData} = useLogin();
 
     const handleLogout = () => {
         resetUser();
@@ -47,6 +47,7 @@ export const SideMenu = () => {
                 </>
             )}
             <Spacer />
+            {currentUser && <div>{currentUser?.email}</div>}
             {currentUser ? (
                 <Button onClick={handleLogout}>Выйти</Button>
             ) : (
