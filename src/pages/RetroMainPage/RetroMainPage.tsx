@@ -2,9 +2,9 @@ import {onAuthStateChanged} from 'firebase/auth';
 import {useEffect} from 'react';
 import {auth} from '../../initFirebase';
 import * as Styled from './RetroMainPage.styled';
-import {SideMenu} from './components/SideMenu';
 import {Workspace} from './components/Workspace';
 import {useLogin} from '../../store/useLogin';
+import {AppBar} from './components/AppBar/AppBar';
 
 export const RetroMainPage = () => {
     const {setUserData} = useLogin();
@@ -18,8 +18,10 @@ export const RetroMainPage = () => {
 
     return (
         <Styled.Wrapper>
-            <SideMenu />
-            <Workspace />
+            <AppBar />
+            <Styled.Main>
+                <Workspace />
+            </Styled.Main>
         </Styled.Wrapper>
     );
 };

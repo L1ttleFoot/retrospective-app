@@ -4,6 +4,6 @@ type ButtonType = {
     fullWidth?: boolean;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button = ({...props}: ButtonType) => {
-    return <Styled.Button {...props} />;
+export const Button = ({fullWidth, ...props}: ButtonType) => {
+    return <Styled.Button {...props} $fullWidth={fullWidth} />;
 };

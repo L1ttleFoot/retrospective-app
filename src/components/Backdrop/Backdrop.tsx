@@ -12,7 +12,7 @@ export const Backdrop = ({onClose, children, isTransparent = false}: BackdropPro
     };
 
     return (
-        <Styled.Backdrop onClick={hanldeBackdrop} isTransparent={isTransparent}>
+        <Styled.Backdrop onClick={hanldeBackdrop} $isTransparent={isTransparent}>
             {children}
         </Styled.Backdrop>
     );

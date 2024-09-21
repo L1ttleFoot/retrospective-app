@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import {sizes} from '../../consts/styles';
 
-export const IconButton = styled.button`
+export const IconButton = styled.button<{$size: string}>`
     background: transparent;
     border: none;
     width: 32px;
@@ -13,7 +14,7 @@ export const IconButton = styled.button`
     }
 
     & svg {
-        max-width: 32px;
-        max-height: 32px;
+        max-width: ${({$size}) => sizes[$size]};
+        max-height: ${({$size}) => sizes[$size]};
     }
 `;

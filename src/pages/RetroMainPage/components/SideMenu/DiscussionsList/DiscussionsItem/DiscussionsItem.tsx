@@ -8,10 +8,12 @@ import {IconButton} from '../../../../../../components/IconButton';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {deleteDoc, doc} from 'firebase/firestore';
 import {db} from '../../../../../../initFirebase';
+import {SpringValue} from 'react-spring';
 
 interface IWorkspaceItem {
     item: IDiscussion;
     setCurrent: () => void;
+    style: Record<string, SpringValue>;
 }
 
 export const DiscussionsItem = (props: IWorkspaceItem) => {
@@ -21,7 +23,7 @@ export const DiscussionsItem = (props: IWorkspaceItem) => {
 
     const {currentDiscussionId, setCurrentDiscussionId} = useDiscussions();
 
-    const {item, setCurrent} = props;
+    const {item, setCurrent, style} = props;
 
     const {mutate} = useMutation({
         mutationFn: async () => {
@@ -46,7 +48,11 @@ export const DiscussionsItem = (props: IWorkspaceItem) => {
     };
 
     return (
-        <Styled.DiscussionsItem onClick={setCurrent} $isCurrent={item.id === currentDiscussionId}>
+        <Styled.DiscussionsItem
+            style={style}
+            onClick={setCurrent}
+            $isCurrent={item.id === currentDiscussionId}
+        >
             <Styled.Info>
                 <Styled.Label>{item.name}</Styled.Label>
                 <Styled.Date>{formatDate(item.createdAt)}</Styled.Date>

@@ -21,7 +21,7 @@ export const useDiscussionData = () => {
     };
 
     const {data: discussionsData} = useQuery({
-        queryKey: ['discussions'],
+        queryKey: ['discussions', userData?.userUid],
         queryFn: getDiscussions,
         placeholderData: (prev) => prev,
         staleTime: 1000 * 60 * 5,
