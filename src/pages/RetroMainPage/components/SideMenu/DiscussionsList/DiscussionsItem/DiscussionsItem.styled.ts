@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import {animated} from 'react-spring';
 
-export const DiscussionsItem = styled.div<{$isCurrent?: boolean}>`
+export const DiscussionsItem = styled(animated.div)<{$isCurrent?: boolean}>`
     padding: 10px;
     height: 100%;
     width: 100%;

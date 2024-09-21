@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export const Button = styled.button<{fullWidth?: boolean}>`
-    max-width: ${({fullWidth}) => (fullWidth ? undefined : '180px')};
+export const Button = styled.button<{$fullWidth?: boolean}>`
+    max-width: ${({$fullWidth}) => ($fullWidth ? undefined : '180px')};
     width: 100%;
     height: 40px;
     display: block;
