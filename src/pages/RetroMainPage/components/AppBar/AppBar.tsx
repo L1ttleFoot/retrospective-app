@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import Menu from '../../../../assets/menu';
 import {IconButton} from '../../../../components/IconButton';
 import * as Styled from './AppBar.styled';
@@ -10,13 +9,15 @@ import {useNavigate} from 'react-router-dom';
 import {signOut} from 'firebase/auth';
 import {auth} from '../../../../initFirebase';
 import {useLogin} from '../../../../store/useLogin';
+import {Backdrop} from '../../../../components/Backdrop';
+import {useModal} from '../../../../hooks/useModal';
 
 export const AppBar = () => {
     const navigate = useNavigate();
     const currentUser = getCurrentUser();
     const {resetUser} = useLogin();
 
-    const [open, setOpen] = useState(false);
+    const {open, handleClose, toggleOpen} = useModal();
 
     const handleLogout = () => {
         resetUser();
@@ -31,7 +32,7 @@ export const AppBar = () => {
         <>
             <Styled.AppBar>
                 {currentUser && (
-                    <IconButton size="small" onClick={() => setOpen((prev) => !prev)}>
+                    <IconButton size="small" onClick={toggleOpen}>
                         <Menu />
                     </IconButton>
                 )}
@@ -45,6 +46,11 @@ export const AppBar = () => {
                 )}
             </Styled.AppBar>
 
+            {open && (
+                <Backdrop onClose={handleClose} isTransparent>
+                    <></>
+                </Backdrop>
+            )}
             <SideMenu open={open} />
         </>
     );

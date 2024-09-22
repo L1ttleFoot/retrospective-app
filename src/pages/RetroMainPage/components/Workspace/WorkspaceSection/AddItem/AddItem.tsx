@@ -69,6 +69,7 @@ export const AddItem = ({index, messages, handleShowInput, color}: AddItemType) 
             color={color}
             input={
                 <Styled.Input
+                    autoFocus
                     value={text}
                     onChange={handleChange}
                     onBlur={handleBlur}

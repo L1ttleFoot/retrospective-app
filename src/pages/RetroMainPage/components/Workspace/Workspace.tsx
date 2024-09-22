@@ -20,7 +20,7 @@ export const Workspace = () => {
         return <Styled.EmptyWorkspace>Для продолжения авторизуйтесь</Styled.EmptyWorkspace>;
     }
 
-    if (!currentDiscussionId) {
+    if (currentUser && !currentDiscussionId) {
         return (
             <Styled.EmptyWorkspace>
                 Выберите обсуждение из списка или создайте новое

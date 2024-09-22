@@ -20,7 +20,11 @@ export const Message = (props: IWorkspaceItem) => {
     const {id, text, input, votes, color} = props;
 
     if (input) {
-        return <Styled.Message color={color}>{input}</Styled.Message>;
+        return (
+            <Styled.Message color={color} input={!!input}>
+                {input}
+            </Styled.Message>
+        );
     }
 
     return (
