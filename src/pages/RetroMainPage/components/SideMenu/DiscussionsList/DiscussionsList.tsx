@@ -5,13 +5,15 @@ import {IDiscussion, useDiscussions} from '../../../../../store/useDiscussions';
 import {useEffect} from 'react';
 import {useDiscussionData} from './useDiscussionsData';
 import {useTransition} from 'react-spring';
+import {LoadingSpiner} from '../../../../../components/LoadingSpiner';
 
 export const DiscussionsList = () => {
     useDiscussionData();
 
     const navigate = useNavigate();
 
-    const {discussionsData, currentDiscussionId, setCurrentDiscussionId} = useDiscussions();
+    const {discussionsData, currentDiscussionId, setCurrentDiscussionId, isDiscussionsLoading} =
+        useDiscussions();
 
     useEffect(() => {
         if (currentDiscussionId) {
@@ -35,6 +37,10 @@ export const DiscussionsList = () => {
         leave: {x: '-20rem', opacity: 0},
         config: {duration: 300},
     });
+
+    if (isDiscussionsLoading) {
+        return <LoadingSpiner />;
+    }
 
     return (
         <Styled.DiscussionsList>

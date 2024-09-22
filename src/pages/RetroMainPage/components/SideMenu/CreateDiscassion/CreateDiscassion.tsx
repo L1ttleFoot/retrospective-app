@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Input} from '../../../../../components/Input';
 import {Button} from '../../../../../components/Button';
 import {capitalize} from '../../../../../utils/capitalize';
@@ -12,7 +12,7 @@ import {useLogin} from '../../../../../store/useLogin';
 export const CreateDiscussion = () => {
     const client = useQueryClient();
 
-    const {setCurrentDiscussionId} = useDiscussions();
+    const {setCurrentDiscussionId, setIsDiscussionsLoading} = useDiscussions();
     const {userData} = useLogin();
 
     const [name, setName] = useState('');
@@ -27,7 +27,7 @@ export const CreateDiscussion = () => {
         },
     });
 
-    const {mutate: mutateDiscussions} = useMutation({
+    const {mutate: mutateDiscussions, isPending} = useMutation({
         mutationFn: async (id: string) => {
             await setDoc(doc(db, 'discussions', id), {
                 userUid: userData?.userUid,
@@ -43,6 +43,10 @@ export const CreateDiscussion = () => {
             client.invalidateQueries({queryKey: ['discussions']});
         },
     });
+
+    useEffect(() => {
+        setIsDiscussionsLoading(isPending);
+    }, [isPending, setIsDiscussionsLoading]);
 
     const handleCreate = async () => {
         const id = v4();

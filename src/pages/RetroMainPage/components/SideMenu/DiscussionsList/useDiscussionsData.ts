@@ -6,7 +6,7 @@ import {useEffect} from 'react';
 import {useLogin} from '../../../../../store/useLogin';
 
 export const useDiscussionData = () => {
-    const {setDiscussionsData} = useDiscussions();
+    const {setDiscussionsData, setIsDiscussionsLoading} = useDiscussions();
     const {userData} = useLogin();
 
     const q = query(
@@ -20,7 +20,11 @@ export const useDiscussionData = () => {
         return quertySnapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}) as IDiscussion);
     };
 
-    const {data: discussionsData} = useQuery({
+    const {
+        data: discussionsData,
+        isLoading,
+        isFetching,
+    } = useQuery({
         queryKey: ['discussions', userData?.userUid],
         queryFn: getDiscussions,
         placeholderData: (prev) => prev,
@@ -30,4 +34,8 @@ export const useDiscussionData = () => {
     useEffect(() => {
         if (discussionsData) setDiscussionsData(discussionsData);
     }, [discussionsData, setDiscussionsData]);
+
+    useEffect(() => {
+        setIsDiscussionsLoading(isLoading || isFetching);
+    }, [isFetching, isLoading, setIsDiscussionsLoading]);
 };
