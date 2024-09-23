@@ -1,7 +1,7 @@
 import './App.css';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {LoginPage} from './pages/LoginPage';
-import {RetroMainPage} from './pages/RetroMainPage';
+import {MainPage} from './pages/MainPage';
 import './initFirebase';
 import {TestPage} from './pages/TestPage';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
@@ -18,7 +18,7 @@ export function App() {
                     <Routes>
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/test" element={<TestPage />} />
-                        <Route path="/" element={<RetroMainPage />} />
+                        <Route path="/" element={<MainPage />} />
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>

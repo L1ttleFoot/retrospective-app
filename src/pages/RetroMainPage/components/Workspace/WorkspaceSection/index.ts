@@ -1,1 +1,0 @@
-export {WorkspaceArea} from './WorkspaceSection';
