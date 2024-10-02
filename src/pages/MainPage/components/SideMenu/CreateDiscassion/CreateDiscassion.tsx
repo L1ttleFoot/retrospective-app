@@ -17,16 +17,6 @@ export const CreateDiscussion = () => {
 
     const [name, setName] = useState('');
 
-    const {mutate: mutateWorkspaces} = useMutation({
-        mutationFn: async (id: string) => {
-            await setDoc(doc(db, 'workspaces', id), {
-                date: new Date().valueOf(),
-                discussionId: id,
-                sections: [],
-            });
-        },
-    });
-
     const {mutate: mutateDiscussions, isPending} = useMutation({
         mutationFn: async (id: string) => {
             await setDoc(doc(db, 'discussions', id), {
@@ -56,7 +46,7 @@ export const CreateDiscussion = () => {
     return (
         <>
             <Input
-                placeholder="Обсуждение"
+                placeholder="Обсуждение..."
                 value={name}
                 onChange={(e) => setName(capitalize(e.target.value))}
             />

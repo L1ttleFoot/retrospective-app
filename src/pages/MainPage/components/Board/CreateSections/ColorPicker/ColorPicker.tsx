@@ -4,6 +4,7 @@ import * as Styled from './ColorPicker.styled';
 import {colorsList} from './ColorPicker.consts';
 import {Backdrop} from '../../../../../../components/Backdrop';
 import {ISection} from '../../../../../../store/useSections';
+import {useModal} from '../../../../../../hooks/useModal';
 
 type ColorPickerProps = {
     currentColor: string;
@@ -12,33 +13,22 @@ type ColorPickerProps = {
 } & ISection;
 
 export const ColorPicker = ({currentColor, setColor, index, ...rest}: ColorPickerProps) => {
-    const [visible, setVisible] = useState(false);
+    const {open, toggleOpen, handleClose} = useModal();
 
     const [referenceElement, setReferenceElement] = useState(null);
     const [popperElement, setPopperElement] = useState(null);
-    const [arrowElement, setArrowElement] = useState(null);
-    const {styles, attributes} = usePopper(referenceElement, popperElement, {
-        modifiers: [{name: 'arrow', options: {element: arrowElement}}],
-    });
-
-    const toggleVisible = () => {
-        setVisible((prev) => !prev);
-    };
-
-    const closeVisible = () => {
-        setVisible(false);
-    };
+    const {styles, attributes} = usePopper(referenceElement, popperElement);
 
     return (
         <>
             <Styled.ColorPicker
-                onClick={toggleVisible}
+                onClick={toggleOpen}
                 ref={setReferenceElement as React.LegacyRef<HTMLDivElement>}
                 color={currentColor}
             />
 
-            {visible && (
-                <Backdrop onClose={closeVisible} isTransparent>
+            {open && (
+                <Backdrop onClose={handleClose} isTransparent>
                     <Styled.Colors
                         ref={setPopperElement as React.LegacyRef<HTMLDivElement>}
                         style={styles.popper}
@@ -51,10 +41,6 @@ export const ColorPicker = ({currentColor, setColor, index, ...rest}: ColorPicke
                                 onClick={() => setColor(index, {...rest}, color)}
                             />
                         ))}
-                        <div
-                            ref={setArrowElement as React.LegacyRef<HTMLDivElement>}
-                            style={styles.arrow}
-                        />
                     </Styled.Colors>
                 </Backdrop>
             )}
