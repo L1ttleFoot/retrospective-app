@@ -9,9 +9,7 @@ export const DiscussionsItem = styled(animated.div)<{$isCurrent?: boolean}>`
     flex-direction: row;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.7);
-    box-shadow:
-        2px 4px 4px 0 rgba(61, 72, 108, 0.16),
-        inset 0 -3px 28px 0 rgba(255, 255, 255, 0.4);
+    box-shadow: 2px 4px 4px 0 rgba(61, 72, 108, 0.16);
     cursor: pointer;
     align-items: center;
     gap: 5px;

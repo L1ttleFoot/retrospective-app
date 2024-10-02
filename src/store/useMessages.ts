@@ -8,6 +8,8 @@ export interface Messages {
         text: string;
         votes: number;
         timestamp: number;
+        color: string;
+        emoji: Record<string, number>;
     }[];
 }
 

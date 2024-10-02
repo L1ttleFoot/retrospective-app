@@ -60,4 +60,5 @@ html {
 
 button {
   cursor: pointer;
+  padding: 0;
 }

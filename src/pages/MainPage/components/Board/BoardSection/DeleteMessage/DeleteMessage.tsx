@@ -27,7 +27,7 @@ export const DeleteMessage = ({id}: {id?: string}) => {
 
     return (
         <Styled.DeleteMessage>
-            <IconButton onClick={handleClick}>
+            <IconButton onClick={handleClick} size="small">
                 <Close />
             </IconButton>
         </Styled.DeleteMessage>

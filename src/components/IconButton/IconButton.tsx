@@ -1,7 +1,8 @@
+import {sizes} from '../../consts/styles';
 import * as Styled from './IconButton.styled';
 
 type IconButtonType = {
-    size?: string;
+    size?: keyof typeof sizes;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const IconButton = ({children, size = 'medium', ...props}: IconButtonType) => {

@@ -2,11 +2,10 @@ import styled from 'styled-components';
 import {colorsList} from './ColorPicker.consts';
 
 export const ColorPicker = styled.div<{color: string}>`
-    width: 24px;
-    height: 24px;
+    min-width: 20px;
+    min-height: 20px;
     background-color: ${({color}) => color || colorsList.gray};
     border-radius: 5px;
-    padding: 0.5rem;
     cursor: pointer;
 `;
 
@@ -19,9 +18,7 @@ export const Colors = styled.div`
     border-radius: 10px;
     z-index: 1000;
     padding: 10px;
-    box-shadow:
-        0 4px 16px 0 rgba(61, 72, 108, 0.16),
-        inset 0 -3px 28px 0 rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 16px 0 rgba(61, 72, 108, 0.16);
 `;
 
 export const Color = styled.div<{color: string; currentColor: string}>`
@@ -34,7 +31,5 @@ export const Color = styled.div<{color: string; currentColor: string}>`
         transform: ${({color, currentColor}) =>
             color === currentColor ? 'scale(1)' : 'scale(1.1)'};
     }
-    box-shadow:
-        0 4px 16px 0 rgba(61, 72, 108, 0.16),
-        inset 0 -3px 28px 0 rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 16px 0 rgba(61, 72, 108, 0.16);
 `;
