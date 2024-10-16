@@ -33,6 +33,11 @@ declare module '*.scss' {
   export default content;
 }
 
+declare module '*.wav' {
+    const content: any;
+    export default value;
+}
+
 declare interface Window {
   __ENV__?: Record<string, string>;
 }

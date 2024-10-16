@@ -4,6 +4,7 @@ export interface IDiscussion {
     id: string;
     name: string;
     createdAt: number;
+    sound?: boolean;
 }
 
 interface IDiscussionsStore {

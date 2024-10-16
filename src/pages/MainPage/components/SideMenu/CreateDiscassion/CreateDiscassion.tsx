@@ -23,6 +23,10 @@ export const CreateDiscussion = () => {
                 createdAt: new Date().valueOf(),
             });
 
+            await setDoc(doc(db, 'discussionsEffects', id), {
+                sound: false,
+            });
+
             return id;
         },
         onSuccess: (id) => {
