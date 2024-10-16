@@ -9,7 +9,6 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {deleteDoc, doc} from 'firebase/firestore';
 import {db} from '../../../../../../initFirebase';
 import {SpringValue} from 'react-spring';
-import {useEffect} from 'react';
 
 interface IBoardItem {
     item: IDiscussion;
@@ -22,11 +21,11 @@ export const DiscussionsItem = (props: IBoardItem) => {
 
     const navigate = useNavigate();
 
-    const {currentDiscussionId, setCurrentDiscussionId, setIsDiscussionsLoading} = useDiscussions();
+    const {currentDiscussionId, setCurrentDiscussionId} = useDiscussions();
 
     const {item, setCurrent, style} = props;
 
-    const {mutate, isPending} = useMutation({
+    const {mutate} = useMutation({
         mutationFn: async () => {
             await deleteDoc(doc(db, 'discussions', item.id));
             await deleteDoc(doc(db, 'sections', item.id));
@@ -36,10 +35,6 @@ export const DiscussionsItem = (props: IBoardItem) => {
             client.invalidateQueries({queryKey: ['discussions']});
         },
     });
-
-    useEffect(() => {
-        setIsDiscussionsLoading(isPending);
-    }, [isPending, setIsDiscussionsLoading]);
 
     const deleteDiscussion = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.stopPropagation();

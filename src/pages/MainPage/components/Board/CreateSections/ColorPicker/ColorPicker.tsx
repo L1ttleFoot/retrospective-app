@@ -3,7 +3,7 @@ import {usePopper} from 'react-popper';
 import * as Styled from './ColorPicker.styled';
 import {colorsList} from './ColorPicker.consts';
 import {Backdrop} from '../../../../../../components/Backdrop';
-import {ISection} from '../../../../../../store/useSections';
+import {ISection} from '../../BoardSection/BoardSection.types';
 import {useModal} from '../../../../../../hooks/useModal';
 
 type ColorPickerProps = {

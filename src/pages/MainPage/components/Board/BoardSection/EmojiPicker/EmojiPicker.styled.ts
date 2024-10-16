@@ -27,4 +27,6 @@ export const Emojis = styled.div`
     z-index: 1000;
     padding: 10px;
     box-shadow: 0 4px 16px 0 rgba(61, 72, 108, 0.16);
+    max-width: 210px;
+    flex-wrap: wrap;
 `;
