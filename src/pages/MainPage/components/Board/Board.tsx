@@ -21,12 +21,14 @@ export const Board = () => {
     };
 
     useEffect(() => {
+        if (soundEffect.sound === null) return;
+
         const clap = new Audio(applause);
         clap.play().catch((error) => {
             console.error('Ошибка воспроизведения:', error);
         });
 
-        return;
+        return mutateDiscussionsEffects({id: currentDiscussionId ?? '', sound: null});
     }, [soundEffect.sound]);
 
     if (!currentUser && !currentDiscussionId) {

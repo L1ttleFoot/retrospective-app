@@ -24,7 +24,7 @@ export const CreateDiscussion = () => {
             });
 
             await setDoc(doc(db, 'discussionsEffects', id), {
-                sound: false,
+                sound: null,
             });
 
             return id;
