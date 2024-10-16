@@ -54,8 +54,10 @@ export const useBoardData = () => {
     }, [currentDiscussionId]);
 
     const {mutate: mutateDiscussionsEffects} = useMutation({
-        mutationFn: async ({id}: {id: string}) => {
-            await updateDoc(doc(db, 'discussionsEffects', id), {sound: !soundEffect.sound});
+        mutationFn: async ({id, sound}: {id: string; sound?: boolean | null}) => {
+            await updateDoc(doc(db, 'discussionsEffects', id), {
+                sound: sound !== undefined ? sound : !soundEffect.sound,
+            });
         },
     });
 

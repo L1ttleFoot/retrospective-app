@@ -26,6 +26,7 @@ export const DiscussionsItem = (props: IBoardItem) => {
     const {mutate} = useMutation({
         mutationFn: async () => {
             await deleteDoc(doc(db, 'discussions', item.id));
+            await deleteDoc(doc(db, 'discussionsEffects', item.id));
             await deleteDoc(doc(db, 'sections', item.id));
             await deleteDoc(doc(db, 'messages', item.id));
         },
