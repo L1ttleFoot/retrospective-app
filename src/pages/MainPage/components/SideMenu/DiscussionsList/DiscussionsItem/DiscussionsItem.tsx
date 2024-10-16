@@ -5,7 +5,7 @@ import * as Styled from './DiscussionsItem.styled';
 import {useNavigate} from 'react-router-dom';
 import Close from '../../../../../../assets/close';
 import {IconButton} from '../../../../../../components/IconButton';
-import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {useMutation} from '@tanstack/react-query';
 import {deleteDoc, doc} from 'firebase/firestore';
 import {db} from '../../../../../../initFirebase';
 import {SpringValue} from 'react-spring';
@@ -17,8 +17,6 @@ interface IBoardItem {
 }
 
 export const DiscussionsItem = (props: IBoardItem) => {
-    const client = useQueryClient();
-
     const navigate = useNavigate();
 
     const {currentDiscussionId, setCurrentDiscussionId} = useDiscussions();
@@ -30,9 +28,6 @@ export const DiscussionsItem = (props: IBoardItem) => {
             await deleteDoc(doc(db, 'discussions', item.id));
             await deleteDoc(doc(db, 'sections', item.id));
             await deleteDoc(doc(db, 'messages', item.id));
-        },
-        onSuccess: () => {
-            client.invalidateQueries({queryKey: ['discussions']});
         },
     });
 
