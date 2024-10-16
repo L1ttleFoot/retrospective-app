@@ -1,41 +1,28 @@
-import {IDiscussion, useDiscussions} from '../../../../../store/useDiscussions';
-import {collection, getDocs, orderBy, query, where} from 'firebase/firestore';
+import {IDiscussion} from '../../../../../store/useDiscussions';
+import {collection, onSnapshot, orderBy, query, where} from 'firebase/firestore';
 import {db} from '../../../../../initFirebase';
-import {useQuery} from '@tanstack/react-query';
-import {useEffect} from 'react';
 import {useLogin} from '../../../../../store/useLogin';
+import {useEffect, useState} from 'react';
 
 export const useDiscussionData = () => {
-    const {setDiscussionsData, setIsDiscussionsLoading} = useDiscussions();
     const {userData} = useLogin();
+    const [discussionsData, setDiscussionsData] = useState<IDiscussion[]>([]);
 
-    const q = query(
-        collection(db, 'discussions'),
-        where('userUid', '==', userData?.userUid ?? ''),
-        orderBy('createdAt', 'desc'),
-    );
+    useEffect(() => {
+        const q = query(
+            collection(db, 'discussions'),
+            where('userUid', '==', userData?.userUid ?? ''),
+            orderBy('createdAt', 'desc'),
+        );
 
-    const getDiscussions = async () => {
-        const quertySnapshot = await getDocs(q);
-        return quertySnapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}) as IDiscussion);
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            const data = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}) as IDiscussion);
+            setDiscussionsData(data);
+        });
+        return () => unsubscribe();
+    }, [userData?.userUid]);
+
+    return {
+        discussionsData,
     };
-
-    const {
-        data: discussionsData,
-        isLoading,
-        isFetching,
-    } = useQuery({
-        queryKey: ['discussions', userData?.userUid],
-        queryFn: getDiscussions,
-        placeholderData: (prev) => prev,
-        staleTime: 1000 * 60 * 5,
-    });
-
-    useEffect(() => {
-        if (discussionsData) setDiscussionsData(discussionsData);
-    }, [discussionsData, setDiscussionsData]);
-
-    useEffect(() => {
-        setIsDiscussionsLoading(isLoading || isFetching);
-    }, [isFetching, isLoading, setIsDiscussionsLoading]);
 };

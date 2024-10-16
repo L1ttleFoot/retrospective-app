@@ -10,7 +10,7 @@ import {useDiscussions} from '../../../../../../store/useDiscussions';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {v4} from 'uuid';
 import {ColorPicker} from '../ColorPicker';
-import {ISection} from '../../../../../../store/useSections';
+import {ISection} from '../../BoardSection/BoardSection.types';
 import {colorsList} from '../ColorPicker/ColorPicker.consts';
 
 type IModalForm = {

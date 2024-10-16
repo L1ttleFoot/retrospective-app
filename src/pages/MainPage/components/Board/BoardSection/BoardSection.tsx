@@ -3,11 +3,10 @@ import {Message} from './Message';
 import {useState} from 'react';
 import Add from '../../../../../assets/add';
 import {IconButton} from '../../../../../components/IconButton';
-import {ISection} from '../../../../../store/useSections';
-import {Messages} from '../../../../../store/useMessages';
+import {IMessages, ISection} from './BoardSection.types';
 import {AddItem} from './AddItem';
 
-export const BoardSection = (props: ISection & {index: number; messages: Messages}) => {
+export const BoardSection = (props: ISection & {index: number; messages: IMessages}) => {
     const {title, index, messages, color} = props;
 
     const [showInput, setShowInput] = useState(false);

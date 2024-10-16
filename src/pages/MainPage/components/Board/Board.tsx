@@ -1,20 +1,16 @@
 import * as Styled from './Board.styled';
 import {BoardSection} from './BoardSection';
 import {useDiscussions} from '../../../../store/useDiscussions';
-import {useSections} from '../../../../store/useSections';
 import {useBoardData} from './useBoardData';
-import {useMessages} from '../../../../store/useMessages';
 import {CreateSections} from './CreateSections';
 import {getCurrentUser} from '../../../../utils/getCurrentUser';
 
 export const Board = () => {
-    useBoardData();
+    const {sectionsData, messagesData} = useBoardData();
 
     const currentUser = getCurrentUser();
 
     const {currentDiscussionId} = useDiscussions();
-    const {sectionsData} = useSections();
-    const {messagesData} = useMessages();
 
     if (!currentUser && !currentDiscussionId) {
         return <Styled.EmptyBoard>Для продолжения авторизуйтесь</Styled.EmptyBoard>;
@@ -26,7 +22,7 @@ export const Board = () => {
         );
     }
 
-    if (!sectionsData.length) {
+    if (currentUser && !sectionsData.length) {
         return (
             <Styled.EmptyBoard>
                 <CreateSections />

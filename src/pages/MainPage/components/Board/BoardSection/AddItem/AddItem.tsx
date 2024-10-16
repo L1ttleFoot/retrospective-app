@@ -1,23 +1,21 @@
 import {ChangeEvent, useState} from 'react';
 import {Message} from '../Message';
 import * as Styled from './AddItem.styled';
-import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {useMutation} from '@tanstack/react-query';
 import {doc, updateDoc} from 'firebase/firestore';
 import {db} from '../../../../../../initFirebase';
 import {useDiscussions} from '../../../../../../store/useDiscussions';
-import {Messages} from '../../../../../../store/useMessages';
+import {IMessages} from '../BoardSection.types';
 import {v4} from 'uuid';
 
 type AddItemType = {
     index: number;
-    messages: Messages;
+    messages: IMessages;
     handleShowInput: (value: boolean) => void;
     color: string;
 };
 
 export const AddItem = ({index, messages, handleShowInput, color}: AddItemType) => {
-    const client = useQueryClient();
-
     const {currentDiscussionId} = useDiscussions();
 
     const [text, setText] = useState('');
@@ -40,7 +38,6 @@ export const AddItem = ({index, messages, handleShowInput, color}: AddItemType) 
             }),
         onSuccess: () => {
             setText('');
-            client.invalidateQueries({queryKey: ['messages', currentDiscussionId]});
         },
     });
 
