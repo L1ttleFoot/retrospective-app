@@ -1,9 +1,9 @@
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as Styled from './LoginPage.styled';
-import {useLogin} from '../../store/useLogin';
+import {useLogin} from '@store/useLogin';
 import {useNavigate} from 'react-router-dom';
-import {Input} from '../../components/Input';
-import {Button} from '../../components/Button';
+import {Input} from '@components/Input';
+import {Button} from '@components/Button';
 import {browserLocalPersistence, setPersistence, signInWithEmailAndPassword} from 'firebase/auth';
 import {auth} from '../../initFirebase';
 import {Navigate} from 'react-router-dom';

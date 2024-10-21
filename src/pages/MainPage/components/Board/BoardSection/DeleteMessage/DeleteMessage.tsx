@@ -1,9 +1,9 @@
 import {useQueryClient, useMutation} from '@tanstack/react-query';
 import {deleteField, doc, updateDoc} from 'firebase/firestore';
-import Close from '../../../../../../assets/close';
-import {IconButton} from '../../../../../../components/IconButton';
+import Close from '@assets/icons/close.svg?react';
+import {IconButton} from '@components/IconButton';
 import {db} from '../../../../../../initFirebase';
-import {useDiscussions} from '../../../../../../store/useDiscussions';
+import {useDiscussions} from '@store/useDiscussions';
 import * as Styled from './DeleteMessage.styled';
 
 export const DeleteMessage = ({id}: {id?: string}) => {

@@ -3,7 +3,7 @@ import {useEffect} from 'react';
 import {auth} from '../../initFirebase';
 import * as Styled from './MainPage.styled';
 import {Board} from './components/Board';
-import {useLogin} from '../../store/useLogin';
+import {useLogin} from '@store/useLogin';
 import {AppBar} from './components/AppBar/AppBar';
 
 export const MainPage = () => {

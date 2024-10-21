@@ -1,8 +1,8 @@
 import * as Styled from './BoardSection.styled';
 import {Message} from './Message';
 import {useState} from 'react';
-import Add from '../../../../../assets/add';
-import {IconButton} from '../../../../../components/IconButton';
+import Add from '@assets/icons/add.svg?react';
+import {IconButton} from '@components/IconButton';
 import {IMessages, ISection} from './BoardSection.types';
 import {AddItem} from './AddItem';
 

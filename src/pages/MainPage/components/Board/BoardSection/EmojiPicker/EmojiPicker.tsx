@@ -1,14 +1,14 @@
 import {useState} from 'react';
-import {Emoji} from '../../../../../../components/Emoji';
-import {useModal} from '../../../../../../hooks/useModal';
+import {Emoji} from '@components/Emoji';
+import {useModal} from '@hooks/useModal';
 import {usePopper} from 'react-popper';
 import * as Styled from './EmojiPicker.styled';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {doc, updateDoc} from 'firebase/firestore';
 import {db} from '../../../../../../initFirebase';
-import {useDiscussions} from '../../../../../../store/useDiscussions';
+import {useDiscussions} from '@store/useDiscussions';
 import {createPortal} from 'react-dom';
-import {Backdrop} from '../../../../../../components/Backdrop';
+import {Backdrop} from '@components/Backdrop';
 
 type EmojiPickerProps = {
     id?: string;

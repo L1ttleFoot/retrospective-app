@@ -1,8 +1,8 @@
 import {useEffect} from 'react';
 import * as Styled from './ClapButton.styled';
-import {IconButton} from '../../../../../components/IconButton';
-import Clap from '../../../../../assets/clapping';
-import {useDiscussions} from '../../../../../store/useDiscussions';
+import {IconButton} from '@components/IconButton';
+import Clap from '@assets/icons/clapping.svg?react';
+import {useDiscussions} from '@store/useDiscussions';
 import applause from '../../../../../audio/applause.wav';
 
 type ClapButtonProps = {
