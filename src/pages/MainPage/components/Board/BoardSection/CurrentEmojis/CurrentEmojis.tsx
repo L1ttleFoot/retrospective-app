@@ -2,8 +2,8 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 import * as Styled from './CurrentEmojis.styled';
 import {doc, updateDoc} from 'firebase/firestore';
 import {db} from '../../../../../../initFirebase';
-import {useDiscussions} from '../../../../../../store/useDiscussions';
-import {useDebounce} from '../../../../../../hooks/useDebounce';
+import {useDiscussions} from '@store/useDiscussions';
+import {useDebounce} from '@hooks/useDebounce';
 
 type CurrentEmojisProps = {
     id?: string;

@@ -3,7 +3,7 @@ import {IDiscussion, useDiscussions} from '../../../../../../store/useDiscussion
 import {formatDate} from '../../../../../../utils/dateUtils';
 import * as Styled from './DiscussionsItem.styled';
 import {useNavigate} from 'react-router-dom';
-import Close from '../../../../../../assets/close';
+import Close from '@assets/icons/close.svg?react';
 import {IconButton} from '../../../../../../components/IconButton';
 import {useMutation} from '@tanstack/react-query';
 import {deleteDoc, doc} from 'firebase/firestore';

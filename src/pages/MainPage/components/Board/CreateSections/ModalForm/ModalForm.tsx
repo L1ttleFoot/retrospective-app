@@ -3,7 +3,7 @@ import * as Styled from './ModalForm.styled';
 import {Input} from '../../../../../../components/Input';
 import {Button} from '../../../../../../components/Button';
 import {IconButton} from '../../../../../../components/IconButton';
-import Close from '../../../../../../assets/close';
+import Close from '@assets/icons/close.svg?react';
 import {doc, setDoc} from 'firebase/firestore';
 import {db} from '../../../../../../initFirebase';
 import {useDiscussions} from '../../../../../../store/useDiscussions';

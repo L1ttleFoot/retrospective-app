@@ -2,10 +2,9 @@ import * as Styled from './SideMenu.styled';
 import {useLocation} from 'react-router-dom';
 import {CreateDiscussion} from './CreateDiscassion';
 import {DiscussionsList} from './DiscussionsList';
-import {useDiscussions} from '../../../../store/useDiscussions';
 import {useEffect} from 'react';
-
-import {getCurrentUser} from '../../../../utils/getCurrentUser';
+import {getCurrentUser} from '@utils/getCurrentUser';
+import {useDiscussions} from '@store/useDiscussions';
 
 export const SideMenu = ({open}: {open: boolean}) => {
     const currentUser = getCurrentUser();
@@ -16,9 +15,7 @@ export const SideMenu = ({open}: {open: boolean}) => {
     let params = Object.fromEntries(new URLSearchParams(search));
 
     useEffect(() => {
-        if (params.id) {
-            setCurrentDiscussionId(params.id);
-        }
+        setCurrentDiscussionId(params.id);
     }, [params.id, setCurrentDiscussionId]);
 
     return (

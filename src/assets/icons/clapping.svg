@@ -1,5 +1,4 @@
-export default function Clap() {
-    return (
+
         <svg
             width="800px"
             height="800px"
@@ -64,5 +63,4 @@ export default function Clap() {
                 <path d="M30.2 3.5l2.8 11l-9.2-5.9z"></path>
             </g>
         </svg>
-    );
-}
+ 

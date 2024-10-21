@@ -4,7 +4,7 @@ import * as Styled from './AddItem.styled';
 import {useMutation} from '@tanstack/react-query';
 import {doc, updateDoc} from 'firebase/firestore';
 import {db} from '../../../../../../initFirebase';
-import {useDiscussions} from '../../../../../../store/useDiscussions';
+import {useDiscussions} from '@store/useDiscussions';
 import {IMessages} from '../BoardSection.types';
 import {v4} from 'uuid';
 
