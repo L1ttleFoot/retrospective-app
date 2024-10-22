@@ -14,7 +14,7 @@ export const Message = styled.div<{$color?: string; $input?: boolean}>`
     flex-direction: column;
     border-radius: 10px;
     border: 2px ${({$input}) => ($input ? 'dashed' : 'solid')} ${({$color}) => $color};
-    background: rgba(255, 255, 255, 0.7);
+    background: ${({theme}) => theme.backgroundThird};
     box-shadow: 0 4px 16px 0 rgba(61, 72, 108, 0.16);
     word-wrap: break-word;
     overflow-y: auto;
@@ -34,6 +34,6 @@ export const MessageBottom = styled.div`
     gap: 3px;
     position: sticky;
     bottom: -0px;
-    background-color: #fff;
+    background: ${({theme}) => theme.backgroundThird};
     padding-bottom: 5px;
 `;

@@ -19,6 +19,7 @@ export const Colors = styled.div`
     z-index: 1000;
     padding: 10px;
     box-shadow: 0 4px 16px 0 rgba(61, 72, 108, 0.16);
+    background-color: ${({theme}) => theme.backgroundFourth};
 `;
 
 export const Color = styled.div<{color: string; currentColor: string}>`
