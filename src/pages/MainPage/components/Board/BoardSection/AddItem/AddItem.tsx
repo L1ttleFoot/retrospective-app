@@ -42,9 +42,12 @@ export const AddItem = ({index, messages, handleShowInput, color}: AddItemType) 
     });
 
     const handleEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (!text.trim()) return;
-
         if (e.key === 'Enter') {
+            if (!text.trim()) {
+                handleShowInput(false);
+                return;
+            }
+
             const id = v4();
 
             mutate(id);
@@ -53,7 +56,10 @@ export const AddItem = ({index, messages, handleShowInput, color}: AddItemType) 
     };
 
     const handleBlur = () => {
-        if (!text.trim()) return;
+        if (!text.trim()) {
+            handleShowInput(false);
+            return;
+        }
 
         const id = v4();
 

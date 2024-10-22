@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CurrentEmojis = styled.div<{$selected: boolean}>`
+export const CurrentEmojis = styled.div<{$selected: boolean; $color?: string}>`
     font-size: 14px;
     border-radius: 10px;
     padding: 2px 4px;

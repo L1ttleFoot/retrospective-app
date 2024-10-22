@@ -9,6 +9,7 @@ type CurrentEmojisProps = {
     id?: string;
     emoji?: Record<string, number>;
     active: string[];
+    color?: string;
     handleActive: (value: string) => void;
     removeActive: (value: string) => void;
 };
@@ -17,6 +18,7 @@ export const CurrentEmojis = ({
     id,
     emoji,
     active,
+    color,
     handleActive,
     removeActive,
 }: CurrentEmojisProps) => {
@@ -66,6 +68,7 @@ export const CurrentEmojis = ({
                             key={key}
                             onClick={() => debouncedChange(key, value)}
                             $selected={active.includes(key)}
+                            $color={color}
                         >
                             {key}
                             {value}

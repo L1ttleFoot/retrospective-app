@@ -19,7 +19,7 @@ export const BoardSection = (props: ISection & {index: number; messages: IMessag
         <Styled.BoardSection>
             <Styled.BoardSectionHeader>
                 {title}
-                <IconButton onClick={() => setShowInput(true)}>
+                <IconButton onClick={() => setShowInput(true)} color={color}>
                     <Add />
                 </IconButton>
             </Styled.BoardSectionHeader>

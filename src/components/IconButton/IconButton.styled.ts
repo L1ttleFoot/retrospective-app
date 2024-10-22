@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {sizes} from '../../consts/styles';
 
-export const IconButton = styled.button<{$size: string; $withTheme?: boolean}>`
+export const IconButton = styled.button<{$size: string; $withTheme?: boolean; $color?: string}>`
     background: transparent;
     border: none;
     width: ${({$size}) => sizes[$size]};
@@ -17,5 +17,8 @@ export const IconButton = styled.button<{$size: string; $withTheme?: boolean}>`
         max-width: ${({$size}) => sizes[$size]};
         max-height: ${({$size}) => sizes[$size]};
         fill: ${({theme, $withTheme}) => ($withTheme ? theme.color : 'none')};
+        & * {
+            stroke: ${({$color}) => $color};
+        }
     }
 `;
