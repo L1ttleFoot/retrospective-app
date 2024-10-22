@@ -4,7 +4,7 @@ export const OpenSelector = styled.div`
     width: 20px;
     height: 20px;
     border-radius: 50%;
-
+    background: ${({theme}) => theme.backgroundFourth};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,7 +22,7 @@ export const Emojis = styled.div`
     flex-direction: row;
     align-items: center;
     gap: 10px;
-    background-color: white;
+    background: ${({theme}) => theme.backgroundFourth};
     border-radius: 10px;
     z-index: 1000;
     padding: 10px;

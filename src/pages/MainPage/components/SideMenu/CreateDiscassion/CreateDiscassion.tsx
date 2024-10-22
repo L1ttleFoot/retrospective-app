@@ -47,7 +47,7 @@ export const CreateDiscussion = () => {
                 value={name}
                 onChange={(e) => setName(capitalize(e.target.value))}
             />
-            <Button disabled={!name} onClick={handleCreate}>
+            <Button disabled={!name} onClick={handleCreate} fullWidth>
                 Создать
             </Button>
         </>

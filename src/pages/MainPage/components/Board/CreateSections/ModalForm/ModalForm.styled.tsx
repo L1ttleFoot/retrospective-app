@@ -7,7 +7,7 @@ export const ModalForm = styled.form`
     flex-direction: column;
     padding: 20px;
     border-radius: 10px;
-    background-color: white;
+    background-color: ${({theme}) => theme.backgroundSecond};
     box-shadow: 0 4px 16px 0 rgba(61, 72, 108, 0.16);
 `;
 

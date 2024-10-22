@@ -8,7 +8,7 @@ export const DiscussionsItem = styled(animated.div)<{$isCurrent?: boolean}>`
     display: flex;
     flex-direction: row;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.7);
+    background: ${({theme}) => theme.backgroundThird};
     box-shadow: 2px 4px 4px 0 rgba(61, 72, 108, 0.16);
     cursor: pointer;
     align-items: center;
@@ -25,5 +25,5 @@ export const Label = styled.span``;
 
 export const Date = styled.span`
     font-size: 11px;
-    color: rgba(0, 0, 0, 0.6);
+    color: ${({theme}) => theme.colorSecond};
 `;

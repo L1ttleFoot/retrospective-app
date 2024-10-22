@@ -83,7 +83,7 @@ export const ModalForm = ({handleClose}: IModalForm) => {
                         index={index}
                         setColor={setColor}
                     />
-                    <IconButton onClick={() => remove(index)} size="small">
+                    <IconButton onClick={() => remove(index)} size="verySmall" withTheme={true}>
                         <Close />
                     </IconButton>
                 </Styled.SectionNameInput>

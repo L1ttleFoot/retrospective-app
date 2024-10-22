@@ -20,7 +20,7 @@ export const Button = styled.button<{$fullWidth?: boolean}>`
     transition-property: background-color;
 
     &:disabled {
-        background-color: #f5f5f7;
+        background-color: ${({theme}) => theme.disabled};
         color: #c0c9d8;
         cursor: default;
     }

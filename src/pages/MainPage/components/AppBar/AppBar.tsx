@@ -3,7 +3,6 @@ import {IconButton} from '@components/IconButton';
 import * as Styled from './AppBar.styled';
 import {SideMenu} from '../SideMenu';
 import {Spacer} from '@components/Spacer';
-import {Button} from '@components/Button';
 import {getCurrentUser} from '@utils/getCurrentUser';
 import {useNavigate} from 'react-router-dom';
 import {signOut} from 'firebase/auth';
@@ -11,6 +10,12 @@ import {auth} from '../../../../initFirebase';
 import {useLogin} from '@store/useLogin';
 import {Backdrop} from '@components/Backdrop';
 import {useModal} from '@hooks/useModal';
+import {useTheme} from '@store/useTheme';
+import Avatar from '@assets/icons/avatar.svg?react';
+import UnknownAvatar from '@assets/icons/unknownAvatar.svg?react';
+import Login from '@assets/icons/login.svg?react';
+import Logout from '@assets/icons/logout.svg?react';
+import {ToggleButton} from '@components/ToggleButton';
 
 export const AppBar = () => {
     const navigate = useNavigate();
@@ -29,6 +34,8 @@ export const AppBar = () => {
         navigate('/login');
     };
 
+    const {currentTheme, toggleTheme} = useTheme();
+
     return (
         <>
             <Styled.AppBar>
@@ -39,11 +46,22 @@ export const AppBar = () => {
                 )}
 
                 <Spacer />
+
                 {currentUser && <div>{currentUser?.email}</div>}
+
+                <ToggleButton
+                    value={currentTheme === 'ligth'}
+                    onToggle={toggleTheme}
+                ></ToggleButton>
+
                 {currentUser ? (
-                    <Button onClick={handleLogout}>Выйти</Button>
+                    <IconButton onClick={handleLogout}>
+                        <Logout />
+                    </IconButton>
                 ) : (
-                    <Button onClick={handleLogin}>Войти</Button>
+                    <IconButton onClick={handleLogin}>
+                        <Login />
+                    </IconButton>
                 )}
             </Styled.AppBar>
 

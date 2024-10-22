@@ -10,7 +10,7 @@ export const Board = styled.div`
     gap: 20px;
     overflow-y: auto;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.7);
+    background: ${({theme}) => theme.backgroundSecond};
     box-shadow: 0 4px 16px 0 rgba(61, 72, 108, 0.16);
     position: relative;
 
@@ -29,6 +29,6 @@ export const EmptyBoard = styled.div`
     align-items: center;
     gap: 20px;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.7);
+    background: ${({theme}) => theme.backgroundSecond};
     box-shadow: 0 4px 16px 0 rgba(61, 72, 108, 0.16);
 `;

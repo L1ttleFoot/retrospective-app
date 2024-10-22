@@ -12,11 +12,15 @@ export const Input = styled.input`
     box-sizing: border-box;
     background-color: transparent;
     border: 0 solid transparent;
-    border-bottom: 1px solid #3d486c;
-    color: #3d486c;
+    border-bottom: 1px solid ${({theme}) => theme.color};
+    color: ${({theme}) => theme.color};
     margin: 10px;
 
     &:focus {
         outline: none;
+    }
+
+    &::placeholder {
+        color: ${({theme}) => theme.secondColor};
     }
 `;

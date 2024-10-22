@@ -54,7 +54,7 @@ export const DiscussionsItem = (props: IBoardItem) => {
                 <Styled.Date>{formatDate(item.createdAt)}</Styled.Date>
             </Styled.Info>
             <Spacer />
-            <IconButton onClick={(e) => deleteDiscussion(e)}>
+            <IconButton onClick={(e) => deleteDiscussion(e)} withTheme={true}>
                 <Close />
             </IconButton>
         </Styled.DiscussionsItem>

@@ -8,6 +8,8 @@ export const Wrapper = styled.div`
     height: 100%;
     padding: 20px;
     gap: 10px;
+    background: ${({theme}) => theme.backgroundPrimary};
+    color: ${({theme}) => theme.color};
 `;
 
 export const Main = styled.div`
