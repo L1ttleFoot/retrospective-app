@@ -71,6 +71,7 @@ export const Message = (props: IBoardItem) => {
                         active={active}
                         handleActive={handleActive}
                         removeActive={removeActive}
+                        color={color}
                     />
                 )}
                 {!!enabledEmoji.length && (

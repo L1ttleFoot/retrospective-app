@@ -20,6 +20,7 @@ export const ligthPalette = {
     backgroundPrimary: '#fff',
     backgroundSecond: 'rgba(255, 255, 255)',
     backgroundThird: 'rgba(255, 255, 255)',
+    backgroundFourth: 'rgba(255, 255, 255)',
     color: '#000',
     colorSecond: 'rgba(0, 0, 0, 0.6)',
     disabled: '#f5f5f7',
