@@ -36,6 +36,8 @@ export const AppBar = () => {
 
     const {currentTheme, toggleTheme} = useTheme();
 
+    const nickname = currentUser?.email?.split('@')[0];
+
     return (
         <>
             <Styled.AppBar>
@@ -47,12 +49,9 @@ export const AppBar = () => {
 
                 <Spacer />
 
-                {currentUser && <div>{currentUser?.email}</div>}
+                {currentUser && <div>{nickname}</div>}
 
-                <ToggleButton
-                    value={currentTheme === 'ligth'}
-                    onToggle={toggleTheme}
-                ></ToggleButton>
+                <ToggleButton value={currentTheme === 'ligth'} onToggle={toggleTheme} />
 
                 {currentUser ? (
                     <IconButton onClick={handleLogout}>
