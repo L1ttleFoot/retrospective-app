@@ -3,6 +3,7 @@ export const theme = {
         primary: '#52b788',
         secondary: '#3d3bee',
         default: '#adb5bd',
+        error: 'tomato',
     },
 };
 

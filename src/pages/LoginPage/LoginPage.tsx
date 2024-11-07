@@ -7,6 +7,7 @@ import {Button} from '@components/Button';
 import {browserLocalPersistence, setPersistence, signInWithEmailAndPassword} from 'firebase/auth';
 import {auth} from '../../initFirebase';
 import {Navigate} from 'react-router-dom';
+import {useState} from 'react';
 
 type Inputs = {
     login: string;
@@ -14,7 +15,11 @@ type Inputs = {
 };
 
 export const LoginPage = () => {
-    const {register, handleSubmit} = useForm<Inputs>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors, isValid},
+    } = useForm<Inputs>({
         mode: 'onChange',
         defaultValues: {login: '', password: ''},
     });
@@ -23,6 +28,8 @@ export const LoginPage = () => {
 
     const {setUserData} = useLogin();
 
+    const [error, setError] = useState(false);
+
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         setPersistence(auth, browserLocalPersistence)
             .then(() => {
@@ -30,11 +37,11 @@ export const LoginPage = () => {
             })
             .then((userCredential) => {
                 const user = userCredential.user;
-
+                setError(false);
                 setUserData({email: user.email, userUid: user.uid});
                 navigate('/');
             })
-            .catch((error) => console.log(error));
+            .catch((error) => setError(true));
     };
 
     return (
@@ -42,14 +49,27 @@ export const LoginPage = () => {
             <Styled.FormWrapper>
                 {!!auth.currentUser && <Navigate to="/" />}
                 <Styled.Form onSubmit={handleSubmit(onSubmit)}>
-                    <Input required placeholder={'Логин'} {...register('login')} />
                     <Input
-                        {...register('password')}
+                        required
+                        placeholder={'Логин'}
+                        error={!!errors.login}
+                        {...register('login', {
+                            required: true,
+                            pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        })}
+                    />
+                    <Input
+                        {...register('password', {required: true})}
+                        error={!!errors.password}
                         required
                         placeholder={'Пароль'}
                         type="password"
                     />
-                    <Button type="submit">Войти</Button>
+
+                    {error && <Styled.Error>Неправильно введена почта или пароль</Styled.Error>}
+                    <Button type="submit" disabled={!isValid}>
+                        Войти
+                    </Button>
                 </Styled.Form>
             </Styled.FormWrapper>
         </Styled.Wrapper>

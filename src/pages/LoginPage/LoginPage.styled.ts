@@ -29,3 +29,9 @@ export const Form = styled.form`
     flex-direction: column;
     padding: 25px;
 `;
+
+export const Error = styled.div`
+    color: ${({theme}) => theme.colors.error};
+    font-size: 12px;
+    margin: 0px 0px 5px 0px;
+`;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Input = styled.input`
+export const Input = styled.input<{$error?: boolean}>`
     display: block;
     width: 100%;
     height: 32px;
@@ -12,7 +12,7 @@ export const Input = styled.input`
     box-sizing: border-box;
     background-color: transparent;
     border: 0 solid transparent;
-    border-bottom: 1px solid ${({theme}) => theme.color};
+    border-bottom: 1px solid ${({$error, theme}) => ($error ? theme.colors.error : theme.color)};
     color: ${({theme}) => theme.color};
     margin: 10px;
 
