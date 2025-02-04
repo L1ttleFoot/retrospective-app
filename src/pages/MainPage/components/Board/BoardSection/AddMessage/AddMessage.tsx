@@ -1,22 +1,18 @@
 import {ChangeEvent, useState} from 'react';
 import {Message} from '../Message';
-import * as Styled from './AddItem.styled';
-import {useMutation} from '@tanstack/react-query';
-import {doc, updateDoc} from 'firebase/firestore';
-import {db} from '../../../../../../initFirebase';
-import {useDiscussions} from '@store/useDiscussions';
-import {IMessages} from '../BoardSection.types';
-import {v4} from 'uuid';
+import * as Styled from './AddMessage.styled';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {IMessage} from '../BoardSection.types';
+import {BASE_URL} from '@src/consts/api';
 
 type AddItemType = {
-    index: number;
-    messages: IMessages;
+    sectionId: string;
     handleShowInput: (value: boolean) => void;
     color: string;
 };
 
-export const AddItem = ({index, messages, handleShowInput, color}: AddItemType) => {
-    const {currentDiscussionId} = useDiscussions();
+export const AddMessage = ({sectionId, handleShowInput, color}: AddItemType) => {
+    const queryClient = useQueryClient();
 
     const [text, setText] = useState('');
 
@@ -24,20 +20,23 @@ export const AddItem = ({index, messages, handleShowInput, color}: AddItemType) 
         setText(e.target.value);
     };
 
+    const createMessage = async (text: IMessage['text']): Promise<IMessage> => {
+        const response = await fetch(`${BASE_URL}/api/messages`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({text, sectionId, votes: 0}),
+        });
+
+        return response.json();
+    };
+
     const {mutate} = useMutation({
-        mutationFn: (id: string) =>
-            updateDoc(doc(db, 'messages', currentDiscussionId!), {
-                [id]: {
-                    id,
-                    sectionId: `${currentDiscussionId}`,
-                    sectionIndex: index,
-                    text,
-                    votes: 0,
-                    timestamp: new Date().getTime(),
-                },
-            }),
+        mutationFn: createMessage,
         onSuccess: () => {
             setText('');
+            queryClient.invalidateQueries({queryKey: ['messages', sectionId]});
         },
     });
 
@@ -48,9 +47,7 @@ export const AddItem = ({index, messages, handleShowInput, color}: AddItemType) 
                 return;
             }
 
-            const id = v4();
-
-            mutate(id);
+            mutate(text);
             handleShowInput(false);
         }
     };
@@ -61,9 +58,7 @@ export const AddItem = ({index, messages, handleShowInput, color}: AddItemType) 
             return;
         }
 
-        const id = v4();
-
-        mutate(id);
+        mutate(text);
         handleShowInput(false);
     };
 

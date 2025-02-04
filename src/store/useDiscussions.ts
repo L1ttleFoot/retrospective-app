@@ -8,11 +8,11 @@ export interface IDiscussion {
 }
 
 interface IDiscussionsStore {
-    currentDiscussionId?: string;
+    currentDiscussionId: string;
     setCurrentDiscussionId: (id?: string) => void;
 }
 
 export const useDiscussions = create<IDiscussionsStore>()((set) => ({
-    currentDiscussionId: undefined,
+    currentDiscussionId: '',
     setCurrentDiscussionId: (id) => set(() => ({currentDiscussionId: id})),
 }));

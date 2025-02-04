@@ -2,42 +2,41 @@ import {useState} from 'react';
 import {Input} from '@components/Input';
 import {Button} from '@components/Button';
 import {capitalize} from '../../../../../utils/capitalize';
-import {useDiscussions} from '../../../../../store/useDiscussions';
-import {doc, setDoc} from 'firebase/firestore';
-import {db} from '../../../../../initFirebase';
-import {useMutation} from '@tanstack/react-query';
-import {v4} from 'uuid';
+import {IDiscussion, useDiscussions} from '../../../../../store/useDiscussions';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {useLogin} from '../../../../../store/useLogin';
+import {BASE_URL} from '@src/consts/api';
 
 export const CreateDiscussion = () => {
+    const queryClient = useQueryClient();
     const {setCurrentDiscussionId} = useDiscussions();
     const {userData} = useLogin();
 
     const [name, setName] = useState('');
 
+    const createPost = async (name: IDiscussion['name']): Promise<IDiscussion> => {
+        const response = await fetch(`${BASE_URL}/api/discussions`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({name}),
+        });
+
+        return response.json();
+    };
+
     const {mutate: mutateDiscussions} = useMutation({
-        mutationFn: async (id: string) => {
-            await setDoc(doc(db, 'discussions', id), {
-                userUid: userData?.userUid,
-                name,
-                createdAt: new Date().valueOf(),
-            });
-
-            await setDoc(doc(db, 'discussionsEffects', id), {
-                sound: null,
-            });
-
-            return id;
-        },
-        onSuccess: (id) => {
-            setName('');
+        mutationFn: createPost,
+        onSuccess: ({id}) => {
             setCurrentDiscussionId(id);
+            setName('');
+            queryClient.invalidateQueries({queryKey: ['discussions']});
         },
     });
 
-    const handleCreate = async () => {
-        const id = v4();
-        mutateDiscussions(id);
+    const handleCreate = () => {
+        mutateDiscussions(name);
     };
 
     return (

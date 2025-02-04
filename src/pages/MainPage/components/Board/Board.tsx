@@ -5,10 +5,8 @@ import {useBoardData} from './useBoardData';
 import {CreateSections} from './CreateSections';
 import {getCurrentUser} from '@utils/getCurrentUser';
 
-import {ClapButton} from './ClapButton';
-
 export const Board = () => {
-    const {sectionsData, messagesData, soundEffect, mutateDiscussionsEffects} = useBoardData();
+    const {sectionsData} = useBoardData();
 
     const currentUser = getCurrentUser();
 
@@ -34,10 +32,9 @@ export const Board = () => {
 
     return (
         <Styled.Board>
-            {sectionsData.map((section, index) => (
-                <BoardSection key={section.id} index={index} messages={messagesData} {...section} />
+            {sectionsData.map((section) => (
+                <BoardSection key={section.id} {...section} />
             ))}
-            {/*  <ClapButton soundEffect={soundEffect} mutateFn={mutateDiscussionsEffects} /> */}
         </Styled.Board>
     );
 };

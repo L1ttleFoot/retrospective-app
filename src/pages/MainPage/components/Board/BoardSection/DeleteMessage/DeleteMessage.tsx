@@ -1,20 +1,22 @@
 import {useQueryClient, useMutation} from '@tanstack/react-query';
-import {deleteField, doc, updateDoc} from 'firebase/firestore';
 import Close from '@assets/icons/close.svg?react';
 import {IconButton} from '@components/IconButton';
-import {db} from '../../../../../../initFirebase';
-import {useDiscussions} from '@store/useDiscussions';
 import * as Styled from './DeleteMessage.styled';
+import {BASE_URL} from '@src/consts/api';
 
 export const DeleteMessage = ({id}: {id?: string}) => {
     const client = useQueryClient();
-    const {currentDiscussionId} = useDiscussions();
+
+    const deleteMessage = async () => {
+        const response = await fetch(`${BASE_URL}/api/messages/${id}`, {method: 'DELETE'});
+
+        const message = await response.json();
+
+        return message;
+    };
 
     const {mutate} = useMutation({
-        mutationFn: ({id}: {id: string}) =>
-            updateDoc(doc(db, 'messages', currentDiscussionId!), {
-                [`${id}`]: deleteField(),
-            }),
+        mutationFn: deleteMessage,
         onSuccess: () => {
             client.invalidateQueries({queryKey: ['messages']});
         },
@@ -22,7 +24,7 @@ export const DeleteMessage = ({id}: {id?: string}) => {
 
     const handleClick = () => {
         if (!id) return;
-        mutate({id});
+        mutate();
     };
 
     return (

@@ -12,6 +12,7 @@ import {v4} from 'uuid';
 import {ColorPicker} from '../ColorPicker';
 import {ISection} from '../../BoardSection/BoardSection.types';
 import {colorsList} from '../ColorPicker/ColorPicker.consts';
+import {BASE_URL} from '@src/consts/api';
 
 type IModalForm = {
     handleClose: () => void;
@@ -29,8 +30,18 @@ export const ModalForm = ({handleClose}: IModalForm) => {
     const {register, handleSubmit, control, setValue} = useForm<SectionsForm>({
         defaultValues: {
             sections: [
-                {id: v4(), title: 'Что было хорошо?', color: colorsList.green},
-                {id: v4(), title: 'Что было плохо?', color: colorsList.red},
+                {
+                    id: v4(),
+                    title: 'Что было хорошо?',
+                    color: colorsList.green,
+                    discussionId: currentDiscussionId,
+                },
+                {
+                    id: v4(),
+                    title: 'Что было плохо?',
+                    color: colorsList.red,
+                    discussionId: currentDiscussionId,
+                },
             ],
         },
     });
@@ -39,11 +50,19 @@ export const ModalForm = ({handleClose}: IModalForm) => {
         name: 'sections',
     });
 
+    const createSections = async ({sections}: SectionsForm) => {
+        const response = await fetch(`${BASE_URL}/api/sections`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({sections}),
+        });
+    };
+
     const {mutate} = useMutation({
-        mutationFn: async (data: SectionsForm) =>
-            await setDoc(doc(db, 'sections', currentDiscussionId!), {...data.sections}),
+        mutationFn: createSections,
         onSuccess: () => {
-            setDoc(doc(db, 'messages', currentDiscussionId!), {});
             client.invalidateQueries({queryKey: ['sections', currentDiscussionId]});
         },
     });
@@ -57,13 +76,23 @@ export const ModalForm = ({handleClose}: IModalForm) => {
     };
 
     const onAdd = () => {
-        append({title: '', id: v4(), color: ''});
+        append({title: '', id: v4(), color: '', discussionId: currentDiscussionId});
     };
 
     const retroTemplate = () => {
         setValue('sections', [
-            {id: v4(), title: 'Что было хорошо?', color: colorsList.green},
-            {id: v4(), title: 'Что было плохо?', color: colorsList.red},
+            {
+                id: v4(),
+                title: 'Что было хорошо?',
+                color: colorsList.green,
+                discussionId: currentDiscussionId,
+            },
+            {
+                id: v4(),
+                title: 'Что было плохо?',
+                color: colorsList.red,
+                discussionId: currentDiscussionId,
+            },
         ]);
     };
 

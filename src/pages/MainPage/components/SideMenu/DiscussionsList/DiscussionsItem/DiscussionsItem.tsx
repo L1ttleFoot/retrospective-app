@@ -5,10 +5,9 @@ import * as Styled from './DiscussionsItem.styled';
 import {useNavigate} from 'react-router-dom';
 import Close from '@assets/icons/close.svg?react';
 import {IconButton} from '../../../../../../components/IconButton';
-import {useMutation} from '@tanstack/react-query';
-import {deleteDoc, doc} from 'firebase/firestore';
-import {db} from '../../../../../../initFirebase';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {SpringValue} from 'react-spring';
+import {BASE_URL} from '@src/consts/api';
 
 interface IBoardItem {
     item: IDiscussion;
@@ -17,22 +16,29 @@ interface IBoardItem {
 }
 
 export const DiscussionsItem = (props: IBoardItem) => {
+    const queryClient = useQueryClient();
+
     const navigate = useNavigate();
 
     const {currentDiscussionId, setCurrentDiscussionId} = useDiscussions();
 
     const {item, setCurrent, style} = props;
 
+    const deleteDiscussion = async (id: IDiscussion['id']) => {
+        const response = await fetch(`${BASE_URL}/api/discussions/${id}`, {method: 'DELETE'});
+        const discussion = await response.json();
+
+        return discussion;
+    };
+
     const {mutate} = useMutation({
-        mutationFn: async () => {
-            await deleteDoc(doc(db, 'discussions', item.id));
-            await deleteDoc(doc(db, 'discussionsEffects', item.id));
-            await deleteDoc(doc(db, 'sections', item.id));
-            await deleteDoc(doc(db, 'messages', item.id));
+        mutationFn: () => deleteDiscussion(item.id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['discussions']});
         },
     });
 
-    const deleteDiscussion = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.stopPropagation();
 
         mutate();
@@ -54,7 +60,7 @@ export const DiscussionsItem = (props: IBoardItem) => {
                 <Styled.Date>{formatDate(item.createdAt)}</Styled.Date>
             </Styled.Info>
             <Spacer />
-            <IconButton onClick={(e) => deleteDiscussion(e)} withTheme={true}>
+            <IconButton onClick={(e) => handleDelete(e)} withTheme={true}>
                 <Close />
             </IconButton>
         </Styled.DiscussionsItem>

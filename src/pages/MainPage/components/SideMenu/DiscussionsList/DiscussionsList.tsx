@@ -28,7 +28,7 @@ export const DiscussionsList = () => {
         setCurrentDiscussionId(id.toString());
     };
 
-    const transitions = useTransition(discussionsData, {
+    const transitions = useTransition(discussionsData ?? [], {
         key: (item: IDiscussion) => item.id,
         from: {x: '-20rem', opacity: 0},
         enter: {x: '0rem', opacity: 1},
