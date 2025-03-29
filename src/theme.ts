@@ -5,6 +5,7 @@ export const theme = {
         default: '#adb5bd',
         error: 'tomato',
     },
+    currentTheme: 'ligth',
 };
 
 export const darkPalette = {
@@ -17,12 +18,28 @@ export const darkPalette = {
     disabled: '#3a3a3a',
 };
 
-export const ligthPalette = {
-    backgroundPrimary: '#fff',
-    backgroundSecond: 'rgba(255, 255, 255)',
-    backgroundThird: 'rgba(255, 255, 255)',
-    backgroundFourth: 'rgba(255, 255, 255)',
+export const lightPalette = {
+    backgroundPrimary: '#ffffff',
+    backgroundSecond: 'rgb(255, 255, 255)',
+    backgroundThird: 'rgb(255, 255, 255)',
+    backgroundFourth: 'rgb(255, 255, 255)',
     color: '#000',
     colorSecond: 'rgba(0, 0, 0, 0.6)',
     disabled: '#f5f5f7',
 };
+
+export const windows98Palette = {
+    backgroundPrimary: '#008080',
+    backgroundSecond: 'silver',
+    backgroundThird: 'silver',
+    backgroundFourth: 'silver',
+    color: '#000',
+    colorSecond: 'rgba(0, 0, 0, 0.6)',
+    disabled: '#f5f5f7',
+};
+
+export const themePallets = {
+    light: lightPalette,
+    dark: darkPalette,
+    win98: windows98Palette,
+} as const;

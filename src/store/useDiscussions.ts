@@ -1,18 +1,18 @@
 import {create} from 'zustand';
 
-export interface IDiscussion {
+export interface Discussion {
     id: string;
     name: string;
-    createdAt: number;
-    sound?: boolean;
+    createdAt: Date;
+    ownerId: string;
 }
 
-interface IDiscussionsStore {
-    currentDiscussionId?: string;
+interface DiscussionsStore {
+    currentDiscussionId: string;
     setCurrentDiscussionId: (id?: string) => void;
 }
 
-export const useDiscussions = create<IDiscussionsStore>()((set) => ({
-    currentDiscussionId: undefined,
+export const useDiscussions = create<DiscussionsStore>()((set) => ({
+    currentDiscussionId: '',
     setCurrentDiscussionId: (id) => set(() => ({currentDiscussionId: id})),
 }));

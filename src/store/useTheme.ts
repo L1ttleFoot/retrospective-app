@@ -1,17 +1,18 @@
 import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
 
-interface IThemeStore {
-    currentTheme: string;
-    toggleTheme: () => void;
+export type theme = 'light' | 'dark' | 'win98';
+
+interface ThemeStore {
+    currentTheme: theme;
+    changeTheme: (theme: theme) => void;
 }
 
-export const useTheme = create<IThemeStore>()(
+export const useTheme = create<ThemeStore>()(
     persist(
-        (set, get) => ({
-            currentTheme: 'ligth',
-            toggleTheme: () =>
-                set(() => ({currentTheme: get().currentTheme === 'ligth' ? 'dark' : 'ligth'})),
+        (set) => ({
+            currentTheme: 'light',
+            changeTheme: (theme) => set(() => ({currentTheme: theme})),
         }),
         {
             name: 'theme-storage',
