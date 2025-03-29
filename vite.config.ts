@@ -26,10 +26,11 @@ export default defineConfig({
     resolve:{
         alias: {
             '@store': path.resolve(__dirname, './src/store'),
-            '@utils': path.resolve(__dirname, './src/utils'),
-            '@hooks': path.resolve(__dirname, './src/hooks'),
+            '@utils': path.resolve(__dirname, './src/shared/utils'),
+            '@hooks': path.resolve(__dirname, './src/shared/hooks'),
+            '@consts': path.resolve(__dirname, './src/shared/consts'),
+            '@ui': path.resolve(__dirname, './src/shared/ui'),
             '@assets': path.resolve(__dirname, './src/assets'),
-            '@components': path.resolve(__dirname, './src/components'),
             '@src': path.resolve(__dirname, './src'),
         }
     }

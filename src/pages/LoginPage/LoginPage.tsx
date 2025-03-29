@@ -1,16 +1,17 @@
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as Styled from './LoginPage.styled';
-import {useLogin} from '@store/useLogin';
+import {useAuth} from '@store/useAuth';
 import {useNavigate} from 'react-router-dom';
-import {Input} from '@components/Input';
-import {Button} from '@components/Button';
-import {browserLocalPersistence, setPersistence, signInWithEmailAndPassword} from 'firebase/auth';
-import {auth} from '../../initFirebase';
+import {Input} from '@ui/Input';
+import {Button} from '@ui/Button';
 import {Navigate} from 'react-router-dom';
 import {useState} from 'react';
+import axios from '@src/api/axios';
+import {BASE_URL} from '@consts/api';
+import {TextLink} from '@ui/TextLink/TextLink';
 
 type Inputs = {
-    login: string;
+    username: string;
     password: string;
 };
 
@@ -21,41 +22,37 @@ export const LoginPage = () => {
         formState: {errors, isValid},
     } = useForm<Inputs>({
         mode: 'onChange',
-        defaultValues: {login: '', password: ''},
+        defaultValues: {username: '', password: ''},
     });
 
     const navigate = useNavigate();
 
-    const {setUserData} = useLogin();
+    const {isAuth, setUserData} = useAuth();
 
     const [error, setError] = useState(false);
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        setPersistence(auth, browserLocalPersistence)
-            .then(() => {
-                return signInWithEmailAndPassword(auth, data.login, data.password);
-            })
-            .then((userCredential) => {
-                const user = userCredential.user;
-                setError(false);
-                setUserData({email: user.email, userUid: user.uid});
-                navigate('/');
-            })
-            .catch((error) => setError(true));
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        try {
+            const response = await axios.post(`${BASE_URL}/api/login`, data, {
+                withCredentials: true,
+            });
+            setUserData(response.data);
+        } catch (e) {
+            setError(true);
+        }
     };
 
     return (
         <Styled.Wrapper>
             <Styled.FormWrapper>
-                {!!auth.currentUser && <Navigate to="/" />}
+                {isAuth && <Navigate to="/" />}
                 <Styled.Form onSubmit={handleSubmit(onSubmit)}>
                     <Input
                         required
                         placeholder={'Логин'}
-                        error={!!errors.login}
-                        {...register('login', {
+                        error={!!errors.username}
+                        {...register('username', {
                             required: true,
-                            pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                         })}
                     />
                     <Input
@@ -71,6 +68,11 @@ export const LoginPage = () => {
                         Войти
                     </Button>
                 </Styled.Form>
+
+                <Styled.Footer>
+                    Нет аккаунта?
+                    <TextLink to={'/register'}>Зарегистрируйтесь</TextLink>
+                </Styled.Footer>
             </Styled.FormWrapper>
         </Styled.Wrapper>
     );
