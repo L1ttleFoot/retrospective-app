@@ -14,8 +14,8 @@ export const IconButton = styled.button<{$size: string; $withTheme?: boolean; $c
     }
 
     & svg {
-        max-width: ${({$size}) => sizes[$size]};
-        max-height: ${({$size}) => sizes[$size]};
+        width: 100%;
+        height: 100%;
         fill: ${({theme, $withTheme}) => ($withTheme ? theme.color : 'none')};
         & * {
             stroke: ${({$color}) => $color};

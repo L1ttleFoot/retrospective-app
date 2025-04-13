@@ -1,4 +1,6 @@
 import Menu from '@assets/icons/menu.svg?react';
+import Avatar from '@assets/icons/avatar.svg?react';
+import Chart from '@assets/icons/chart.svg?react';
 import {IconButton} from '@ui/IconButton';
 import * as Styled from './AppBar.styled';
 import {SideMenu} from '../SideMenu';
@@ -27,6 +29,14 @@ export const AppBar = () => {
         navigate('/login');
     };
 
+    const handleNavigate = () => {
+        navigate('/admin');
+    };
+
+    const handleNavigateTest = () => {
+        navigate('/test');
+    };
+
     const {currentTheme, changeTheme} = useTheme();
 
     const username = userData?.username;
@@ -45,9 +55,19 @@ export const AppBar = () => {
         <>
             <Styled.AppBar>
                 {isAuth && (
-                    <IconButton size="small" onClick={toggleOpen}>
-                        <Menu />
-                    </IconButton>
+                    <>
+                        <IconButton size="small" onClick={toggleOpen}>
+                            <Menu />
+                        </IconButton>
+
+                        <IconButton size="small" onClick={handleNavigate}>
+                            <Avatar />
+                        </IconButton>
+
+                        <IconButton size="small" onClick={handleNavigateTest}>
+                            <Chart />
+                        </IconButton>
+                    </>
                 )}
 
                 <Spacer />

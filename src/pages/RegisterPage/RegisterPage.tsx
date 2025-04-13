@@ -70,8 +70,7 @@ export const RegisterPage = () => {
                     <Input
                         {...register('confirmPassword', {
                             required: true,
-                            validate: (value) =>
-                                value === watch('password') || 'Пароли не совпадают',
+                            validate: (value) => value === watch('password') || 'Пароли не совпадают',
                         })}
                         error={!!errors.confirmPassword}
                         required

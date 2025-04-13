@@ -1,5 +1,5 @@
 import {Ref} from 'react';
-import {sizes} from '../../shared/consts/styles';
+import {sizes} from '@consts/styles';
 import * as Styled from './IconButton.styled';
 
 type IconButtonType = {
@@ -18,13 +18,7 @@ export const IconButton = ({
     ...props
 }: IconButtonType) => {
     return (
-        <Styled.IconButton
-            $size={size}
-            $withTheme={withTheme}
-            ref={innerRef}
-            $color={color}
-            {...props}
-        >
+        <Styled.IconButton $size={size} $withTheme={withTheme} ref={innerRef} $color={color} {...props}>
             {children}
         </Styled.IconButton>
     );

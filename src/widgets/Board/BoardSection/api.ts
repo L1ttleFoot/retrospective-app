@@ -15,11 +15,7 @@ type updateMessageProps = {
     sourceSectionId: Section['id'];
 };
 
-export const createMessage = async ({
-    text,
-    sectionId,
-    authorId,
-}: createMessageProps): Promise<Message> => {
+export const createMessage = async ({text, sectionId, authorId}: createMessageProps): Promise<Message> => {
     const response = await api.post(
         `${BASE_URL}/api/messages`,
         {text, sectionId, authorId},
@@ -37,10 +33,7 @@ export const getMessages = async (sectionId: Section['id']): Promise<Message[]> 
     return response.data;
 };
 
-export const updateMessage = async ({
-    messageId,
-    sectionId,
-}: updateMessageProps): Promise<Message[]> => {
+export const updateMessage = async ({messageId, sectionId}: updateMessageProps): Promise<Message[]> => {
     const response = await axios.post(`${BASE_URL}/api/messages/${messageId}/update`, {sectionId});
 
     return response.data;
@@ -54,10 +47,7 @@ export const deleteMessage = async (messageId: Message['id']) => {
     return message;
 };
 
-export const addEmoji = async (
-    messageId: Message['id'],
-    emoji: {id: string; character: string},
-) => {
+export const addEmoji = async (messageId: Message['id'], emoji: {id: string; character: string}) => {
     const response = await axios.post(`${BASE_URL}/api/messages/${messageId}/emojies`, {emoji});
 
     return response.data;

@@ -7,10 +7,7 @@ interface CreateDiscussionRequest {
     ownerId: Discussion['ownerId'];
 }
 
-export const createDiscussion = async ({
-    name,
-    ownerId,
-}: CreateDiscussionRequest): Promise<Discussion> => {
+export const createDiscussion = async ({name, ownerId}: CreateDiscussionRequest): Promise<Discussion> => {
     const response = await api.post(
         `${BASE_URL}/api/discussions`,
         {name, ownerId},
