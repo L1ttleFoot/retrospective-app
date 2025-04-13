@@ -1,8 +1,12 @@
+import * as Styled from './NotFoundPage.styled';
+import {TextLink} from '@ui/TextLink/TextLink';
+
 export const NotFoundPage = () => {
     return (
-        <div>
+        <Styled.NotFoundPage>
             <h1>404 - Not Found</h1>
             <p>Страница не найдена.</p>
-        </div>
+            <TextLink to={'/'}>На основную страницу</TextLink>
+        </Styled.NotFoundPage>
     );
 };

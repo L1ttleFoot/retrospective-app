@@ -24,14 +24,8 @@ export const Board = () => {
         onMutate: async (variables) => {
             const {messageId, sectionId, sourceSectionId} = variables;
 
-            const previousTargetData = queryClient.getQueryData([
-                'messages',
-                sectionId,
-            ]) as Message[];
-            const previousSourceData = queryClient.getQueryData([
-                'messages',
-                sourceSectionId,
-            ]) as Message[];
+            const previousTargetData = queryClient.getQueryData(['messages', sectionId]) as Message[];
+            const previousSourceData = queryClient.getQueryData(['messages', sourceSectionId]) as Message[];
 
             queryClient.setQueryData(['messages', sourceSectionId], (old: Message[]) =>
                 old.filter((message) => message.id !== messageId),
@@ -85,9 +79,7 @@ export const Board = () => {
     }
 
     if (isAuth && !currentDiscussionId) {
-        return (
-            <Styled.EmptyBoard>Выберите обсуждение из списка или создайте новое</Styled.EmptyBoard>
-        );
+        return <Styled.EmptyBoard>Выберите обсуждение из списка или создайте новое</Styled.EmptyBoard>;
     }
 
     if (isAuth && !sectionsData.length && !isFetching) {

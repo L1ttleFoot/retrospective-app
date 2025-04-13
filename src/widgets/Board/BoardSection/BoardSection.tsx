@@ -35,19 +35,11 @@ export const BoardSection = (props: Section) => {
                         ref={provided.innerRef}
                         $isDraggingOver={snapshot.isDraggingOver}
                     >
-                        <MessagesList
-                            messagesData={messagesData}
-                            color={color}
-                            snapshot={snapshot}
-                        />
+                        <MessagesList messagesData={messagesData} color={color} snapshot={snapshot} />
 
                         {provided.placeholder}
                         {showInput && (
-                            <AddMessage
-                                sectionId={id}
-                                handleShowInput={handleShowInput}
-                                color={color}
-                            />
+                            <AddMessage sectionId={id} handleShowInput={handleShowInput} color={color} />
                         )}
                     </Styled.BoardSectionBody>
                 )}

@@ -29,8 +29,7 @@ export const Color = styled.div<{color: string; currentColor: string}>`
     background-color: ${({color}) => color};
     transition: all 0.3s ease-in-out;
     &:hover {
-        transform: ${({color, currentColor}) =>
-            color === currentColor ? 'scale(1)' : 'scale(1.1)'};
+        transform: ${({color, currentColor}) => (color === currentColor ? 'scale(1)' : 'scale(1.1)')};
     }
     box-shadow: 0 4px 16px 0 rgba(61, 72, 108, 0.16);
 `;

@@ -1,7 +1,7 @@
 import {Route, Routes} from 'react-router-dom';
 import {LoginPage} from '../pages/LoginPage';
 import {MainPage} from '../pages/MainPage';
-import {TestPage} from '../pages/TestPage';
+import {Test} from '../pages/TestPage';
 import {RegisterPage} from '@src/pages/RegisterPage';
 import {AdminPage} from '@src/pages/AdminPage';
 import {ForbidenPage} from '@src/pages/ForbidenPage';
@@ -18,7 +18,7 @@ export function Router() {
             />
             <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
             <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-            <Route path={ROUTES.TEST} element={<TestPage />} />
+            <Route path={ROUTES.TEST} element={<Test />} />
             <Route path={ROUTES.HOME} element={<MainPage />} />
             <Route path={ROUTES.FORBIDDEN} element={<ForbidenPage />} />
             <Route path="*" element={<NotFoundPage />} />

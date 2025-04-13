@@ -1,5 +1,5 @@
 import * as Styled from './AdminDashboard.styled';
-import {useState} from 'react';
+import {ChangeEvent, useState} from 'react';
 import {Button} from '@ui/Button';
 import {useAdminDashboard} from './useAdminDashboard';
 import {Table, TableProps} from '@ui/Table/Table';
@@ -10,7 +10,7 @@ export const AdminDashboard = () => {
 
     const {data} = useAdminDashboard({model});
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setModel(e.target.value as 'user' | 'role' | 'emoji');
     };
 

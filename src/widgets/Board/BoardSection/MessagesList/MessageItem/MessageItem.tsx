@@ -50,12 +50,7 @@ export const MessageItem = (props: BoardSection) => {
     return (
         <Styled.MessageItem $color={color} $isBeingDragged={isBeingDragged}>
             <Styled.MessageItemText>{text}</Styled.MessageItemText>
-            <DeleteMessage
-                messageId={id}
-                sectionId={sectionId}
-                authorId={authorId}
-                ownerId={ownerId}
-            />
+            <DeleteMessage messageId={id} sectionId={sectionId} authorId={authorId} ownerId={ownerId} />
             {false && (
                 <Styled.MessageItemBottom>
                     {emojies && (
@@ -69,11 +64,7 @@ export const MessageItem = (props: BoardSection) => {
                         />
                     )}
                     {!!enabledEmoji.length && (
-                        <EmojiPicker
-                            messageId={id}
-                            enabledEmoji={enabledEmoji}
-                            handleActive={handleActive}
-                        />
+                        <EmojiPicker messageId={id} enabledEmoji={enabledEmoji} handleActive={handleActive} />
                     )}
                 </Styled.MessageItemBottom>
             )}

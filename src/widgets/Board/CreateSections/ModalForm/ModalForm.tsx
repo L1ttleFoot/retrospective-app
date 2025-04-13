@@ -96,12 +96,7 @@ export const ModalForm = ({handleClose}: IModalForm) => {
             {fields.map((field, index) => (
                 <Styled.SectionNameInput key={field.id}>
                     <Input {...register(`sections.${index}.title`)} />
-                    <ColorPicker
-                        {...field}
-                        currentColor={field.color}
-                        index={index}
-                        setColor={setColor}
-                    />
+                    <ColorPicker {...field} currentColor={field.color} index={index} setColor={setColor} />
                     <IconButton onClick={() => remove(index)} size="verySmall" withTheme={true}>
                         <Close />
                     </IconButton>

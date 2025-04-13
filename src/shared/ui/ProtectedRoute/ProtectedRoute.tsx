@@ -15,8 +15,7 @@ export const ProtectedRoute = ({element, allowedRoles}: ProtectedRoute) => {
         return <Navigate to="/login" replace />;
     }
 
-    const hasAccess =
-        userData && userData.roles.map((role) => allowedRoles.includes(role.value))[0];
+    const hasAccess = userData && userData.roles.map((role) => allowedRoles.includes(role.value))[0];
 
     return hasAccess ? element : <Navigate to={ROUTES.FORBIDDEN} replace />;
 };
