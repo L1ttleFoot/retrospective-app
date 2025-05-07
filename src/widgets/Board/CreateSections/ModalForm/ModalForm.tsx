@@ -3,16 +3,15 @@ import * as Styled from './ModalForm.styled';
 import {Input} from '@ui/Input';
 import {Button} from '@ui/Button';
 import {IconButton} from '@ui/IconButton';
-import Close from '@assets/icons/close.svg?react';
+
 import {useDiscussions} from '@store/useDiscussions';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {v4} from 'uuid';
 import {ColorPicker} from '../ColorPicker';
 import {Section} from '../../BoardSection/BoardSection.types';
 import {colorsList} from '../ColorPicker/ColorPicker.consts';
-import {BASE_URL} from '@src/shared/consts/api';
-import axios from 'axios';
 import {createSections} from '../../api';
+import {X} from 'lucide-react';
 
 type IModalForm = {
     handleClose: () => void;
@@ -69,23 +68,6 @@ export const ModalForm = ({handleClose}: IModalForm) => {
         append({title: '', id: v4(), color: '', discussionId: currentDiscussionId});
     };
 
-    const retroTemplate = () => {
-        setValue('sections', [
-            {
-                id: v4(),
-                title: 'Что было хорошо?',
-                color: colorsList.green,
-                discussionId: currentDiscussionId,
-            },
-            {
-                id: v4(),
-                title: 'Что было плохо?',
-                color: colorsList.red,
-                discussionId: currentDiscussionId,
-            },
-        ]);
-    };
-
     const setColor = (index: number, section: Section, color: string) => {
         update(index, {...section, color});
     };
@@ -98,14 +80,10 @@ export const ModalForm = ({handleClose}: IModalForm) => {
                     <Input {...register(`sections.${index}.title`)} />
                     <ColorPicker {...field} currentColor={field.color} index={index} setColor={setColor} />
                     <IconButton onClick={() => remove(index)} size="verySmall" withTheme={true}>
-                        <Close />
+                        <X />
                     </IconButton>
                 </Styled.SectionNameInput>
             ))}
-
-            {/* <Button type="button" onClick={retroTemplate} fullWidth>
-                Шаблон для ретро
-            </Button> */}
 
             <Styled.ControlButtons>
                 <Button type="button" onClick={onAdd}>

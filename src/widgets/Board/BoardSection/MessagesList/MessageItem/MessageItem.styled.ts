@@ -4,13 +4,12 @@ export const MessageItem = styled.div<{$color?: string; $isBeingDragged?: boolea
     display: flex;
     justify-content: space-between;
     position: relative;
-    /* width: calc(33% - 10px);*/
-    min-width: 150px;
+    /*  width: calc(33% - 10px);
+    min-width: 150px; */
     height: 110px;
-    padding: 10px 10px 2px 10px;
+    padding: 18px 18px 2px 10px;
     margin: 5px;
     font-size: 16px;
-    display: flex;
     flex-direction: column;
     border-radius: 10px;
     border: 2px solid ${({$color}) => $color};
@@ -19,10 +18,11 @@ export const MessageItem = styled.div<{$color?: string; $isBeingDragged?: boolea
     word-wrap: break-word;
     overflow-y: auto;
     opacity: ${({$isBeingDragged}) => ($isBeingDragged ? 0.6 : 1)};
+    width: ${({$isBeingDragged}) => ($isBeingDragged ? 'clamp(200px,30%, 300px)' : null)};
 
-    @media screen and (max-width: 955px) {
+    /* @media screen and (max-width: 955px) {
         width: 100%;
-    }
+    } */
 
     ${({theme, $color}) =>
         theme.currentTheme === 'win98' &&

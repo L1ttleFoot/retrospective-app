@@ -10,11 +10,13 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-    const storedData = JSON.parse(localStorage.getItem('auth-storage') || '{}');
-    const token = storedData?.state?.userData?.token;
+    //const storedData = JSON.parse(localStorage.getItem('auth-storage') || '{}');
+    //const token = storedData?.state?.userData?.token;
 
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+    const {userData} = useAuth.getState();
+
+    if (userData?.token) {
+        config.headers.Authorization = `Bearer ${userData?.token}`;
     }
     return config;
 });

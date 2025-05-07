@@ -1,13 +1,12 @@
 import * as Styled from './BoardSection.styled';
-import {Fragment, useState} from 'react';
-import Add from '@assets/icons/add.svg?react';
+import {useState} from 'react';
 import {IconButton} from '@ui/IconButton';
 import {Section} from './BoardSection.types';
 import {AddMessage} from './AddMessage';
 import {useMessagesData} from './useMessagesData';
-import {MessageItem} from './MessagesList/MessageItem';
-import {Draggable, Droppable} from '@hello-pangea/dnd';
+import {Droppable} from '@hello-pangea/dnd';
 import {MessagesList} from './MessagesList';
+import {CirclePlus} from 'lucide-react';
 
 export const BoardSection = (props: Section) => {
     const {title, color, id} = props;
@@ -24,8 +23,8 @@ export const BoardSection = (props: Section) => {
         <Styled.BoardSection>
             <Styled.BoardSectionHeader>
                 {title}
-                <IconButton onClick={() => setShowInput(true)} color={color}>
-                    <Add />
+                <IconButton onClick={() => setShowInput(true)} size={'small'} color={color}>
+                    <CirclePlus />
                 </IconButton>
             </Styled.BoardSectionHeader>
 

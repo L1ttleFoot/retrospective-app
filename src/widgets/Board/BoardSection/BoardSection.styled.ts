@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const BoardSection = styled.div`
-    min-width: 180px;
+    min-width: 200px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -23,12 +23,15 @@ export const BoardSectionBody = styled.div<{$isDraggingOver: boolean}>`
     align-content: flex-start;
     flex-grow: 1;
     gap: 8px;
+    min-height: 100px;
 
     ${({$isDraggingOver}) =>
         $isDraggingOver &&
         `
     background:rgba(0,128,128,0.1);
-  `}
+    min-height:200px;
+    
+  `};
 
     @media screen and (max-width: 955px) {
         justify-content: center;

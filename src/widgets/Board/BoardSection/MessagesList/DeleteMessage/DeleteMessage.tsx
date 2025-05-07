@@ -1,37 +1,49 @@
 import {useQueryClient, useMutation} from '@tanstack/react-query';
-import Close from '@assets/icons/close.svg?react';
 import {IconButton} from '@ui/IconButton';
 import * as Styled from './DeleteMessage.styled';
 import {deleteMessage} from '../../api';
 import {Message, Section} from '../../BoardSection.types';
 import {Discussion} from '@store/useDiscussions';
 import {useAuth} from '@store/useAuth';
+import {X} from 'lucide-react';
 
-export const DeleteMessage = ({
-    messageId,
-    sectionId,
-    authorId,
-    ownerId,
-}: {
+interface DeleteMessageProps {
     messageId: Message['id'];
     sectionId: Section['id'];
     authorId: Message['authorId'];
     ownerId: Discussion['ownerId'];
-}) => {
-    const client = useQueryClient();
+}
+
+export const DeleteMessage = ({messageId, sectionId, authorId, ownerId}: DeleteMessageProps) => {
+    const queryClient = useQueryClient();
 
     const {userData} = useAuth();
 
     const {mutate} = useMutation({
-        mutationFn: () => deleteMessage(messageId),
+        mutationFn: deleteMessage,
+        onMutate: (variables) => {
+            const {messageId} = variables;
+
+            const previousData = queryClient.getQueryData(['messages', sectionId]) as Message[];
+
+            queryClient.setQueryData(['messages', sectionId], (old: Message[]) =>
+                old.filter((message) => message.id !== messageId),
+            );
+
+            return {previousData, sectionId};
+        },
+        onError: (error, _, context) => {
+            queryClient.setQueryData(['messages', context?.sectionId], context?.previousData);
+            console.error('Failed to delete message:', error);
+        },
         onSuccess: () => {
-            client.invalidateQueries({queryKey: ['messages', sectionId]});
+            queryClient.invalidateQueries({queryKey: ['messages', sectionId]});
         },
     });
 
     const handleClick = () => {
         if (!messageId) return;
-        mutate();
+        mutate({messageId});
     };
 
     const isAuthor = authorId === localStorage.getItem('authorId');
@@ -42,7 +54,7 @@ export const DeleteMessage = ({
     return (
         <Styled.DeleteMessage>
             <IconButton onClick={handleClick} size="verySmall" withTheme={true}>
-                <Close />
+                <X />
             </IconButton>
         </Styled.DeleteMessage>
     );
