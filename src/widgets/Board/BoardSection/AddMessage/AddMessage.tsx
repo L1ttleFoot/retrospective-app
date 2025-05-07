@@ -1,5 +1,4 @@
 import {ChangeEvent, useState} from 'react';
-import {MessageItem} from '../MessagesList/MessageItem';
 import * as Styled from './AddMessage.styled';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {createMessage} from '../api';

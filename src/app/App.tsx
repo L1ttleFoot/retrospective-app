@@ -19,16 +19,16 @@ export function App() {
 
     return (
         <ThemeProvider theme={{...theme, ...themePalette, currentTheme}}>
-            <GlobalStyle />
-            <ErrorBoundary>
-                <QueryClientProvider client={queryClient}>
+            <QueryClientProvider client={queryClient}>
+                <GlobalStyle />
+                <ErrorBoundary>
                     <BrowserRouter>
                         <AuthInit>
                             <Router />
                         </AuthInit>
                     </BrowserRouter>
-                </QueryClientProvider>
-            </ErrorBoundary>
+                </ErrorBoundary>
+            </QueryClientProvider>
         </ThemeProvider>
     );
 }

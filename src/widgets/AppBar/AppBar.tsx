@@ -1,6 +1,3 @@
-import Menu from '@assets/icons/menu.svg?react';
-import Avatar from '@assets/icons/avatar.svg?react';
-import Chart from '@assets/icons/chart.svg?react';
 import {IconButton} from '@ui/IconButton';
 import * as Styled from './AppBar.styled';
 import {SideMenu} from '../SideMenu';
@@ -10,9 +7,8 @@ import {useAuth} from '@store/useAuth';
 import {Backdrop} from '@ui/Backdrop';
 import {useModal} from '@src/shared/hooks/useModal';
 import {theme, useTheme} from '@store/useTheme';
-import Login from '@assets/icons/login.svg?react';
-import Logout from '@assets/icons/logout.svg?react';
 import {Radio} from '@ui/Radio';
+import {ChartColumn, LogIn, LogOut, Menu, User} from 'lucide-react';
 
 export const AppBar = () => {
     const navigate = useNavigate();
@@ -56,16 +52,16 @@ export const AppBar = () => {
             <Styled.AppBar>
                 {isAuth && (
                     <>
-                        <IconButton size="small" onClick={toggleOpen}>
+                        <IconButton size="small" onClick={toggleOpen} color={'#52b788'}>
                             <Menu />
                         </IconButton>
 
-                        <IconButton size="small" onClick={handleNavigate}>
-                            <Avatar />
+                        <IconButton size="small" onClick={handleNavigate} color={'#52b788'}>
+                            <User />
                         </IconButton>
 
-                        <IconButton size="small" onClick={handleNavigateTest}>
-                            <Chart />
+                        <IconButton size="small" onClick={handleNavigateTest} color={'#52b788'}>
+                            <ChartColumn />
                         </IconButton>
                     </>
                 )}
@@ -86,12 +82,12 @@ export const AppBar = () => {
                 ))}
 
                 {isAuth ? (
-                    <IconButton onClick={handleLogout}>
-                        <Logout />
+                    <IconButton size={'small'} onClick={handleLogout} color={'#52b788'}>
+                        <LogOut />
                     </IconButton>
                 ) : (
-                    <IconButton onClick={handleLogin}>
-                        <Login />
+                    <IconButton size={'small'} onClick={handleLogin} color={'#52b788'}>
+                        <LogIn />
                     </IconButton>
                 )}
             </Styled.AppBar>

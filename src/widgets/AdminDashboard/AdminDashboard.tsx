@@ -1,12 +1,11 @@
 import * as Styled from './AdminDashboard.styled';
 import {ChangeEvent, useState} from 'react';
-import {Button} from '@ui/Button';
 import {useAdminDashboard} from './useAdminDashboard';
 import {Table, TableProps} from '@ui/Table/Table';
 import {Tab} from '@ui/Tab/Tab';
 
 export const AdminDashboard = () => {
-    const [model, setModel] = useState<'user' | 'role' | 'emoji' | undefined>(undefined);
+    const [model, setModel] = useState<'user' | 'role' | 'emoji' | undefined>('role');
 
     const {data} = useAdminDashboard({model});
 

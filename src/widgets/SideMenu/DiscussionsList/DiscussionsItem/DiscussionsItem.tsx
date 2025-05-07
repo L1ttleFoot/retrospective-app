@@ -2,12 +2,12 @@ import {Spacer} from '@ui/Spacer';
 import {formatDate} from '@utils/dateUtils';
 import * as Styled from './DiscussionsItem.styled';
 import {useNavigate} from 'react-router-dom';
-import Close from '@assets/icons/close.svg?react';
 import {IconButton} from '@ui/IconButton';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {SpringValue} from 'react-spring';
 import {Discussion, useDiscussions} from '@store/useDiscussions';
 import {deleteDiscussion} from '../../api';
+import {X} from 'lucide-react';
 
 interface BoardItem {
     item: Discussion;
@@ -53,8 +53,8 @@ export const DiscussionsItem = (props: BoardItem) => {
                 <Styled.Date>{formatDate(item.createdAt)}</Styled.Date>
             </Styled.Info>
             <Spacer />
-            <IconButton onClick={(e) => handleDelete(e)} withTheme={true}>
-                <Close />
+            <IconButton size="small" onClick={(e) => handleDelete(e)} withTheme={true}>
+                <X />
             </IconButton>
         </Styled.DiscussionsItem>
     );

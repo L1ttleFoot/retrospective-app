@@ -25,7 +25,7 @@ export const MessagesList = ({messagesData, color, snapshot}: MessageListProps) 
                                     style={{
                                         ...provided.draggableProps.style,
                                         //width: 'calc(33% - 10px)',
-                                        minWidth: 150,
+                                        width: 'clamp(200px,30%, 300px)',
                                         transform: snapshot.isDragging
                                             ? provided.draggableProps.style?.transform
                                             : 'translate(0, 0)',

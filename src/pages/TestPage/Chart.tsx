@@ -4,7 +4,7 @@ import {axisBottom, max} from 'd3';
 
 export const Chart = ({width = 800, height = 500}) => {
     const svgRef = useRef(null);
-    const [tooltipData, setTooltipData] = useState({value: null});
+    const [tooltipData, setTooltipData] = useState<{value: number | null}>({value: null});
     const [tooltip, setTooltip] = useState(false);
     const [position, setPosition] = useState({x: 0, y: 0});
 
@@ -73,9 +73,9 @@ export const Chart = ({width = 800, height = 500}) => {
             .attr('y', innerHeight)
             .attr('width', xScale.bandwidth())
             .attr('height', 0)
-            .transition()
+            //.transition()
             //.delay((_, i) => i * 80)
-            .duration(0) //800
+            //.duration(0) //800
             .attr('y', (d) => yScale(d.count))
             .attr('height', (d) => innerHeight - yScale(d.count))
             .attr('fill', '#52b788');
@@ -89,7 +89,7 @@ export const Chart = ({width = 800, height = 500}) => {
             .attr('y', innerHeight - 5)
             .attr('text-anchor', 'middle')
             .text((d) => d.count)
-            .style('font-size', '14px')
+            .style('font-size', '18px')
             .style('fill', '#333')
             .transition()
             //.delay((_, i) => i * 80)
@@ -108,19 +108,22 @@ export const Chart = ({width = 800, height = 500}) => {
             .attr('height', innerHeight + 10)
             .attr('fill', '#52b788')
             .style('opacity', 0)
-            .on('mouseover', function (event, d) {
-                d3.select(this).style('opacity', 0).transition().duration(150).style('opacity', 0.2);
+            .on('mouseenter', function (event, d) {
+                d3.select(this).style('opacity', 0).transition().duration(0).style('opacity', 0.2);
                 setTooltip(true);
                 setPosition({x: event.clientX, y: event.clientY});
                 setTooltipData({value: d.count});
             })
-            .on('mouseout', function () {
-                d3.select(this).style('opacity', 0.2).transition().duration(150).style('opacity', 0);
+            .on('mouseleave', function () {
+                d3.select(this).style('opacity', 0.2).transition().duration(0).style('opacity', 0);
+                console.log('mouseleave');
                 setTooltip(false);
+                setPosition({x: 0, y: 0});
+                setTooltipData({value: null});
             });
     }, [data]);
 
-    console.log(position);
+    console.log(position, tooltip);
 
     return (
         <>
