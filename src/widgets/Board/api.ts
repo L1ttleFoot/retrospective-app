@@ -3,7 +3,6 @@ import axios from 'axios';
 import {Section} from './BoardSection/BoardSection.types';
 import {SectionsForm} from './CreateSections/ModalForm/ModalForm';
 import api from '@src/api/axios';
-import {Discussion} from '@store/useDiscussions';
 
 export const createSections = async ({sections}: SectionsForm) => {
     const response = await api.post(

@@ -2,6 +2,7 @@ import {ChangeEvent, useState} from 'react';
 import * as Styled from './AddMessage.styled';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {createMessage} from '../api';
+import {Message} from '../BoardSection.types';
 
 type AddItemType = {
     sectionId: string;
@@ -20,6 +21,18 @@ export const AddMessage = ({sectionId, handleShowInput, color}: AddItemType) => 
 
     const {mutate} = useMutation({
         mutationFn: createMessage,
+        onMutate: (variables) => {
+            const {text, sectionId} = variables;
+
+            const previousData = queryClient.getQueryData(['messages', sectionId]) as Message[];
+
+            queryClient.setQueryData(['messages', sectionId], (old: Message[]) => [
+                ...old,
+                {text, sectionId, emojies: []},
+            ]);
+
+            return {previousData, sectionId};
+        },
         onSuccess: (data) => {
             localStorage.setItem('authorId', data.authorId);
             setText('');

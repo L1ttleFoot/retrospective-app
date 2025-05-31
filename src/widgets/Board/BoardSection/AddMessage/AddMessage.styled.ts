@@ -7,7 +7,7 @@ export const Wrapper = styled.div<{$color?: string}>`
     width: calc(33% - 10px);
     min-width: 150px;
     height: 110px;
-    padding: 10px 10px 2px 10px;
+    padding: 16px 16px 2px 8px;
     margin: 5px;
     font-size: 16px;
     display: flex;
