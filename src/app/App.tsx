@@ -22,10 +22,10 @@ export function App() {
         if (window.Telegram?.WebApp) {
             const tg = window.Telegram.WebApp;
             tg.ready();
-
             const userData = tg.initDataUnsafe?.user;
-
-            userData && console.log('Telegram user data:', userData);
+            console.log('Данные пользователя:', userData);
+        } else {
+            console.log('Telegram WebApp не инициализирован');
         }
     }, []);
 
