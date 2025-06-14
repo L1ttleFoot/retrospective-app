@@ -45,3 +45,28 @@ declare module '*.png' {
     __ENV__?: Record<string, string>;
   }
   
+
+  interface TelegramWebApp {
+  initData: string;
+  initDataUnsafe: {
+    user?: {
+      id: number;
+      first_name: string;
+      last_name?: string;
+      username?: string;
+      photo_url?: string;
+      language_code?: string;
+      is_premium?: boolean;
+    };
+    [key: string]: any;
+  };
+  ready: () => void;
+  sendData: (data: string) => void;
+  [key: string]: any;
+}
+
+interface Window {
+  Telegram: {
+    WebApp: TelegramWebApp;
+  };
+}

@@ -13,6 +13,7 @@ export const BoardSectionHeader = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    gap: 8px;
 `;
 
 export const BoardSectionBody = styled.div<{$isDraggingOver: boolean}>`
