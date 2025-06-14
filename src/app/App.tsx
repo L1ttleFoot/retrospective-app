@@ -23,6 +23,7 @@ export function App() {
             const tg = window.Telegram.WebApp;
             tg.ready();
             const userData = tg.initDataUnsafe?.user;
+            console.log('Telegram WebApp инициализирован', tg);
             console.log('Данные пользователя:', userData);
         } else {
             console.log('Telegram WebApp не инициализирован');
