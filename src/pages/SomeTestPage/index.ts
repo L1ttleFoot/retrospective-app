@@ -1,0 +1,1 @@
+export {SomeTestPage} from './SomeTestPage';

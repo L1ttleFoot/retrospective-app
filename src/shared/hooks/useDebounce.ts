@@ -1,15 +1,15 @@
 //@ts-nocheck
-import {useRef, useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 
 export const useDebounce = (func, delay: number) => {
-    const timerId = useRef<NodeJS.Timeout | null>(null);
+	const timerId = useRef<NodeJS.Timeout | null>(null);
 
-    useEffect(() => {
-        return () => clearTimeout(timerId.current);
-    }, []);
+	useEffect(() => {
+		return () => clearTimeout(timerId.current);
+	}, []);
 
-    return (...args) => {
-        clearTimeout(timerId.current);
-        timerId.current = setTimeout(() => func(...args), delay);
-    };
+	return (...args) => {
+		clearTimeout(timerId.current);
+		timerId.current = setTimeout(() => func(...args), delay);
+	};
 };

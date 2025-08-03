@@ -1,0 +1,9 @@
+.test{
+    --mode: attr(data-var type(<custom-ident>));
+    background-color: if(
+        style(--mode: loading): green;
+        style(--mode: error): red;
+        else: red
+    );
+    border: 1px solid black;
+}

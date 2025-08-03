@@ -1,48 +1,83 @@
-import * as Styled from './BoardSection.styled';
-import {useState} from 'react';
-import {IconButton} from '@ui/IconButton';
-import {Section} from './BoardSection.types';
-import {AddMessage} from './AddMessage';
-import {useMessagesData} from './useMessagesData';
-import {Droppable} from '@hello-pangea/dnd';
-import {MessagesList} from './MessagesList';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {CirclePlus} from 'lucide-react';
+import {useState} from 'react';
 
-export const BoardSection = (props: Section) => {
-    const {title, color, id} = props;
+import {updateMessage} from '@/src/widgets/Board/BoardSection/api';
+import {DroppableOnDrag} from '@/ui/DND/Droppable/DroppableOnDrag';
+import {IconButton} from '@/ui/IconButton';
 
-    const [showInput, setShowInput] = useState(false);
+import {AddMessage} from './AddMessage';
+import * as Styled from './BoardSection.styled';
+import {Message, Section} from './BoardSection.types';
+import {MessagesList} from './MessagesList';
+import {useMessagesData} from './useMessagesData';
 
-    const handleShowInput = (value: boolean) => {
-        setShowInput(value);
-    };
+export const BoardSection = ({title, color, id}: Section) => {
+	const queryClient = useQueryClient();
 
-    const {messagesData} = useMessagesData(id);
+	const [showInput, setShowInput] = useState(false);
 
-    return (
-        <Styled.BoardSection>
-            <Styled.BoardSectionHeader>
-                {title}
-                <IconButton onClick={() => setShowInput(true)} size={'small'} color={color}>
-                    <CirclePlus />
-                </IconButton>
-            </Styled.BoardSectionHeader>
+	const handleShowInput = (value: boolean) => {
+		setShowInput(value);
+	};
 
-            <Droppable droppableId={id} direction="vertical">
-                {(provided, snapshot) => (
-                    <Styled.BoardSectionBody
-                        ref={provided.innerRef}
-                        $isDraggingOver={snapshot.isDraggingOver}
-                    >
-                        <MessagesList messagesData={messagesData} color={color} snapshot={snapshot} />
+	const {messagesData} = useMessagesData(id);
 
-                        {provided.placeholder}
-                        {showInput && (
-                            <AddMessage sectionId={id} handleShowInput={handleShowInput} color={color} />
-                        )}
-                    </Styled.BoardSectionBody>
-                )}
-            </Droppable>
-        </Styled.BoardSection>
-    );
+	const {mutate} = useMutation({
+		mutationKey: ['messages'],
+		mutationFn: updateMessage,
+		onMutate: async (variables) => {
+			const {messageId, sectionId, sourceSectionId} = variables;
+
+			const previousTargetData = queryClient.getQueryData(['messages', sectionId]) as Message[];
+
+			const previousSourceData = queryClient.getQueryData([
+				'messages',
+				sourceSectionId,
+			]) as Message[];
+
+			queryClient.setQueryData(['messages', sourceSectionId], (old: Message[]) =>
+				old.filter((message) => message.id !== messageId),
+			);
+
+			queryClient.setQueryData(['messages', sectionId], (old: Message[]) => {
+				const message = previousSourceData.find((message) => message.id === messageId);
+				if (!old) return [message];
+				return [...old, message];
+			});
+
+			return {previousSourceData, previousTargetData, sourceSectionId, sectionId};
+		},
+		onSuccess: (_, varibles) => {
+			queryClient.invalidateQueries({queryKey: ['messages', varibles.sourceSectionId]});
+			queryClient.invalidateQueries({queryKey: ['messages', varibles.sectionId]});
+		},
+	});
+
+	return (
+		<Styled.BoardSection>
+			<Styled.BoardSectionHeader>
+				{title}
+				<IconButton onClick={() => setShowInput(true)} size={'small'} color={color}>
+					<CirclePlus />
+				</IconButton>
+			</Styled.BoardSectionHeader>
+			<DroppableOnDrag
+				dropId={id}
+				onDrop={(draggableId, dropId, sourceDropId) =>
+					mutate({messageId: draggableId, sectionId: dropId, sourceSectionId: sourceDropId})
+				}
+			>
+				{({isDraggingOver, ...props}) => (
+					<Styled.BoardSectionBody {...props} $isDraggingOver={isDraggingOver}>
+						<MessagesList messagesData={messagesData} color={color} />
+
+						{showInput && (
+							<AddMessage sectionId={id} handleShowInput={handleShowInput} color={color} />
+						)}
+					</Styled.BoardSectionBody>
+				)}
+			</DroppableOnDrag>
+		</Styled.BoardSection>
+	);
 };

@@ -1,35 +1,30 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@ui/*": ["src/shared/ui/*"],
-      "@assets/*": ["src/assets/*"],
-      "@utils/*": ["src/shared/utils/*"],
-      "@hooks/*": ["src/shared/hooks/*"],
-      "@consts/*": ["src/shared/consts/*"],
-      "@store/*": ["src/store/*"],
-      "@src/*": ["src/*"],
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/ui/*": ["src/shared/ui/*"],
+            "@/assets/*": ["src/assets/*"],
+            "@/utils/*": ["src/shared/utils/*"],
+            "@/hooks/*": ["src/shared/hooks/*"],
+            "@/consts/*": ["src/shared/consts/*"],
+            "@/store/*": ["src/store/*"],
+            "@/src/*": ["src/*"]
+        },
+        "target": "ES2020",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx"
     },
-    "target": "ES2020",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    
-  },
-  "include": ["src","vite-env.d.ts"]
+    "include": ["src", "vite-env.d.ts"]
 }

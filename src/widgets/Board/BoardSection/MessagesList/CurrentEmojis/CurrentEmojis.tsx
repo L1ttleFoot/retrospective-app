@@ -1,28 +1,30 @@
-import {useMutation, useQueryClient} from '@tanstack/react-query';
-import * as Styled from './CurrentEmojis.styled';
-import {useDebounce} from '@src/shared/hooks/useDebounce';
+/* import {useMutation, useQueryClient} from '@tanstack/react-query';
+
+import {useDebounce} from '@/src/shared/hooks/useDebounce';
+
 import {TEmoji} from '../EmojiPicker/EmojiPicker.types';
+import * as Styled from './CurrentEmojis.styled';
 
 type CurrentEmojisProps = {
-    messageId?: string;
-    emoji?: {count: number; emoji: TEmoji}[];
-    active: string[];
-    color?: string;
-    handleActive: (value: string) => void;
-    removeActive: (value: string) => void;
+	messageId?: string;
+	emoji?: {count: number; emoji: TEmoji}[];
+	active: string[];
+	color?: string;
+	handleActive: (value: string) => void;
+	removeActive: (value: string) => void;
 };
 
 export const CurrentEmojis = ({
-    messageId,
-    emoji,
-    active,
-    color,
-    handleActive,
-    removeActive,
+	messageId,
+	emoji,
+	active,
+	color,
+	handleActive,
+	removeActive,
 }: CurrentEmojisProps) => {
-    const client = useQueryClient();
+	const client = useQueryClient();
 
-    /* const {mutate} = useMutation({
+	const {mutate} = useMutation({
         mutationKey: ['addEmoji', id, currentDiscussionId],
         mutationFn: async ({
             emoji,
@@ -43,32 +45,33 @@ export const CurrentEmojis = ({
         onSuccess: () => {
             client.invalidateQueries({queryKey: ['messages']});
         },
-    }); */
+    }); 
 
-    const test = (emoji: TEmoji, count: number) => {
-        handleActive(emoji.id);
-    };
+	const test = (emoji: TEmoji, count: number) => {
+		handleActive(emoji.id);
+	};
 
-    const handleClickEmoji = (key: string, value: number) => {
-        const isSelected = active.includes(key);
+	const handleClickEmoji = (key: string, value: number) => {
+		const isSelected = active.includes(key);
 
-        //mutate({emoji: key, count: value, action: isSelected ? -1 : 1});
-    };
+		//mutate({emoji: key, count: value, action: isSelected ? -1 : 1});
+	};
 
-    return (
-        <>
-            {emoji &&
-                emoji.map(({emoji, count}) => (
-                    <Styled.CurrentEmojis
-                        key={emoji.id}
-                        onClick={() => test(emoji, count)}
-                        $selected={active.includes(emoji.id)}
-                        $color={color}
-                    >
-                        {emoji.character}
-                        {count}
-                    </Styled.CurrentEmojis>
-                ))}
-        </>
-    );
+	return (
+		<>
+			{emoji &&
+				emoji.map(({emoji, count}) => (
+					<Styled.CurrentEmojis
+						key={emoji.id}
+						onClick={() => test(emoji, count)}
+						$selected={active.includes(emoji.id)}
+						$color={color}
+					>
+						{emoji.character}
+						{count}
+					</Styled.CurrentEmojis>
+				))}
+		</>
+	);
 };
+ */
