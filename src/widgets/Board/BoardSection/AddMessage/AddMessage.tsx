@@ -1,76 +1,73 @@
-import {ChangeEvent, useState} from 'react';
-import * as Styled from './AddMessage.styled';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {ChangeEvent, useState} from 'react';
+
 import {createMessage} from '../api';
 import {Message} from '../BoardSection.types';
+import * as Styled from './AddMessage.styled';
 
-type AddItemType = {
-    sectionId: string;
-    handleShowInput: (value: boolean) => void;
-    color: string;
-};
+type AddItemType = {sectionId: string; handleShowInput: (value: boolean) => void; color: string};
 
 export const AddMessage = ({sectionId, handleShowInput, color}: AddItemType) => {
-    const queryClient = useQueryClient();
+	const queryClient = useQueryClient();
 
-    const [text, setText] = useState('');
+	const [text, setText] = useState('');
 
-    const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setText(e.target.value);
-    };
+	const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+		setText(e.target.value);
+	};
 
-    const {mutate} = useMutation({
-        mutationFn: createMessage,
-        onMutate: (variables) => {
-            const {text, sectionId} = variables;
+	const {mutate} = useMutation({
+		mutationFn: createMessage,
+		onMutate: (variables) => {
+			const {text, sectionId} = variables;
 
-            const previousData = queryClient.getQueryData(['messages', sectionId]) as Message[];
+			const previousData = queryClient.getQueryData(['messages', sectionId]) as Message[];
 
-            queryClient.setQueryData(['messages', sectionId], (old: Message[]) => [
-                ...old,
-                {text, sectionId, emojies: []},
-            ]);
+			queryClient.setQueryData(['messages', sectionId], (old: Message[]) => [
+				...old,
+				{text, sectionId, id: '123', emojies: []},
+			]);
 
-            return {previousData, sectionId};
-        },
-        onSuccess: (data) => {
-            localStorage.setItem('authorId', data.authorId);
-            setText('');
-            queryClient.invalidateQueries({queryKey: ['messages', sectionId]});
-        },
-    });
+			return {previousData, sectionId};
+		},
+		onSuccess: (data) => {
+			localStorage.setItem('authorId', data.authorId);
+			setText('');
+			queryClient.invalidateQueries({queryKey: ['messages', sectionId]});
+		},
+	});
 
-    const handleEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.key === 'Enter') {
-            if (!text.trim()) {
-                handleShowInput(false);
-                return;
-            }
-            const authorId = localStorage.getItem('authorId');
-            mutate({text, sectionId, authorId});
-            handleShowInput(false);
-        }
-    };
+	const handleEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+		if (e.key === 'Enter') {
+			if (!text.trim()) {
+				handleShowInput(false);
+				return;
+			}
+			const authorId = localStorage.getItem('authorId');
+			mutate({text, sectionId, authorId});
+			handleShowInput(false);
+		}
+	};
 
-    const handleBlur = () => {
-        if (!text.trim()) {
-            handleShowInput(false);
-            return;
-        }
+	const handleBlur = () => {
+		if (!text.trim()) {
+			handleShowInput(false);
+			return;
+		}
 
-        mutate({text, sectionId});
-        handleShowInput(false);
-    };
+		mutate({text, sectionId});
+		handleShowInput(false);
+	};
 
-    return (
-        <Styled.Wrapper $color={color}>
-            <Styled.Input
-                autoFocus
-                value={text}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                onKeyDown={handleEnter}
-            />
-        </Styled.Wrapper>
-    );
+	return (
+		<Styled.Wrapper $color={color}>
+			<Styled.Input
+				autoFocus
+				value={text}
+				onChange={handleChange}
+				onBlur={handleBlur}
+				onKeyDown={handleEnter}
+			/>
+		</Styled.Wrapper>
+	);
 };

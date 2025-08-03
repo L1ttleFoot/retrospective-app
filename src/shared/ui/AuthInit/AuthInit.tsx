@@ -1,12 +1,13 @@
-import {useAuth} from '@store/useAuth';
 import {ReactNode, useEffect} from 'react';
 
+import {useAuth} from '@/store/useAuth';
+
 export const AuthInit = ({children}: {children: ReactNode}) => {
-    const {checkAuth} = useAuth();
+	const {checkAuth} = useAuth();
 
-    useEffect(() => {
-        checkAuth();
-    }, [checkAuth]);
+	useEffect(() => {
+		checkAuth();
+	}, [checkAuth]);
 
-    return children;
+	return children;
 };

@@ -1,24 +1,19 @@
 import {useState} from 'react';
 
 export const useModal = () => {
-    const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false);
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
+	const handleOpen = () => {
+		setOpen(true);
+	};
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+	const handleClose = () => {
+		setOpen(false);
+	};
 
-    const toggleOpen = () => {
-        setOpen((prev) => !prev);
-    };
+	const toggleOpen = () => {
+		setOpen((prev) => !prev);
+	};
 
-    return {
-        open,
-        handleOpen,
-        handleClose,
-        toggleOpen,
-    };
+	return {open, handleOpen, handleClose, toggleOpen};
 };

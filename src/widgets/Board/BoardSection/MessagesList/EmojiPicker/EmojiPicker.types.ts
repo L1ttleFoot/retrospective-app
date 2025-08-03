@@ -1,4 +1,1 @@
-export type TEmoji = {
-    id: string;
-    character: string;
-};
+export type TEmoji = {id: string; character: string};
