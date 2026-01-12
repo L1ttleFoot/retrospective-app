@@ -3,7 +3,9 @@ import {useEffect, useRef, useState} from 'react';
 import {Chart} from '@/src/pages/TestPage/Chart';
 import {AppBar} from '@/src/widgets/AppBar';
 
+import {DebouncePlace} from './DebouncePlace';
 import * as Styled from './TestPage.styled';
+import {ThrottlePlace} from './ThrottlePlace';
 
 export const Test = () => {
 	const data = [
@@ -56,6 +58,10 @@ export const Test = () => {
 					<Chart data={data} dimensions={dimensions} />
 				</Styled.ChartWrapper>
 			</Styled.Template>
+			<div style={{display: 'flex', gap: 20}}>
+				<DebouncePlace />
+				<ThrottlePlace />
+			</div>
 		</Styled.Wrapper>
 	);
 };

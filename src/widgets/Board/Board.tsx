@@ -1,3 +1,7 @@
+import {useQueryClient} from '@tanstack/react-query';
+import {useEffect} from 'react';
+
+import {BASE_URL} from '@/consts/api';
 import {useAuth} from '@/store/useAuth';
 import {useDiscussions} from '@/store/useDiscussions';
 
@@ -12,6 +16,22 @@ export const Board = () => {
 	const {isAuth} = useAuth();
 
 	const {currentDiscussionId} = useDiscussions();
+
+	const queryClient = useQueryClient();
+
+	useEffect(() => {
+		const eventSource = new EventSource(`${BASE_URL}/api/event`);
+
+		eventSource.onmessage = (event) => {
+			console.log(event.type, event.data);
+
+			const payload = JSON.parse(event.data);
+
+			queryClient.invalidateQueries({queryKey: Object.values(payload)});
+		};
+
+		return () => eventSource.close();
+	}, []);
 
 	if (!isAuth && !currentDiscussionId) {
 		return <Styled.EmptyBoard>Для продолжения авторизуйтесь</Styled.EmptyBoard>;

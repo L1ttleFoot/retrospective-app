@@ -13,7 +13,7 @@ export default defineConfig({
         }),
         svgr(),
     ],
-    server: {open: true, port: 3001},
+    server: {open: true, port: 3000, allowedHosts: ['raspberry-pi.local', 'localhost', '127.0.0.1'],},
     build: {outDir: path.resolve(__dirname, './build'), emptyOutDir: true},
     resolve: {
         alias: {
