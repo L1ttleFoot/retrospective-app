@@ -25,3 +25,14 @@ export const ChartWrapper = styled.div`
   width: 70%;
   height: 500px;
 `;
+
+export const TestSandboxes = styled.div`
+  min-height: 500px;
+  min-width: 500px;
+  border: 1px solid teal;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+`;

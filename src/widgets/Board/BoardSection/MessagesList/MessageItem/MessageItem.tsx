@@ -17,16 +17,31 @@ export type BoardSection = {
 } & DraggableChildrenProps;
 
 export const MessageItem = (props: BoardSection) => {
-	const {id, text, color, sectionId, authorId, ownerId, isBeingDragged, ref, onDragOver, ...other} =
-		props;
+	const {
+		id,
+		text,
+		color,
+		sectionId,
+		authorId,
+		ownerId,
+		isBeingDragged,
+		ref,
+		onDragOver,
+		waiting,
+		...other
+	} = props;
+
+	//console.log(props);
 
 	return (
 		<Styled.MessageItem
 			{...other}
+			draggable={!waiting}
 			$color={color}
 			$isBeingDragged={isBeingDragged}
 			ref={ref}
 			onDragOver={(e) => onDragOver(e, id)}
+			style={waiting ? {opacity: 0.2} : undefined}
 		>
 			<Styled.MessageItemText>{text}</Styled.MessageItemText>
 			<DeleteMessage messageId={id} sectionId={sectionId} authorId={authorId} ownerId={ownerId} />

@@ -10,4 +10,9 @@ export const GlobalStyle = createGlobalStyle`
         font-family: "Pixel";
         src: url('./fonts/high.ttf') format("truetype");
     }
+
+    @font-face {
+        font-family: "Pixel1";
+        src: url('./fonts/pixel.otf') format("opentype");
+    }
 `;

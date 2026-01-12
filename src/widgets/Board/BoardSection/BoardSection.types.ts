@@ -1,4 +1,4 @@
-import {Discussion} from '@store/useDiscussions';
+import {Discussion} from '@/store/useDiscussions';
 
 export interface Section {
 	id: string;

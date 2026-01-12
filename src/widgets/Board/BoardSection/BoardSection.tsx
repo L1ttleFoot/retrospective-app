@@ -41,7 +41,10 @@ export const BoardSection = ({title, color, id}: Section) => {
 			);
 
 			queryClient.setQueryData(['messages', sectionId], (old: Message[]) => {
-				const message = previousSourceData.find((message) => message.id === messageId);
+				const message = {
+					...previousSourceData.find((message) => message.id === messageId),
+					waiting: true,
+				};
 				if (!old) return [message];
 				return [...old, message];
 			});
