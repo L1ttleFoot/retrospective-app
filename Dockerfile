@@ -3,9 +3,12 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 
 COPY package*.json ./
+
 RUN npm ci
 
 COPY . .
+
+ENV VITE_BASE_URL=$REACT_APP_BASE_URL
 
 RUN npm run build
 
