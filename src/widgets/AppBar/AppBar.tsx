@@ -1,6 +1,7 @@
 import {ChartColumn, LogIn, LogOut, Menu, User} from 'lucide-react';
 import {useNavigate} from 'react-router-dom';
 
+import {ROUTES} from '@/consts/routes';
 import {useModal} from '@/src/shared/hooks/useModal';
 import {useAuth} from '@/store/useAuth';
 import {theme, useTheme} from '@/store/useTheme';
@@ -24,15 +25,15 @@ export const AppBar = () => {
 	};
 
 	const handleLogin = () => {
-		navigate('/login');
+		navigate(ROUTES.LOGIN);
 	};
 
 	const handleNavigate = () => {
-		navigate('/admin');
+		navigate(ROUTES.ADMIN);
 	};
 
 	const handleNavigateTest = () => {
-		navigate('/test');
+		navigate(ROUTES.TEST);
 	};
 
 	const {currentTheme, changeTheme} = useTheme();
@@ -46,7 +47,7 @@ export const AppBar = () => {
 	const themes = [
 		{label: 'Светлая', value: 'light'},
 		{label: 'Темная', value: 'dark'},
-		{label: 'Windows 98', value: 'win98'},
+		//{label: 'Windows 98', value: 'win98'},
 	] as const;
 
 	return (

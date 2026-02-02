@@ -6,9 +6,6 @@ import {useAuth} from '@/store/useAuth';
 const api = axios.create({baseURL: BASE_URL, headers: {'Content-Type': 'application/json'}});
 
 api.interceptors.request.use((config) => {
-	//const storedData = JSON.parse(localStorage.getItem('auth-storage') || '{}');
-	//const token = storedData?.state?.userData?.token;
-
 	const {userData} = useAuth.getState();
 
 	if (userData?.token) {

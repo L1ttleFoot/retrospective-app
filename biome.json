@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"linter": {
 		"enabled": true,
 		"rules": {
@@ -12,7 +12,8 @@
 				"useJsxKeyInIterable": "warn"
 			},
 			"complexity": { "noExcessiveCognitiveComplexity": "warn", "useArrowFunction": "off" },
-			"suspicious": { "noExplicitAny": "error", "noShadowRestrictedNames": "warn" }
+			"suspicious": { "noExplicitAny": "error", "noShadowRestrictedNames": "warn" },
+			"a11y": "off"
 		}
 	},
 	"assist": {

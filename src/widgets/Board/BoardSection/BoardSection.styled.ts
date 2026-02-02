@@ -18,15 +18,14 @@ export const BoardSectionHeader = styled.div`
 
 export const BoardSectionBody = styled.div<{$isDraggingOver: boolean}>`
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  flex-grow: 1;
-  gap: 8px;
+  height: 100%;
   min-height: 50px;
+  display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 10px;
+  align-content: start;
   transition:
-    background 200ms ease-in-out,
+    background-color 200ms ease-in-out,
     min-height 200ms ease-in-out;
   padding: 10px;
   border-radius: 10px;

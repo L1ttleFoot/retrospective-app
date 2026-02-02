@@ -27,9 +27,9 @@ export const BoardSection = ({title, color, id}: Section) => {
 		mutationKey: ['messages'],
 		mutationFn: updateMessage,
 		onMutate: async (variables) => {
-			const {messageId, sectionId, sourceSectionId} = variables;
+			const {messageId, dto, sourceSectionId} = variables;
 
-			const previousTargetData = queryClient.getQueryData(['messages', sectionId]) as Message[];
+			const previousTargetData = queryClient.getQueryData(['messages', dto.sectionId]) as Message[];
 
 			const previousSourceData = queryClient.getQueryData([
 				'messages',
@@ -40,7 +40,7 @@ export const BoardSection = ({title, color, id}: Section) => {
 				old.filter((message) => message.id !== messageId),
 			);
 
-			queryClient.setQueryData(['messages', sectionId], (old: Message[]) => {
+			queryClient.setQueryData(['messages', dto.sectionId], (old: Message[]) => {
 				const message = {
 					...previousSourceData.find((message) => message.id === messageId),
 					waiting: true,
@@ -49,11 +49,11 @@ export const BoardSection = ({title, color, id}: Section) => {
 				return [...old, message];
 			});
 
-			return {previousSourceData, previousTargetData, sourceSectionId, sectionId};
+			return {previousSourceData, previousTargetData, sourceSectionId, sectionId: dto.sectionId};
 		},
 		onSuccess: (_, varibles) => {
 			queryClient.invalidateQueries({queryKey: ['messages', varibles.sourceSectionId]});
-			queryClient.invalidateQueries({queryKey: ['messages', varibles.sectionId]});
+			queryClient.invalidateQueries({queryKey: ['messages', varibles.dto.sectionId]});
 		},
 	});
 
@@ -68,7 +68,7 @@ export const BoardSection = ({title, color, id}: Section) => {
 			<DroppableOnDrag
 				dropId={id}
 				onDrop={(draggableId, dropId, sourceDropId) =>
-					mutate({messageId: draggableId, sectionId: dropId, sourceSectionId: sourceDropId})
+					mutate({messageId: draggableId, dto: {sectionId: dropId}, sourceSectionId: sourceDropId})
 				}
 			>
 				{({isDraggingOver, ...props}) => (

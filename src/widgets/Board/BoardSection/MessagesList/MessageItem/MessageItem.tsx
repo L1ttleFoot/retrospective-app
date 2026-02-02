@@ -1,8 +1,11 @@
+import {useState} from 'react';
+
 import {Discussion} from '@/store/useDiscussions';
 import {DraggableChildrenProps} from '@/ui/DND/Draggable/DraggableOnDrag';
 
 import {Message, Section} from '../../BoardSection.types';
 import {DeleteMessage} from './../DeleteMessage';
+import {EditMessage, EditMessageTextArea} from '../EditMessage';
 import * as Styled from './MessageItem.styled';
 
 export type BoardSection = {
@@ -33,6 +36,25 @@ export const MessageItem = (props: BoardSection) => {
 
 	//console.log(props);
 
+	const [isEdit, setIsEdit] = useState(false);
+
+	const handleEditField = (value: boolean) => {
+		setIsEdit(value);
+	};
+
+	if (isEdit) {
+		return (
+			<Styled.MessageItem $color={color}>
+				<EditMessageTextArea
+					text={text}
+					handleEditField={handleEditField}
+					messageId={id}
+					sectionId={sectionId}
+				/>
+			</Styled.MessageItem>
+		);
+	}
+
 	return (
 		<Styled.MessageItem
 			{...other}
@@ -44,7 +66,10 @@ export const MessageItem = (props: BoardSection) => {
 			style={waiting ? {opacity: 0.2} : undefined}
 		>
 			<Styled.MessageItemText>{text}</Styled.MessageItemText>
-			<DeleteMessage messageId={id} sectionId={sectionId} authorId={authorId} ownerId={ownerId} />
+			<Styled.ActionsArea $color={color}>
+				<EditMessage authorId={authorId} ownerId={ownerId} handleClick={handleEditField} />
+				<DeleteMessage messageId={id} sectionId={sectionId} authorId={authorId} ownerId={ownerId} />
+			</Styled.ActionsArea>
 		</Styled.MessageItem>
 	);
 };

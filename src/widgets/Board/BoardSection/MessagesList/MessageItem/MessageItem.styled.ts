@@ -5,9 +5,8 @@ export const MessageItem = styled.div<{$color?: string; $isBeingDragged?: boolea
   justify-content: space-between;
   position: relative;
   min-width: 150px;
-  height: 110px;
-  padding: 18px 18px 2px 10px;
-  margin: 5px;
+  height: 100px;
+  padding: 10px;
   font-size: 16px;
   flex-direction: column;
   border-radius: 10px;
@@ -46,4 +45,53 @@ export const MessageItemBottom = styled.div`
   bottom: -0px;
   background: ${({theme}) => theme.backgroundThird};
   padding-bottom: 5px;
+`;
+
+export const ActionsArea = styled.div<{$color?: string}>`
+  position: absolute;
+	top: 0;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	width: 12px;
+	height: 100%;
+	overflow: hidden;
+	background-color: ${({$color}) => $color};;
+	border-radius: 0 8px 8px 0;
+	transition: width 0.2s ease;
+  word-break: break-word;
+
+  &:hover {
+    width: 30px;
+  }
+
+  & button {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    color: white;
+    opacity: 0;
+    transform: scale(0.5);
+    transition:
+		opacity 0.2s ease,
+		transform 0.2s ease;
+    pointer-events: auto;
+  }
+
+  &:hover button {
+    opacity: 1;
+	  transform: scale(1);
+    animation: delay-pointer-events 0.6s linear;
+  }
+
+  @keyframes delay-pointer-events {
+    0% {
+      pointer-events: none;
+    }
+    100% {
+      pointer-events: auto;
+    }
+  }
 `;

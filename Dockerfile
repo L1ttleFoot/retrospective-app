@@ -8,8 +8,6 @@ RUN npm ci
 
 COPY . .
 
-ENV VITE_BASE_URL=$REACT_APP_BASE_URL
-
 RUN npm run build
 
 FROM nginx:alpine

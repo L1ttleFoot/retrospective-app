@@ -13,8 +13,8 @@ type createMessageProps = {
 
 export type updateMessageProps = {
 	messageId: Message['id'];
-	sectionId: Section['id'];
-	sourceSectionId: Section['id'];
+	dto: Partial<Message>;
+	sourceSectionId?: Section['id'];
 };
 
 type deleteMessageProps = {messageId: Message['id']};
@@ -39,11 +39,8 @@ export const getMessages = async (sectionId: Section['id']): Promise<Message[]> 
 	return response.data;
 };
 
-export const updateMessage = async ({
-	messageId,
-	sectionId,
-}: updateMessageProps): Promise<Message[]> => {
-	const response = await axios.post(`${BASE_URL}/api/messages/${messageId}/update`, {sectionId});
+export const updateMessage = async ({messageId, dto}: updateMessageProps): Promise<Message[]> => {
+	const response = await axios.post(`${BASE_URL}/api/messages/${messageId}/update`, dto);
 
 	return response.data;
 };

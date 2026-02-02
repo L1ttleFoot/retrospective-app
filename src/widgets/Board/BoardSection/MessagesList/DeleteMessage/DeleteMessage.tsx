@@ -1,5 +1,5 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
-import {X} from 'lucide-react';
+import {Trash2} from 'lucide-react';
 
 import {useAuth} from '@/store/useAuth';
 import {Discussion} from '@/store/useDiscussions';
@@ -7,7 +7,6 @@ import {IconButton} from '@/ui/IconButton';
 
 import {deleteMessage} from '../../api';
 import {Message, Section} from '../../BoardSection.types';
-import * as Styled from './DeleteMessage.styled';
 
 interface DeleteMessageProps {
 	messageId: Message['id'];
@@ -54,10 +53,8 @@ export const DeleteMessage = ({messageId, sectionId, authorId, ownerId}: DeleteM
 	if (!isAuthor && !isOwner) return null;
 
 	return (
-		<Styled.DeleteMessage>
-			<IconButton onClick={handleClick} size="verySmall" withTheme={true}>
-				<X />
-			</IconButton>
-		</Styled.DeleteMessage>
+		<IconButton onClick={handleClick} size="verySmall" color="white">
+			<Trash2 />
+		</IconButton>
 	);
 };

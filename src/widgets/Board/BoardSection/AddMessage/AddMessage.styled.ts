@@ -4,11 +4,9 @@ export const Wrapper = styled.div<{$color?: string}>`
   display: flex;
   justify-content: space-between;
   position: relative;
-  width: calc(33% - 10px);
   min-width: 150px;
-  height: 110px;
-  padding: 16px 16px 2px 8px;
-  margin: 5px;
+  height: 100px;
+  padding: 10px;
   font-size: 16px;
   display: flex;
   flex-direction: column;
