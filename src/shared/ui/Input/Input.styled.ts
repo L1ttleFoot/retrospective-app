@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const InputWrapper = styled.div`
   position: relative;
   width: 100%;
+  display: flex;
+  align-items: center;
 `;
 
 export const Input = styled.input<{$error?: boolean}>`
@@ -15,11 +17,10 @@ export const Input = styled.input<{$error?: boolean}>`
   box-sizing: border-box;
   background-color: transparent;
   border-radius: 10px;
-  border-width: 1px;
+  border-width: 2px;
   border-style: solid;
-  border-color: ${({$error, theme}) => ($error ? theme.colors.error : theme.color)};
+  border-color: ${({$error, theme}) => ($error ? theme.colors.error : theme.borderColor)};
   color: ${({theme}) => theme.color};
-  margin-bottom: 10px;
   transition: border-color 0.3s ease;
 
   &:focus {

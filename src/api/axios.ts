@@ -22,6 +22,8 @@ async function refreshAuthToken() {
 		return response.data;
 	} catch (error) {
 		console.error('Refresh token failed:', error);
+		const {logout} = useAuth.getState();
+		logout();
 		throw error;
 	}
 }

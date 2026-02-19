@@ -1,8 +1,9 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
-import {X} from 'lucide-react';
+import {ClipboardCheck, Copy, X} from 'lucide-react';
 import {useNavigate} from 'react-router-dom';
 import {SpringValue} from 'react-spring';
 
+import {useCopy} from '@/hooks/useCopy';
 import {Discussion, useDiscussions} from '@/store/useDiscussions';
 import {IconButton} from '@/ui/IconButton';
 import {Spacer} from '@/ui/Spacer';
@@ -18,13 +19,15 @@ interface BoardItem {
 }
 
 export const DiscussionsItem = (props: BoardItem) => {
+	const {item, setCurrent, style} = props;
+
 	const queryClient = useQueryClient();
 
 	const navigate = useNavigate();
 
 	const {currentDiscussionId, setCurrentDiscussionId} = useDiscussions();
 
-	const {item, setCurrent, style} = props;
+	const {copy, copied} = useCopy();
 
 	const {mutate} = useMutation({
 		mutationFn: deleteDiscussion,
@@ -66,6 +69,9 @@ export const DiscussionsItem = (props: BoardItem) => {
 				<Styled.Date>{formatDate(item.createdAt)}</Styled.Date>
 			</Styled.Info>
 			<Spacer />
+			<IconButton size="verySmall" onClick={() => copy(window.location.href)} withTheme={true}>
+				{copied ? <ClipboardCheck /> : <Copy />}
+			</IconButton>
 			<IconButton size="small" onClick={(e) => handleDelete(e)} withTheme={true}>
 				<X />
 			</IconButton>

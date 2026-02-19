@@ -9,6 +9,7 @@ export const darkPalette = {
 	backgroundThird: '#303030',
 	backgroundFourth: '#424242',
 	color: '#fff',
+	borderColor: '#ebebeb',
 	colorSecond: '#a5a5a5',
 	disabled: '#3a3a3a',
 };
@@ -19,6 +20,7 @@ export const lightPalette = {
 	backgroundThird: 'rgb(255, 255, 255)',
 	backgroundFourth: 'rgb(255, 255, 255)',
 	color: '#000',
+	borderColor: '#ebebeb',
 	colorSecond: 'rgba(0, 0, 0, 0.6)',
 	disabled: '#f5f5f7',
 };
@@ -29,6 +31,7 @@ export const windows98Palette = {
 	backgroundThird: 'silver',
 	backgroundFourth: 'silver',
 	color: '#000',
+	borderColor: ' #FFFFFF1A',
 	colorSecond: 'rgba(0, 0, 0, 0.6)',
 	disabled: '#f5f5f7',
 };

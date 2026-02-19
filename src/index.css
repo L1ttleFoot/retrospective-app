@@ -16,11 +16,6 @@ code {
 	height: 100%;
 }
 
-/* body * {
-  font-family:'Pixel', 'PT Root UI', 'Roboto', Arial, sans-serif;
-}
- */
-
 * {
 	box-sizing: border-box;
 	padding: 0;
@@ -29,6 +24,10 @@ code {
 
 html {
 	height: 100%;
+}
+
+input {
+	border: none;
 }
 
 ::-webkit-scrollbar {
@@ -84,4 +83,14 @@ button {
 @font-face {
 	font-family: "Pixel1";
 	src: url("./fonts/pixel.otf") format("opentype");
+}
+
+/* @font-face {
+	font-family: "Roboto";
+	src: url("./public/fonts/roboto.ttf") format("truetype");
+} */
+
+@font-face {
+	font-family: "Roboto";
+	src: url("./fonts/roboto-regular.ttf") format("truetype");
 }

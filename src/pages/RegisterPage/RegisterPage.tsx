@@ -48,17 +48,19 @@ export const RegisterPage = () => {
 			<Styled.FormWrapper>
 				<Styled.Form onSubmit={handleSubmit(onSubmit)}>
 					<Input
+						id="login"
 						required
 						placeholder={'Логин'}
 						error={!!errors.username}
 						{...register('username', {required: true})}
 					/>
 					<Input
-						{...register('password', {required: true})}
-						error={!!errors.password}
+						id="password"
 						required
 						placeholder={'Пароль'}
+						error={!!errors.password}
 						type="password"
+						{...register('password', {required: true})}
 					/>
 					<Input
 						{...register('confirmPassword', {

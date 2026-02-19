@@ -25,7 +25,7 @@ export const AddMessage = ({sectionId, handleShowInput, color}: AddItemType) => 
 
 			queryClient.setQueryData(['messages', sectionId], (old: Message[]) => [
 				...old,
-				{text, sectionId, id: '123', emojies: []},
+				{text, sectionId, id: 'tempId', emojies: []},
 			]);
 
 			return {previousData, sectionId};
@@ -46,6 +46,10 @@ export const AddMessage = ({sectionId, handleShowInput, color}: AddItemType) => 
 			const authorId = localStorage.getItem('authorId');
 			mutate({text, sectionId, authorId});
 			handleShowInput(false);
+		}
+		if (e.key === 'Escape') {
+			handleShowInput(false);
+			setText('');
 		}
 	};
 
@@ -68,6 +72,15 @@ export const AddMessage = ({sectionId, handleShowInput, color}: AddItemType) => 
 				onBlur={handleBlur}
 				onKeyDown={handleEnter}
 			/>
+
+			{/* <Styled.ActionsArea $color={color}>
+				<IconButton size="verySmall" color="white">
+					<Send />
+				</IconButton>
+				<IconButton size="verySmall" color="white">
+					<X />
+				</IconButton>
+			</Styled.ActionsArea> */}
 		</Styled.Wrapper>
 	);
 };

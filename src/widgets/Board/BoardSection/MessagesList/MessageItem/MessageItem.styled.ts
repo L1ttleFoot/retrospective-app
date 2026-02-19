@@ -49,14 +49,14 @@ export const MessageItemBottom = styled.div`
 
 export const ActionsArea = styled.div<{$color?: string}>`
   position: absolute;
-	top: 0;
-	right: 0;
+	top: 1px;
+	right: 1px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-around;
 	width: 12px;
-	height: 100%;
+	height: calc(100% - 2px);
 	overflow: hidden;
 	background-color: ${({$color}) => $color};;
 	border-radius: 0 8px 8px 0;
@@ -94,4 +94,5 @@ export const ActionsArea = styled.div<{$color?: string}>`
       pointer-events: auto;
     }
   }
+
 `;

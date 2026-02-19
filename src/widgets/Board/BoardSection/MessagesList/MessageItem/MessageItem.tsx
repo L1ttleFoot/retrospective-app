@@ -1,5 +1,6 @@
 import {useState} from 'react';
 
+import {useAuth} from '@/store/useAuth';
 import {Discussion} from '@/store/useDiscussions';
 import {DraggableChildrenProps} from '@/ui/DND/Draggable/DraggableOnDrag';
 
@@ -34,7 +35,7 @@ export const MessageItem = (props: BoardSection) => {
 		...other
 	} = props;
 
-	//console.log(props);
+	const {userData} = useAuth();
 
 	const [isEdit, setIsEdit] = useState(false);
 
@@ -55,6 +56,11 @@ export const MessageItem = (props: BoardSection) => {
 		);
 	}
 
+	const isAuthor = authorId === localStorage.getItem('authorId');
+	const isOwner = ownerId === userData?.id;
+
+	const showActions = isAuthor || isOwner;
+
 	return (
 		<Styled.MessageItem
 			{...other}
@@ -66,10 +72,12 @@ export const MessageItem = (props: BoardSection) => {
 			style={waiting ? {opacity: 0.2} : undefined}
 		>
 			<Styled.MessageItemText>{text}</Styled.MessageItemText>
-			<Styled.ActionsArea $color={color}>
-				<EditMessage authorId={authorId} ownerId={ownerId} handleClick={handleEditField} />
-				<DeleteMessage messageId={id} sectionId={sectionId} authorId={authorId} ownerId={ownerId} />
-			</Styled.ActionsArea>
+			{showActions && (
+				<Styled.ActionsArea $color={color}>
+					<EditMessage handleClick={handleEditField} />
+					<DeleteMessage messageId={id} sectionId={sectionId} />
+				</Styled.ActionsArea>
+			)}
 		</Styled.MessageItem>
 	);
 };

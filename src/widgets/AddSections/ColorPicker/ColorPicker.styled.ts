@@ -8,6 +8,7 @@ export const ColorPicker = styled.div<{color: string}>`
   background-color: ${({color}) => color || colorsList.gray};
   border-radius: 5px;
   cursor: pointer;
+  margin: 0 10px ;
 `;
 
 export const Colors = styled.div`
@@ -23,14 +24,17 @@ export const Colors = styled.div`
   background-color: ${({theme}) => theme.backgroundFourth};
 `;
 
-export const Color = styled.div<{color: string; currentColor: string}>`
-  width: ${({color, currentColor}) => (color === currentColor ? '22px' : '20px')};
-  height: ${({color, currentColor}) => (color === currentColor ? '22px' : '20px')};
+export const Color = styled.div<{color: string; $currentColor: string}>`
+  //width: ${({color, $currentColor}) => (color === $currentColor ? '22px' : '20px')};
+  //height: ${({color, $currentColor}) => (color === $currentColor ? '22px' : '20px')};
+  width: 20px;
+  height: 20px;
   border-radius: 5px;
   background-color: ${({color}) => color};
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  transform: ${({color, $currentColor}) => (color === $currentColor ? 'scale(1.1)' : 'scale(1)')};
   &:hover {
-    transform: ${({color, currentColor}) => (color === currentColor ? 'scale(1)' : 'scale(1.1)')};
+    transform: ${({color, $currentColor}) => (color === $currentColor ? '' : 'scale(1.1)')};
   }
-  box-shadow: 0 4px 16px 0 rgba(61, 72, 108, 0.16);
+  cursor: pointer;
 `;

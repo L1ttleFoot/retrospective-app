@@ -1,8 +1,6 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {Trash2} from 'lucide-react';
 
-import {useAuth} from '@/store/useAuth';
-import {Discussion} from '@/store/useDiscussions';
 import {IconButton} from '@/ui/IconButton';
 
 import {deleteMessage} from '../../api';
@@ -11,14 +9,10 @@ import {Message, Section} from '../../BoardSection.types';
 interface DeleteMessageProps {
 	messageId: Message['id'];
 	sectionId: Section['id'];
-	authorId: Message['authorId'];
-	ownerId: Discussion['ownerId'];
 }
 
-export const DeleteMessage = ({messageId, sectionId, authorId, ownerId}: DeleteMessageProps) => {
+export const DeleteMessage = ({messageId, sectionId}: DeleteMessageProps) => {
 	const queryClient = useQueryClient();
-
-	const {userData} = useAuth();
 
 	const {mutate} = useMutation({
 		mutationFn: deleteMessage,
@@ -46,11 +40,6 @@ export const DeleteMessage = ({messageId, sectionId, authorId, ownerId}: DeleteM
 		if (!messageId) return;
 		mutate({messageId});
 	};
-
-	const isAuthor = authorId === localStorage.getItem('authorId');
-	const isOwner = ownerId === userData?.id;
-
-	if (!isAuthor && !isOwner) return null;
 
 	return (
 		<IconButton onClick={handleClick} size="verySmall" color="white">

@@ -13,7 +13,9 @@ export const DiscussionsItem = styled(animated.div)<{$isCurrent?: boolean}>`
   cursor: pointer;
   align-items: center;
   gap: 5px;
-  border: ${({$isCurrent, theme}) => ($isCurrent ? `1px solid ${theme.colors.primary}` : null)};
+  border: ${({$isCurrent, theme}) => ($isCurrent ? `2px solid ${theme.colors.primary}` : `2px solid transparent`)};
+
+  
 
   ${({theme, $isCurrent}) =>
 		theme.currentTheme === 'win98' &&
@@ -21,7 +23,7 @@ export const DiscussionsItem = styled(animated.div)<{$isCurrent?: boolean}>`
         border-radius: 0px;
         border: none;
         box-shadow: inset -1px -1px ${$isCurrent ? theme.colors.primary : '#0a0a0a'}, inset 1px 1px #dfdfdf, inset -2px -2px ${$isCurrent ? theme.colors.primary : 'grey'}, inset 2px 2px #fff;
-      }
+      
     `}
 `;
 

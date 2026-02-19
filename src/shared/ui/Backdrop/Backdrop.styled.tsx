@@ -9,6 +9,13 @@ export const Backdrop = styled.div<{$isTransparent: boolean}>`
   justify-content: center;
   background-color: ${({$isTransparent}) =>
 		$isTransparent ? 'transparent' : 'rgba(0, 0, 0, 0.2)'};
-  backdrop-filter: ${({$isTransparent}) => ($isTransparent ? null : 'blur(5px)')};
+  //backdrop-filter: ${({$isTransparent}) => ($isTransparent ? null : 'blur(5px)')};
   z-index: 2;
+
+  animation: fadeIn .3s ease forwards;
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 `;

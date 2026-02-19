@@ -5,9 +5,9 @@ import {BASE_URL} from '@/consts/api';
 import {useAuth} from '@/store/useAuth';
 import {useDiscussions} from '@/store/useDiscussions';
 
+import {AddSectionsModal} from '../AddSections';
 import * as Styled from './Board.styled';
 import {BoardSection} from './BoardSection';
-import {CreateSections} from './CreateSections';
 import {useBoardData} from './useBoardData';
 
 export const Board = () => {
@@ -31,7 +31,7 @@ export const Board = () => {
 		};
 
 		return () => eventSource.close();
-	}, []);
+	}, [queryClient.invalidateQueries]);
 
 	if (!isAuth && !currentDiscussionId) {
 		return <Styled.EmptyBoard>Для продолжения авторизуйтесь</Styled.EmptyBoard>;
@@ -44,7 +44,7 @@ export const Board = () => {
 	if (isAuth && !sectionsData.length && !isFetching) {
 		return (
 			<Styled.EmptyBoard>
-				<CreateSections />
+				<AddSectionsModal />
 			</Styled.EmptyBoard>
 		);
 	}

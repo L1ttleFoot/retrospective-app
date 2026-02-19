@@ -39,17 +39,19 @@ export const LoginPage = () => {
 				{isAuth && <Navigate to="/" />}
 				<Styled.Form onSubmit={handleSubmit(onSubmit)}>
 					<Input
+						id="login"
 						required
 						placeholder={'Логин'}
 						error={!!errors.username}
 						{...register('username', {required: true})}
 					/>
 					<Input
-						{...register('password', {required: true})}
-						error={!!errors.password}
+						id="password"
 						required
 						placeholder={'Пароль'}
+						error={!!errors.password}
 						type="password"
+						{...register('password', {required: true})}
 					/>
 
 					{error && <Styled.Error>Неправильно введена почта или пароль</Styled.Error>}

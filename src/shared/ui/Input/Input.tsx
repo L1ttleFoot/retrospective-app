@@ -8,7 +8,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({error, ...props}
 	return (
 		<Styled.InputWrapper>
 			<Styled.Input id={props.name} ref={ref} $error={error} {...props} />
-			{/* <Styled.Label htmlFor={props.name}>Логин</Styled.Label> */}
+			{/* <Styled.Label htmlFor={props.name}>Название поля</Styled.Label> */}
 		</Styled.InputWrapper>
 	);
 });

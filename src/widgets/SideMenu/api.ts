@@ -21,7 +21,7 @@ export const createDiscussion = async ({
 };
 
 export const getDiscussions = async (): Promise<Discussion[]> => {
-	const response = await api.get(`${BASE_URL}/api/discussions`);
+	const response = await api.get(`${BASE_URL}/api/discussions`, {withCredentials: true});
 
 	return response.data;
 };

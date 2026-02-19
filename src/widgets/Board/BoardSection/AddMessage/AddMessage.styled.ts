@@ -42,3 +42,23 @@ export const Input = styled.textarea`
     outline: none;
   }
 `;
+
+export const ActionsArea = styled.div<{$color?: string}>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 30px;
+  height: 100%;
+  overflow: hidden;
+  background-color: ${({$color}) => $color};;
+  border-radius: 0 8px 8px 0;
+  word-break: break-word;
+
+  & button {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    color: white;
+  }
+`;
