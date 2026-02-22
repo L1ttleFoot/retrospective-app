@@ -1,5 +1,5 @@
+import {useTransition} from '@react-spring/web';
 import {createSearchParams, useNavigate} from 'react-router-dom';
-import {useTransition} from 'react-spring';
 
 import {Discussion, useDiscussions} from '@/store/useDiscussions';
 

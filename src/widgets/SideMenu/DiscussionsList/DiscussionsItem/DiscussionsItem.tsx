@@ -1,7 +1,7 @@
+import {SpringValue} from '@react-spring/web';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {ClipboardCheck, Copy, X} from 'lucide-react';
 import {useNavigate} from 'react-router-dom';
-import {SpringValue} from 'react-spring';
 
 import {useCopy} from '@/hooks/useCopy';
 import {Discussion, useDiscussions} from '@/store/useDiscussions';
