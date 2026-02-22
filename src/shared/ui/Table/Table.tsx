@@ -17,7 +17,7 @@ export const Table = ({data}: TableProps) => {
 			<Styled.Head>
 				<Styled.Row>
 					{headers.map((head) => (
-						<Styled.HeadCell>{head}</Styled.HeadCell>
+						<Styled.HeadCell key={head}>{head}</Styled.HeadCell>
 					))}
 				</Styled.Row>
 			</Styled.Head>

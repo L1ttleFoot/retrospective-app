@@ -27,7 +27,7 @@ export const useAuth = create<AuthStore>()(
 			setUserData: (userData) => set(() => ({userData, isAuth: !!userData})),
 			logout: async () => {
 				try {
-					await api.get(`${BASE_URL}/api/logout`, {withCredentials: true});
+					await api.get(`${BASE_URL}/api/auth/logout`, {withCredentials: true});
 					set(() => ({userData: undefined, isAuth: false}));
 				} catch (error) {
 					console.error('Failed to logout', error);
@@ -35,7 +35,7 @@ export const useAuth = create<AuthStore>()(
 			},
 			checkAuth: async () => {
 				try {
-					const response = await api.get(`${BASE_URL}/api/refresh`, {withCredentials: true});
+					const response = await api.get(`${BASE_URL}/api/auth/refresh`, {withCredentials: true});
 					set(() => ({userData: response.data, isAuth: true}));
 				} catch (error) {
 					console.error('Failed to refresh auth', error);

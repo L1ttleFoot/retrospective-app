@@ -7,7 +7,7 @@ export const useRefreshToken = () => {
 	const {setUserData} = useAuth();
 
 	const refresh = async () => {
-		const response = await axios.get(`${BASE_URL}/api/refresh`, {withCredentials: true});
+		const response = await axios.get(`${BASE_URL}/api/auth/refresh`, {withCredentials: true});
 		setUserData(response.data);
 		return response.data.accessToken;
 	};

@@ -26,7 +26,9 @@ export const LoginPage = () => {
 
 	const onSubmit: SubmitHandler<Inputs> = async (data) => {
 		try {
-			const response = await axios.post(`${BASE_URL}/api/login`, data, {withCredentials: true});
+			const response = await axios.post(`${BASE_URL}/api/auth/login`, data, {
+				withCredentials: true,
+			});
 			setUserData(response.data);
 		} catch (_e) {
 			setError(true);

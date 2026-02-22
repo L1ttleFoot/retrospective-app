@@ -20,7 +20,7 @@ export const Board = () => {
 	const queryClient = useQueryClient();
 
 	useEffect(() => {
-		const eventSource = new EventSource(`${BASE_URL}/api/event`);
+		const eventSource = new EventSource(`${BASE_URL}/api/event/`);
 
 		eventSource.onmessage = (event) => {
 			console.log(event.type, event.data);

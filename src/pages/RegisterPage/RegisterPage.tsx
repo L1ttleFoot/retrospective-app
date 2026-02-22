@@ -29,7 +29,7 @@ export const RegisterPage = () => {
 
 	const onSubmit: SubmitHandler<RegisterInputs> = async ({username, password}) => {
 		try {
-			await axios.post(`${BASE_URL}/api/register`, {username, password});
+			await axios.post(`${BASE_URL}/api/auth/register`, {username, password});
 		} catch (e) {
 			if ((e as AxiosError).response?.data) {
 				setError(
