@@ -59,7 +59,7 @@ export const MessageItem = (props: BoardSection) => {
 	const isAuthor = authorId === localStorage.getItem('authorId');
 	const isOwner = ownerId === userData?.id;
 
-	const showActions = isAuthor || isOwner;
+	const showActions = (isAuthor || isOwner) && id !== 'tempId';
 
 	return (
 		<Styled.MessageItem
@@ -73,7 +73,7 @@ export const MessageItem = (props: BoardSection) => {
 		>
 			<Styled.MessageItemText>{text}</Styled.MessageItemText>
 			{showActions && (
-				<Styled.ActionsArea $color={color}>
+				<Styled.ActionsArea $color={color} aria-label="actions area">
 					<EditMessage handleClick={handleEditField} />
 					<DeleteMessage messageId={id} sectionId={sectionId} />
 				</Styled.ActionsArea>

@@ -8,7 +8,12 @@ interface EditMessageProps {
 
 export const EditMessage = ({handleClick}: EditMessageProps) => {
 	return (
-		<IconButton onClick={() => handleClick(true)} size="verySmall" color="white">
+		<IconButton
+			onClick={() => handleClick(true)}
+			size="verySmall"
+			color="white"
+			aria-label="edit message"
+		>
 			<Pencil />
 		</IconButton>
 	);

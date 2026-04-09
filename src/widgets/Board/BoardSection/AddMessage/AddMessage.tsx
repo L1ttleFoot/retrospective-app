@@ -71,6 +71,7 @@ export const AddMessage = ({sectionId, handleShowInput, color}: AddItemType) => 
 				onChange={handleChange}
 				onBlur={handleBlur}
 				onKeyDown={handleEnter}
+				aria-label="add message text-area"
 			/>
 
 			{/* <Styled.ActionsArea $color={color}>

@@ -42,7 +42,7 @@ export const DeleteMessage = ({messageId, sectionId}: DeleteMessageProps) => {
 	};
 
 	return (
-		<IconButton onClick={handleClick} size="verySmall" color="white">
+		<IconButton onClick={handleClick} size="verySmall" color="white" aria-label="delete message">
 			<Trash2 />
 		</IconButton>
 	);

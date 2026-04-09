@@ -2,7 +2,7 @@ import {ChangeEvent} from 'react';
 
 import * as Styled from './Radio.styled';
 
-interface IRadio {
+interface RadioProps {
 	label?: string;
 	value: string;
 	name: string;
@@ -11,7 +11,7 @@ interface IRadio {
 	onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Radio = ({value, name, checked, disabled, onChange, label}: IRadio) => {
+export const Radio = ({value, name, checked, disabled, onChange, label}: RadioProps) => {
 	return (
 		<Styled.RadioWrapper>
 			<Styled.RadioLabel disabled={disabled}>

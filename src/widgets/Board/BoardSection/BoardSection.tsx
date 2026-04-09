@@ -61,7 +61,12 @@ export const BoardSection = ({title, color, id}: Section) => {
 		<Styled.BoardSection>
 			<Styled.BoardSectionHeader>
 				{title}
-				<IconButton onClick={() => setShowInput(true)} size={'small'} color={color}>
+				<IconButton
+					onClick={() => setShowInput(true)}
+					size={'small'}
+					color={color}
+					aria-label="add"
+				>
 					<CirclePlus />
 				</IconButton>
 			</Styled.BoardSectionHeader>
