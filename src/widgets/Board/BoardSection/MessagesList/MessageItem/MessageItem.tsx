@@ -59,12 +59,12 @@ export const MessageItem = (props: BoardSection) => {
 	const isAuthor = authorId === localStorage.getItem('authorId');
 	const isOwner = ownerId === userData?.id;
 
-	const showActions = (isAuthor || isOwner) && id !== 'tempId';
+	const allowedActions = (isAuthor || isOwner) && id !== 'tempId';
 
 	return (
 		<Styled.MessageItem
 			{...other}
-			draggable={!waiting}
+			draggable={!waiting && allowedActions}
 			$color={color}
 			$isBeingDragged={isBeingDragged}
 			ref={ref}
@@ -72,7 +72,7 @@ export const MessageItem = (props: BoardSection) => {
 			style={waiting ? {opacity: 0.2} : undefined}
 		>
 			<Styled.MessageItemText>{text}</Styled.MessageItemText>
-			{showActions && (
+			{allowedActions && (
 				<Styled.ActionsArea $color={color} aria-label="actions area">
 					<EditMessage handleClick={handleEditField} />
 					<DeleteMessage messageId={id} sectionId={sectionId} />
