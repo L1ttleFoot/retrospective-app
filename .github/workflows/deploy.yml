@@ -8,15 +8,15 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted  
-    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Pull and Restart Docker Containers
         run: |
           cd /home/pi/retrospective/retrospective-app 
           
-          git pull && cd ..
+          git pull
+          
+          cd ..
 
           docker compose up -d --build
+
+          docker image prune -f

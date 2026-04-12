@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "types": ["node", "jest", "playwright"],
         "baseUrl": ".",
         "paths": {
             "@/ui/*": ["src/shared/ui/*"],
@@ -26,5 +27,10 @@
         "noEmit": true,
         "jsx": "react-jsx",
     },
-    "include": ["src", "vite-env.d.ts"]
+    "include": [
+        "src", 
+        "vite-env.d.ts",
+        "playwright.config.ts",
+        "tests/**/*"
+    ]
 }

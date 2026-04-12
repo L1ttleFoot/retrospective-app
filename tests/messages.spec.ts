@@ -8,7 +8,7 @@ test('message actions', async ({  browser }) => {
   const guestContext = await browser.newContext();
   const guestPage = await guestContext.newPage();
 
-  await adminPage.goto('http://localhost:3000/?id=cmmaik6tx000004l4j2k6fw7p');
+  await adminPage.goto('/?id=cmmaik6tx000004l4j2k6fw7p');
 
   await expect(adminPage).toHaveTitle(/Retrospective App/);
 
@@ -26,7 +26,7 @@ test('message actions', async ({  browser }) => {
 
   await expect(message).toBeVisible();
 
-  await guestPage.goto('http://localhost:3000/?id=cmmaik6tx000004l4j2k6fw7p');
+  await guestPage.goto('/?id=cmmaik6tx000004l4j2k6fw7p');
 
   const guestMessage = guestPage.getByText('Мое новое сообщение')
 
