@@ -36,6 +36,7 @@ export const Form = styled.form`
   align-items: center;
   flex-direction: column;
   padding: 25px;
+  gap: 15px;
 `;
 
 export const Error = styled.div`

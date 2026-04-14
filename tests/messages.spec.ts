@@ -1,53 +1,74 @@
 import { test, expect } from '@playwright/test';
 
-test('message actions', async ({  browser }) => {
+test.describe('message actions', () => {
 
-  const adminContext = await browser.newContext();
-  const adminPage = await adminContext.newPage();
+  test.beforeEach(async ({ request, page }) => {
 
- const guestContext = await browser.newContext({ storageState: { cookies: [], origins: [] } });
- const guestPage = await guestContext.newPage();
+    await page.goto('/');
 
-  await adminPage.goto('/?id=cmmaik6tx000004l4j2k6fw7p');
+    const token = await page.evaluate(() => {
+      const auth = JSON.parse(localStorage.getItem('auth-storage') || '{}');
+      return auth.state?.userData?.token;
+    });
 
-  await expect(adminPage).toHaveTitle(/Retrospective App/);
+    if (token) {
+      const response = await request.delete('http://localhost:8080/api/messages/test/cleanup', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
 
-  await expect(adminPage.getByText('52')).toBeVisible();
+      expect(response.ok()).toBeTruthy();
+    }
+  });
 
-  await adminPage.getByRole('button', { name: 'add' }).first().click();
+  test('message actions', async ({ browser }) => {
 
-  const textarea = adminPage.getByRole('textbox',{ name: 'add message text-area' });
+    const adminContext = await browser.newContext();
+    const adminPage = await adminContext.newPage();
 
-  await textarea.fill('Мое новое сообщение');
+    const guestContext = await browser.newContext({ storageState: { cookies: [], origins: [] } });
+    const guestPage = await guestContext.newPage();
 
-  await textarea.press('Enter');
+    await adminPage.goto('/?id=cmnz3t18p0000r8tton9gc407');
 
-  const message = adminPage.getByText('Мое новое сообщение')
+    await expect(adminPage).toHaveTitle(/Retrospective App/);
 
-  await expect(message).toBeVisible();
+    await expect(adminPage.getByText('52')).toBeVisible();
 
-  await guestPage.goto('/?id=cmmaik6tx000004l4j2k6fw7p');
+    await adminPage.getByRole('button', { name: 'add-message' }).first().click();
 
-  const guestMessage = guestPage.getByText('Мое новое сообщение')
+    const textarea = adminPage.getByRole('textbox', { name: 'add message text-area' });
 
-  await expect(guestMessage).toBeVisible();
+    await textarea.fill('Мое новое сообщение');
 
-  const messageItem = adminPage.getByLabel('message-item').filter({ hasText: 'Мое новое сообщение' });
+    await textarea.press('Enter');
 
-  const actionsArea = messageItem.getByLabel('actions area');
+    const message = adminPage.getByText('Мое новое сообщение')
 
-  await expect(actionsArea).toBeVisible() 
+    await expect(message).toBeVisible();
 
-  await actionsArea.hover();
+    await guestPage.goto('/?id=cmnz3t18p0000r8tton9gc407');
 
-  const deleteButton = actionsArea.getByLabel('delete message');
+    const guestMessage = guestPage.getByText('Мое новое сообщение')
 
-  await expect(deleteButton).toBeVisible();
+    await expect(guestMessage).toBeVisible();
 
-  await deleteButton.click();
+    const messageItem = adminPage.getByLabel('message-item').filter({ hasText: 'Мое новое сообщение' });
 
-  await expect(message).not.toBeVisible();
+    const actionsArea = messageItem.getByLabel('actions area');
 
-  await expect(guestMessage).not.toBeVisible();
-});
+    await expect(actionsArea).toBeVisible()
+
+    await actionsArea.hover();
+
+    const deleteButton = actionsArea.getByLabel('delete message');
+
+    await expect(deleteButton).toBeVisible();
+
+    await deleteButton.click();
+
+    await expect(message).not.toBeVisible();
+
+    await expect(guestMessage).not.toBeVisible();
+  });
+})
 

@@ -1,5 +1,6 @@
 import {Route, Routes} from 'react-router-dom';
 
+import {ROLES} from '@/consts/roles';
 import {ROUTES} from '@/consts/routes';
 import {AdminPage} from '@/src/pages/AdminPage';
 import {ForbidenPage} from '@/src/pages/ForbidenPage';
@@ -17,7 +18,7 @@ export function Router() {
 		<Routes>
 			<Route
 				path={ROUTES.ADMIN}
-				element={<ProtectedRoute element={<AdminPage />} allowedRoles={['ADMIN']} />}
+				element={<ProtectedRoute element={<AdminPage />} allowedRoles={[ROLES.ADMIN]} />}
 			/>
 			<Route path={ROUTES.REGISTER} element={<RegisterPage />} />
 			<Route path={ROUTES.LOGIN} element={<LoginPage />} />

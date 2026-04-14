@@ -65,7 +65,7 @@ export const BoardSection = ({title, color, id}: Section) => {
 					onClick={() => setShowInput(true)}
 					size={'small'}
 					color={color}
-					aria-label="add"
+					aria-label="add-message"
 				>
 					<CirclePlus />
 				</IconButton>

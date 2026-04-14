@@ -42,8 +42,6 @@ export const SectionsTemplates = () => {
 
 		if (!isSectionsValid || !isTitleValid) return;
 
-		console.log(getValues('sections'));
-
 		mutateTemplates({
 			title: templateTitle,
 			sections: sections.map((s) => ({title: s.title, color: s.color})),

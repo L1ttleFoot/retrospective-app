@@ -17,7 +17,7 @@ setup('authenticate', async ({ page }) => {
 
   const logoutButton = page.getByLabel('logout-button');
 
-  expect(logoutButton).toBeVisible();
+  await expect(logoutButton).toBeVisible();
 
   await page.context().storageState({ path: 'auth.json' });
 });

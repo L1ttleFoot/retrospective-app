@@ -57,7 +57,7 @@ export const LoginPage = () => {
 					/>
 
 					{error && <Styled.Error>Неправильно введена почта или пароль</Styled.Error>}
-					<Button type="submit" disabled={!isValid}>
+					<Button type="submit" disabled={!isValid} fullWidth>
 						Войти
 					</Button>
 				</Styled.Form>

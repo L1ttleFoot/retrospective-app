@@ -55,7 +55,7 @@ export const AppBar = () => {
 
 	return (
 		<>
-			<Styled.AppBar>
+			<Styled.AppBar aria-label="app-bar">
 				{isAuth && (
 					<>
 						<IconButton size="small" onClick={toggleOpen} color={'#52b788'}>

@@ -21,19 +21,8 @@ export type BoardSection = {
 } & DraggableChildrenProps;
 
 export const MessageItem = (props: BoardSection) => {
-	const {
-		id,
-		text,
-		color,
-		sectionId,
-		authorId,
-		ownerId,
-		isBeingDragged,
-		ref,
-		onDragOver,
-		waiting,
-		...other
-	} = props;
+	const {id, text, color, sectionId, authorId, ownerId, isBeingDragged, ref, onDragOver, ...other} =
+		props;
 
 	const {userData} = useAuth();
 
@@ -64,12 +53,12 @@ export const MessageItem = (props: BoardSection) => {
 	return (
 		<Styled.MessageItem
 			{...other}
-			draggable={!waiting && allowedActions}
+			draggable={allowedActions}
 			$color={color}
 			$isBeingDragged={isBeingDragged}
 			ref={ref}
 			onDragOver={(e) => onDragOver(e, id)}
-			style={waiting ? {opacity: 0.2} : undefined}
+			style={id === 'tempId' ? {opacity: 0.2} : undefined}
 			aria-label="message-item"
 		>
 			<Styled.MessageItemText>{text}</Styled.MessageItemText>
