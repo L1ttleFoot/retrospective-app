@@ -70,6 +70,7 @@ export const MessageItem = (props: BoardSection) => {
 			ref={ref}
 			onDragOver={(e) => onDragOver(e, id)}
 			style={waiting ? {opacity: 0.2} : undefined}
+			aria-label="message-item"
 		>
 			<Styled.MessageItemText>{text}</Styled.MessageItemText>
 			{allowedActions && (

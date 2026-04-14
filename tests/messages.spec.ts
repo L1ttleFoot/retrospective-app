@@ -5,8 +5,8 @@ test('message actions', async ({  browser }) => {
   const adminContext = await browser.newContext();
   const adminPage = await adminContext.newPage();
 
-  const guestContext = await browser.newContext();
-  const guestPage = await guestContext.newPage();
+ const guestContext = await browser.newContext({ storageState: { cookies: [], origins: [] } });
+ const guestPage = await guestContext.newPage();
 
   await adminPage.goto('/?id=cmmaik6tx000004l4j2k6fw7p');
 
@@ -16,7 +16,7 @@ test('message actions', async ({  browser }) => {
 
   await adminPage.getByRole('button', { name: 'add' }).first().click();
 
-  const textarea = adminPage.getByRole('textbox');
+  const textarea = adminPage.getByRole('textbox',{ name: 'add message text-area' });
 
   await textarea.fill('Мое новое сообщение');
 
@@ -32,7 +32,9 @@ test('message actions', async ({  browser }) => {
 
   await expect(guestMessage).toBeVisible();
 
-  const actionsArea = adminPage.getByLabel(/actions area/);
+  const messageItem = adminPage.getByLabel('message-item').filter({ hasText: 'Мое новое сообщение' });
+
+  const actionsArea = messageItem.getByLabel('actions area');
 
   await expect(actionsArea).toBeVisible() 
 

@@ -88,11 +88,21 @@ export const AppBar = () => {
 				))}
 
 				{isAuth ? (
-					<IconButton size={'small'} onClick={handleLogout} color={'#52b788'}>
+					<IconButton
+						size={'small'}
+						onClick={handleLogout}
+						color={'#52b788'}
+						aria-label="logout-button"
+					>
 						<LogOut />
 					</IconButton>
 				) : (
-					<IconButton size={'small'} onClick={handleLogin} color={'#52b788'}>
+					<IconButton
+						size={'small'}
+						onClick={handleLogin}
+						color={'#52b788'}
+						aria-label="login-button"
+					>
 						<LogIn />
 					</IconButton>
 				)}
