@@ -28,4 +28,4 @@ jobs:
             Репозиторий: ${{ github.repository }}
             Ветка: ${{ github.ref_name }}
             Автор: ${{ github.actor }}
-            Посмотреть: https://github.com/{{ github.repository }}/actions/runs/${{ github.run_id }}
+            Посмотреть: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
