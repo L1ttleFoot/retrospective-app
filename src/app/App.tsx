@@ -20,7 +20,7 @@ export function App() {
 
 	const themePalette = themePallets[currentTheme];
 
-	useEffect(() => {
+	/* useEffect(() => {
 		if (window.Telegram?.WebApp) {
 			const tg = window.Telegram.WebApp;
 			tg.ready();
@@ -30,7 +30,7 @@ export function App() {
 		} else {
 			console.log('Telegram WebApp не инициализирован');
 		}
-	}, []);
+	}, []); */
 
 	return (
 		<ThemeProvider theme={{...theme, ...themePalette, currentTheme}}>
