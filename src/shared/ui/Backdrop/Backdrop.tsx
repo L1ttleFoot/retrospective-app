@@ -2,7 +2,7 @@ import {ReactNode} from 'react';
 
 import * as Styled from './Backdrop.styled';
 
-type BackdropProps = {onClose: () => void; children: ReactNode; isTransparent?: boolean};
+type BackdropProps = {onClose: () => void; children?: ReactNode; isTransparent?: boolean};
 
 export const Backdrop = ({onClose, children, isTransparent = false}: BackdropProps) => {
 	const handleBackdrop = (e: React.MouseEvent<HTMLDivElement>) => {

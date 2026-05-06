@@ -3,44 +3,44 @@ import {ChangeEvent, useState} from 'react';
 import {createSearchParams, useNavigate} from 'react-router-dom';
 
 import {useAuth} from '@/store/useAuth';
-import {useDiscussions} from '@/store/useDiscussions';
+import {useBoards} from '@/store/useBoards';
 import {Box} from '@/ui/Box';
 import {Button} from '@/ui/Button';
 import {Input} from '@/ui/Input';
 import {capitalize} from '@/utils/capitalize';
 
-import {createDiscussion} from '../api';
+import {createBoard} from '../api';
 
-export const CreateDiscussion = () => {
+export const CreateBoard = () => {
 	const queryClient = useQueryClient();
 	const navigate = useNavigate();
-	const {setCurrentDiscussionId} = useDiscussions();
+	const {setCurrentBoardId} = useBoards();
 	const {userData} = useAuth();
 
-	const [name, setName] = useState('');
+	const [title, setTitle] = useState('');
 	const [isError, setIsError] = useState(false);
 
-	const {mutate: mutateDiscussions} = useMutation({
-		mutationFn: createDiscussion,
+	const {mutate: mutateBoards} = useMutation({
+		mutationFn: createBoard,
 		onSuccess: ({id}) => {
-			setCurrentDiscussionId(id);
+			setCurrentBoardId(id);
 			navigate({pathname: '/', search: createSearchParams({id: id ?? ''}).toString()});
-			setName('');
-			queryClient.invalidateQueries({queryKey: ['discussions']});
+			setTitle('');
+			queryClient.invalidateQueries({queryKey: ['boards']});
 		},
 	});
 
 	const handleCreate = () => {
-		if (!name) {
+		if (!title) {
 			setIsError(true);
 			return;
 		}
-		mutateDiscussions({name, ownerId: userData?.id || ''});
+		mutateBoards({title, ownerId: userData?.id || ''});
 	};
 
 	const handlerChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setIsError(false);
-		setName(capitalize(e.target.value));
+		setTitle(capitalize(e.target.value));
 	};
 
 	return (
@@ -49,7 +49,7 @@ export const CreateDiscussion = () => {
 				<Input
 					id="board-title"
 					placeholder="Название доски"
-					value={name}
+					value={title}
 					onChange={(e) => handlerChange(e)}
 					error={isError}
 				/>

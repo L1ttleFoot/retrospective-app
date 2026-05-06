@@ -35,3 +35,13 @@ export const Tabs = styled.div`
   height: 40px;
   align-items: end;
 `;
+
+export const CreateWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const CreateActions = styled.div`
+  display: flex;
+  gap:20px
+`;

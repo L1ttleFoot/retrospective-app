@@ -2,9 +2,7 @@ import {Pencil} from 'lucide-react';
 
 import {IconButton} from '@/ui/IconButton';
 
-interface EditMessageProps {
-	handleClick: (value: boolean) => void;
-}
+type EditMessageProps = {handleClick: (value: boolean) => void};
 
 export const EditMessage = ({handleClick}: EditMessageProps) => {
 	return (

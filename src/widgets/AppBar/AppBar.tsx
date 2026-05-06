@@ -1,5 +1,4 @@
 import {ChartColumn, LogIn, LogOut, Menu, User} from 'lucide-react';
-import {createPortal} from 'react-dom';
 import {useNavigate} from 'react-router-dom';
 
 import {ROUTES} from '@/consts/routes';
@@ -8,6 +7,7 @@ import {useAuth} from '@/store/useAuth';
 import {theme, useTheme} from '@/store/useTheme';
 import {Backdrop} from '@/ui/Backdrop';
 import {IconButton} from '@/ui/IconButton';
+import {Portal} from '@/ui/Portal';
 import {Radio} from '@/ui/Radio';
 import {Spacer} from '@/ui/Spacer';
 
@@ -19,8 +19,6 @@ export const AppBar = () => {
 	const {logout, userData, isAuth} = useAuth();
 
 	const {open, handleClose, toggleOpen} = useModal();
-
-	const modalRoot = document.getElementById('modal-root');
 
 	const handleLogout = () => {
 		logout();
@@ -108,18 +106,10 @@ export const AppBar = () => {
 				)}
 			</Styled.AppBar>
 
-			{modalRoot &&
-				createPortal(
-					<>
-						{open && (
-							<Backdrop onClose={handleClose} isTransparent>
-								<></>
-							</Backdrop>
-						)}
-						<SideMenu open={open} />
-					</>,
-					modalRoot,
-				)}
+			<Portal>
+				{open && <Backdrop onClose={handleClose} isTransparent />}
+				<SideMenu open={open} />
+			</Portal>
 		</>
 	);
 };

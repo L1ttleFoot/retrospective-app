@@ -4,11 +4,11 @@ import {describe, expect, it} from 'vitest';
 
 import {render} from '@/utils/testUtils';
 
-import {DiscussionsList} from './DiscussionsList';
+import {BoardsList} from './BoardsList';
 
-describe('Discussions list', () => {
-	it('should render discussions list', async () => {
-		render(<DiscussionsList />);
+describe('Boards list', () => {
+	it('should render boards list', async () => {
+		render(<BoardsList />);
 
 		const firstItem = await screen.findByText(/My test board/i);
 		const secondItem = await screen.findByText(/123/i);
@@ -19,7 +19,7 @@ describe('Discussions list', () => {
 
 	it('меняет URL при клике на элемент списка', async () => {
 		const user = userEvent.setup();
-		render(<DiscussionsList />);
+		render(<BoardsList />);
 
 		const item = await screen.findByText(/My test board/i);
 

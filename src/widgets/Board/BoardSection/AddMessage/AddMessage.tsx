@@ -25,7 +25,7 @@ export const AddMessage = ({sectionId, handleShowInput, color}: AddItemType) => 
 
 			queryClient.setQueryData(['messages', sectionId], (old: Message[]) => [
 				...old,
-				{text, sectionId, id: 'tempId', emojies: []},
+				{text, sectionId, id: 'tempId', reactions: []},
 			]);
 
 			return {previousData, sectionId};

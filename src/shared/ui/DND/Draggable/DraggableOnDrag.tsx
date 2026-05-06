@@ -12,9 +12,15 @@ type DraggableProps = {
 	children: (props: DraggableChildrenProps) => ReactElement;
 	dragId: string;
 	sourceId: string;
+	isDraggable?: boolean;
 };
 
-export const DraggableOnDrag = ({children, dragId, sourceId}: DraggableProps) => {
+export const DraggableOnDrag = ({
+	children,
+	dragId,
+	sourceId,
+	isDraggable = true,
+}: DraggableProps) => {
 	const dragRef = useRef<HTMLDivElement>(null);
 
 	const handleDragStart = (e: DragEvent<HTMLDivElement>, id: string) => {
@@ -30,7 +36,7 @@ export const DraggableOnDrag = ({children, dragId, sourceId}: DraggableProps) =>
 		ref: dragRef,
 		onDragStart: (e) => handleDragStart(e, dragId),
 		onDragOver: handleDragOver,
-		draggable: true,
+		draggable: isDraggable,
 		style: {},
 	});
 };

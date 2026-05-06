@@ -4,10 +4,7 @@ import {Navigate} from 'react-router-dom';
 import {ROUTES} from '@/consts/routes';
 import {useAuth} from '@/store/useAuth';
 
-interface ProtectedRoute {
-	element: ReactElement;
-	allowedRoles: string[];
-}
+type ProtectedRoute = {element: ReactElement; allowedRoles: string[]};
 
 export const ProtectedRoute = ({element, allowedRoles}: ProtectedRoute) => {
 	const {userData} = useAuth();

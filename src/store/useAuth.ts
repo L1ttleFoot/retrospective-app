@@ -4,20 +4,17 @@ import {persist} from 'zustand/middleware';
 import {BASE_URL} from '@/consts/api';
 import api from '@/src/api/axios';
 
-type UserDataType = {
-	id: string;
-	username: string;
-	token: string;
-	roles: {id: number; value: string}[];
-};
+import {Role} from '../shared/types/models';
 
-interface AuthStore {
+type UserDataType = {id: string; username: string; token: string; roles: Role[]};
+
+type AuthStore = {
 	userData?: UserDataType;
 	isAuth: boolean;
 	setUserData: (userData: UserDataType) => void;
 	logout: () => void;
 	checkAuth: () => void;
-}
+};
 
 export const useAuth = create<AuthStore>()(
 	persist(

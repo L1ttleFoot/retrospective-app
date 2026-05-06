@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const DiscussionsList = styled.div`
+export const BoardsList = styled.div`
   //padding-right: 10px;
   padding-bottom: 5px;
   width: 100%;

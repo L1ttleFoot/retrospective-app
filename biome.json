@@ -4,15 +4,25 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
-			"style": { "useImportType": "off", "noUselessElse": "error", "noImplicitBoolean": "off" },
+			"style": {
+				"useImportType": "off",
+				"noUselessElse": "error",
+				"noImplicitBoolean": "off"
+			},
 			"correctness": {
 				"noUnusedImports": "error",
 				"noUnusedVariables": "error",
 				"useExhaustiveDependencies": "warn",
 				"useJsxKeyInIterable": "warn"
 			},
-			"complexity": { "noExcessiveCognitiveComplexity": "warn", "useArrowFunction": "off" },
-			"suspicious": { "noExplicitAny": "error", "noShadowRestrictedNames": "warn" },
+			"complexity": {
+				"noExcessiveCognitiveComplexity": "warn",
+				"useArrowFunction": "off"
+			},
+			"suspicious": {
+				"noExplicitAny": "error",
+				"noShadowRestrictedNames": "warn"
+			},
 			"a11y": "off"
 		}
 	},
@@ -23,7 +33,19 @@
 				"organizeImports": {
 					"level": "on",
 					"options": {
-						"groups": [[":PACKAGE:"], ":BLANK_LINE:", [":ALIAS:"], ":BLANK_LINE:", [":PATH:"]],
+						"groups": [
+							[
+								":PACKAGE:"
+							],
+							":BLANK_LINE:",
+							[
+								":ALIAS:"
+							],
+							":BLANK_LINE:",
+							[
+								":PATH:"
+							]
+						],
 						"identifierOrder": "lexicographic"
 					}
 				}
@@ -43,7 +65,11 @@
 		"expand": "never",
 		"useEditorconfig": true
 	},
-	"files": { "includes": ["src/**/*.{js,ts,jsx,tsx,css}"] },
+	"files": {
+		"includes": [
+			"src/**/*.{js,ts,jsx,tsx,css}"
+		]
+	},
 	"javascript": {
 		"formatter": {
 			"jsxQuoteStyle": "double",
@@ -56,6 +82,9 @@
 			"attributePosition": "auto",
 			"bracketSpacing": false
 		},
-		"globals": ["React", "JSX"]
+		"globals": [
+			"React",
+			"JSX"
+		]
 	}
 }

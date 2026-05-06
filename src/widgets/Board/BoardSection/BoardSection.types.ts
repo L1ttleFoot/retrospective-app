@@ -1,25 +1,17 @@
-import {Discussion} from '@/store/useDiscussions';
+import {Board} from '@/store/useBoards';
 
-export interface Section {
-	id: string;
-	title: string;
-	color: string;
-	discussionId: string;
-}
+export type Section = {id: string; title: string; color: string; boardId: string};
 
-export interface Message {
+export type Message = {
 	id: string;
 	sectionId: string;
 	text: string;
 	createdAt: Date;
 	updatedAt: Date;
 	color: string;
-	emojies: {count: number; emoji: Emoji}[];
+	reactions: UserReaction[];
 	authorId: string;
-	ownerId: Discussion['ownerId'];
-}
+	ownerId: Board['ownerId'];
+};
 
-export interface Emoji {
-	id: string;
-	character: string;
-}
+export type UserReaction = {value: string; id: string; count: number; isSelected: boolean};

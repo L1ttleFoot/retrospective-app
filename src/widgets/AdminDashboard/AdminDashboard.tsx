@@ -1,24 +1,27 @@
-import {ChangeEvent, useState} from 'react';
+import {useState} from 'react';
 
+import {Button} from '@/ui/Button';
+import {Input} from '@/ui/Input';
 import {Tab} from '@/ui/Tab/Tab';
 import {Table, TableProps} from '@/ui/Table/Table';
 
 import * as Styled from './AdminDashboard.styled';
+import {CreateReaction} from './CreateReaction';
 import {useAdminDashboard} from './useAdminDashboard';
 
 export const AdminDashboard = () => {
-	const [model, setModel] = useState<'user' | 'role' | 'emoji' | undefined>('role');
+	const [model, setModel] = useState<'user' | 'role' | 'reaction' | undefined>('role');
 
 	const {data} = useAdminDashboard({model});
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setModel(e.target.value as 'user' | 'role' | 'emoji');
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setModel(e.target.value as 'user' | 'role' | 'reaction');
 	};
 
 	const tabs = [
 		{label: 'Роли', value: 'role'},
 		{label: 'Полльзователи', value: 'user'},
-		{label: 'Эмодзи', value: 'emoji'},
+		{label: 'Реакции', value: 'reaction'},
 	] as const;
 
 	return (
@@ -39,6 +42,28 @@ export const AdminDashboard = () => {
 				</Styled.Tabs>
 				{data && <Table data={data as unknown as TableProps['data']} />}
 			</Styled.DashboardBody>
+
+			{model === 'role' && (
+				<Styled.CreateWrapper>
+					<h3>Создать роль</h3>
+					<Styled.CreateActions>
+						<Input />
+						<Button>Создать</Button>
+					</Styled.CreateActions>
+				</Styled.CreateWrapper>
+			)}
+			{model === 'user' && (
+				<Styled.CreateWrapper>
+					<h3>Создать пользователя</h3>
+					<Styled.CreateActions>
+						<Input />
+						<Input />
+						<Input />
+						<Button>Создать</Button>
+					</Styled.CreateActions>
+				</Styled.CreateWrapper>
+			)}
+			{model === 'reaction' && <CreateReaction />}
 		</Styled.AdminDashboard>
 	);
 };

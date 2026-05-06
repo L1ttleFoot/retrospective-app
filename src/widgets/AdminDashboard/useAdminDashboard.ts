@@ -2,7 +2,7 @@ import {useQuery} from '@tanstack/react-query';
 
 import {getByModel} from './api';
 
-type ModelName = 'user' | 'role' | 'emoji';
+type ModelName = 'user' | 'role' | 'reaction';
 
 export const useAdminDashboard = <T extends ModelName | undefined>({model}: {model: T}) => {
 	const {data} = useQuery({

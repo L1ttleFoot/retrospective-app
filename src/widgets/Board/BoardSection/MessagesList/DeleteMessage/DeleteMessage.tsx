@@ -6,10 +6,7 @@ import {IconButton} from '@/ui/IconButton';
 import {deleteMessage} from '../../api';
 import {Message, Section} from '../../BoardSection.types';
 
-interface DeleteMessageProps {
-	messageId: Message['id'];
-	sectionId: Section['id'];
-}
+type DeleteMessageProps = {messageId: Message['id']; sectionId: Section['id']};
 
 export const DeleteMessage = ({messageId, sectionId}: DeleteMessageProps) => {
 	const queryClient = useQueryClient();

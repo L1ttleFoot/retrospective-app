@@ -1,8 +1,6 @@
 import * as Styled from './Table.styled';
 
-export interface TableProps {
-	data: Record<string, string | number | object>[];
-}
+export type TableProps = {data: Record<string, string | number | object>[]};
 
 export const Table = ({data}: TableProps) => {
 	if (!data.length) {

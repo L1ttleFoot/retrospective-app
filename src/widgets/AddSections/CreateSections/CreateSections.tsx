@@ -4,7 +4,7 @@ import {useEffect} from 'react';
 import {useFieldArray, useFormContext, useWatch} from 'react-hook-form';
 import {v4} from 'uuid';
 
-import {useDiscussions} from '@/store/useDiscussions';
+import {useBoards} from '@/store/useBoards';
 import {useTemplates} from '@/store/useTemplates';
 import {Button} from '@/ui/Button';
 import {IconButton} from '@/ui/IconButton';
@@ -22,7 +22,7 @@ export type SectionsForm = {sections: Section[]};
 
 export const CreateSections = ({handleClose}: CreateSectionsProps) => {
 	const client = useQueryClient();
-	const {currentDiscussionId} = useDiscussions();
+	const {currentBoardId} = useBoards();
 	const {templatesData} = useSectionsTemplatesData();
 	const selectedTemplate = useTemplates((state) => state.selectedTemplate);
 
@@ -46,22 +46,22 @@ export const CreateSections = ({handleClose}: CreateSectionsProps) => {
 						id: v4(),
 						title: s.title,
 						color: s.color,
-						discussionId: currentDiscussionId,
+						boardId: currentBoardId,
 					})),
 				});
 			}
 		}
-	}, [selectedTemplate, templatesData, reset, currentDiscussionId]);
+	}, [selectedTemplate, templatesData, reset, currentBoardId]);
 
 	const {mutate} = useMutation({
 		mutationFn: createSections,
 		onSuccess: () => {
-			client.invalidateQueries({queryKey: ['sections', currentDiscussionId]});
+			client.invalidateQueries({queryKey: ['sections', currentBoardId]});
 		},
 	});
 
 	const onSubmit = (data: SectionsForm) => {
-		if (!currentDiscussionId) return;
+		if (!currentBoardId) return;
 
 		mutate(data);
 
@@ -69,7 +69,7 @@ export const CreateSections = ({handleClose}: CreateSectionsProps) => {
 	};
 
 	const onAdd = () => {
-		append({title: '', id: v4(), color: '#adb5bd', discussionId: currentDiscussionId});
+		append({title: '', id: v4(), color: '#adb5bd', boardId: currentBoardId});
 	};
 
 	const setColor = (index: number, color: string) => {
