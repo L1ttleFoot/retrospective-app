@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 
+export const MessageWrapper = styled.div`
+  position: relative;
+`;
+
 export const MessageItem = styled.div<{$color?: string; $isBeingDragged?: boolean}>`
   display: flex;
   justify-content: space-between;
   position: relative;
   min-width: 150px;
-  height: 100px;
-  padding: 10px;
+  height: 120px;
+  padding: 10px 13px 10px 10px;
   font-size: 16px;
   flex-direction: column;
   border-radius: 10px;
@@ -47,10 +51,20 @@ export const MessageItemBottom = styled.div`
   padding-bottom: 5px;
 `;
 
+export const ReactionsArea = styled.div`
+  height: 23px;
+  position: absolute;
+  bottom: 8px;
+  left: 12px;
+  display: flex;
+  gap:5px;
+  align-items: center;
+`;
+
 export const ActionsArea = styled.div<{$color?: string}>`
   position: absolute;
 	top: 1px;
-	right: 1px;
+	right: 2px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

@@ -1,10 +1,15 @@
+import {GripVertical} from 'lucide-react';
 import {useState} from 'react';
 
 import {useAuth} from '@/store/useAuth';
-import {Discussion} from '@/store/useDiscussions';
+import {Board} from '@/store/useBoards';
 import {DraggableChildrenProps} from '@/ui/DND/Draggable/DraggableOnDrag';
+import {IconButton} from '@/ui/IconButton';
 
 import {Message, Section} from '../../BoardSection.types';
+import {CurrentReactions} from '../../Reactions/CurrentReactions';
+import {ReactionsPicker} from '../../Reactions/ReactionsPicker';
+import {reactionList} from '../../Reactions/ReactionsPicker/ReactionsPicker.consts';
 import {DeleteMessage} from './../DeleteMessage';
 import {EditMessage, EditMessageTextArea} from '../EditMessage';
 import * as Styled from './MessageItem.styled';
@@ -15,14 +20,25 @@ export type BoardSection = {
 	text: Message['text'];
 	color: Message['color'];
 	isBeingDragged?: boolean;
-	emojies: Message['emojies'];
+	reactions: Message['reactions'];
 	authorId: Message['authorId'];
-	ownerId: Discussion['ownerId'];
+	ownerId: Board['ownerId'];
 } & DraggableChildrenProps;
 
 export const MessageItem = (props: BoardSection) => {
-	const {id, text, color, sectionId, authorId, ownerId, isBeingDragged, ref, onDragOver, ...other} =
-		props;
+	const {
+		id,
+		text,
+		color,
+		sectionId,
+		authorId,
+		ownerId,
+		isBeingDragged,
+		ref,
+		onDragOver,
+		reactions,
+		...other
+	} = props;
 
 	const {userData} = useAuth();
 
@@ -31,6 +47,7 @@ export const MessageItem = (props: BoardSection) => {
 	const handleEditField = (value: boolean) => {
 		setIsEdit(value);
 	};
+	const [isDraggable, setIsDraggable] = useState(false);
 
 	if (isEdit) {
 		return (
@@ -51,23 +68,40 @@ export const MessageItem = (props: BoardSection) => {
 	const allowedActions = (isAuthor || isOwner) && id !== 'tempId';
 
 	return (
-		<Styled.MessageItem
-			{...other}
-			draggable={allowedActions}
-			$color={color}
-			$isBeingDragged={isBeingDragged}
-			ref={ref}
-			onDragOver={(e) => onDragOver(e, id)}
-			style={id === 'tempId' ? {opacity: 0.2} : undefined}
-			aria-label="message-item"
-		>
-			<Styled.MessageItemText>{text}</Styled.MessageItemText>
+		<Styled.MessageWrapper {...other} draggable={allowedActions && isDraggable}>
+			<Styled.MessageItem $color={color} $isBeingDragged={isBeingDragged}>
+				<Styled.MessageItemText>{text}</Styled.MessageItemText>
+			</Styled.MessageItem>
+
 			{allowedActions && (
 				<Styled.ActionsArea $color={color} aria-label="actions area">
+					<IconButton
+						size="medium"
+						onMouseEnter={() => setIsDraggable(true)}
+						onMouseLeave={() => setIsDraggable(false)}
+						color="white"
+					>
+						<GripVertical />
+					</IconButton>
 					<EditMessage handleClick={handleEditField} />
 					<DeleteMessage messageId={id} sectionId={sectionId} />
 				</Styled.ActionsArea>
 			)}
-		</Styled.MessageItem>
+
+			<Styled.ReactionsArea>
+				<ReactionsPicker
+					reactions={reactions}
+					messageId={id}
+					sectionId={sectionId}
+					enabledReactions={reactionList}
+				/>
+				<CurrentReactions
+					reactions={reactions}
+					color={color}
+					messageId={id}
+					sectionId={sectionId}
+				/>
+			</Styled.ReactionsArea>
+		</Styled.MessageWrapper>
 	);
 };

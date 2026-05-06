@@ -28,7 +28,7 @@ test.describe('message actions', () => {
     const guestContext = await browser.newContext({ storageState: { cookies: [], origins: [] } });
     const guestPage = await guestContext.newPage();
 
-    await adminPage.goto('/?id=cmnz3t18p0000r8tton9gc407');
+    await adminPage.goto(`/?id=${process.env.TEST_BOARD_ID}`);
 
     await expect(adminPage).toHaveTitle(/Retrospective App/);
 
@@ -46,7 +46,7 @@ test.describe('message actions', () => {
 
     await expect(message).toBeVisible();
 
-    await guestPage.goto('/?id=cmnz3t18p0000r8tton9gc407');
+    await guestPage.goto(`/?id=${process.env.TEST_BOARD_ID}`);
 
     const guestMessage = guestPage.getByText('Мое новое сообщение')
 

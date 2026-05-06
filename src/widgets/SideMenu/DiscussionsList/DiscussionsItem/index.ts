@@ -1,1 +1,0 @@
-export {DiscussionsItem} from './DiscussionsItem';

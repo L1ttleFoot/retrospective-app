@@ -26,7 +26,7 @@ export const Settings = () => {
 
 	return (
 		<>
-			<IconButton onClick={toggleOpen} size="small" innerRef={refs.setReference}>
+			<IconButton onClick={toggleOpen} size="small" ref={refs.setReference}>
 				<SettingsIcon />
 			</IconButton>
 			{open &&

@@ -10,8 +10,28 @@ api.interceptors.request.use((config) => {
 
 	if (userData?.token) {
 		config.headers.Authorization = `Bearer ${userData?.token}`;
+		return config;
 	}
+
+	const guestId = localStorage.getItem('authorId');
+
+	if (guestId) {
+		config.headers['x-guest-id'] = guestId;
+	}
+
 	return config;
+});
+
+api.interceptors.response.use((response) => {
+	const guestId = response.headers['x-guest-id'];
+
+	const {isAuth} = useAuth.getState();
+
+	if (guestId && !isAuth) {
+		localStorage.setItem('authorId', guestId);
+	}
+
+	return response;
 });
 
 async function refreshAuthToken() {

@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import {BASE_URL} from '@/consts/api';
 import api from '@/src/api/axios';
+import {Reaction} from '@/src/shared/types/models';
 
 import {Message, Section} from './BoardSection.types';
 
@@ -19,6 +20,8 @@ export type updateMessageProps = {
 
 type deleteMessageProps = {messageId: Message['id']};
 
+type handleReactionProps = {messageId: Message['id']; reaction: Reaction};
+
 export const createMessage = async ({
 	text,
 	sectionId,
@@ -34,7 +37,7 @@ export const createMessage = async ({
 };
 
 export const getMessages = async (sectionId: Section['id']): Promise<Message[]> => {
-	const response = await axios.get(`${BASE_URL}/api/messages/${sectionId}`);
+	const response = await api.get(`${BASE_URL}/api/messages/${sectionId}`);
 
 	return response.data;
 };
@@ -51,11 +54,6 @@ export const deleteMessage = async ({messageId}: deleteMessageProps) => {
 	return response.data;
 };
 
-export const addEmoji = async (
-	messageId: Message['id'],
-	emoji: {id: string; character: string},
-) => {
-	const response = await axios.post(`${BASE_URL}/api/messages/${messageId}/emojies`, {emoji});
-
-	return response.data;
+export const handleReaction = async ({messageId, reaction}: handleReactionProps) => {
+	await api.post(`${BASE_URL}/api/messages/${messageId}/reaction`, {reactionId: reaction.id});
 };

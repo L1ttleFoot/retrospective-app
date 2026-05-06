@@ -2,16 +2,16 @@ import {ChangeEvent} from 'react';
 
 import * as Styled from './Tab.styled';
 
-interface ITab {
+type TabProps = {
 	label: string;
 	value: string;
 	name: string;
 	checked: boolean;
 	disabled?: boolean;
 	onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
-export const Tab = ({value, name, checked, disabled, onChange, label}: ITab) => {
+export const Tab = ({value, name, checked, disabled, onChange, label}: TabProps) => {
 	return (
 		<Styled.TabWrapper>
 			<Styled.TabLabel disabled={disabled}>

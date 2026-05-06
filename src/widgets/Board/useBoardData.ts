@@ -1,17 +1,17 @@
 import {useQuery} from '@tanstack/react-query';
 
-import {useDiscussions} from '@/store/useDiscussions';
+import {useBoards} from '@/store/useBoards';
 
 import {getSections} from './api';
 
 export const useBoardData = () => {
-	const {currentDiscussionId} = useDiscussions();
+	const {currentBoardId} = useBoards();
 
 	const {data: sectionsData, isFetching} = useQuery({
-		queryKey: ['sections', currentDiscussionId],
-		queryFn: () => getSections(currentDiscussionId),
+		queryKey: ['sections', currentBoardId],
+		queryFn: () => getSections(currentBoardId),
 		initialData: [],
-		enabled: !!currentDiscussionId,
+		enabled: !!currentBoardId,
 	});
 
 	return {sectionsData, isFetching};

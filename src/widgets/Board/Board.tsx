@@ -3,7 +3,7 @@ import {useEffect} from 'react';
 
 import {BASE_URL} from '@/consts/api';
 import {useAuth} from '@/store/useAuth';
-import {useDiscussions} from '@/store/useDiscussions';
+import {useBoards} from '@/store/useBoards';
 
 import {AddSectionsModal} from '../AddSections';
 import * as Styled from './Board.styled';
@@ -15,7 +15,7 @@ export const Board = () => {
 
 	const {isAuth} = useAuth();
 
-	const {currentDiscussionId} = useDiscussions();
+	const {currentBoardId} = useBoards();
 
 	const queryClient = useQueryClient();
 
@@ -31,13 +31,13 @@ export const Board = () => {
 		};
 
 		return () => eventSource.close();
-	}, [queryClient.invalidateQueries]);
+	}, [queryClient]);
 
-	if (!isAuth && !currentDiscussionId) {
+	if (!isAuth && !currentBoardId) {
 		return <Styled.EmptyBoard>Для продолжения авторизуйтесь</Styled.EmptyBoard>;
 	}
 
-	if (isAuth && !currentDiscussionId) {
+	if (isAuth && !currentBoardId) {
 		return <Styled.EmptyBoard>Выберите обсуждение из списка или создайте новое</Styled.EmptyBoard>;
 	}
 

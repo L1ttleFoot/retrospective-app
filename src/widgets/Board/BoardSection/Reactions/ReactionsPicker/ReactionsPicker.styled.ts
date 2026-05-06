@@ -16,7 +16,7 @@ export const OpenSelector = styled.div`
   }
 `;
 
-export const Emojis = styled.div`
+export const Reactions = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;

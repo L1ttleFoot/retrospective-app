@@ -2,14 +2,14 @@ import {ChangeEvent} from 'react';
 
 import * as Styled from './Radio.styled';
 
-interface RadioProps {
+type RadioProps = {
 	label?: string;
 	value: string;
 	name: string;
 	checked: boolean;
 	disabled?: boolean;
 	onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
 export const Radio = ({value, name, checked, disabled, onChange, label}: RadioProps) => {
 	return (

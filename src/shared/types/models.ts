@@ -1,15 +1,5 @@
-export interface Role {
-	id: number;
-	value: string;
-}
+export type Role = {id: number; value: string};
 
-export interface User {
-	id: string;
-	username: string;
-	roles: Role[];
-}
+export type User = {id: string; username: string; roles: Role[]};
 
-export interface Emoji {
-	id: string;
-	character: string;
-}
+export type Reaction = {id: string; value: string};

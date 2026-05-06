@@ -12,8 +12,10 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - run: npm ci
-      - run: npm run test
+      - name: Install dependencies
+        run: npm ci
+      - name: Run unit tests
+        run: npm run test
 
       - name: Notify 
         if: always()

@@ -1,33 +1,27 @@
 import {BASE_URL} from '@/consts/api';
 import api from '@/src/api/axios';
-import {Discussion} from '@/store/useDiscussions';
+import {Board} from '@/store/useBoards';
 
-interface CreateDiscussionRequest {
-	name: Discussion['name'];
-	ownerId: Discussion['ownerId'];
-}
+type CreateBoardRequest = {title: Board['title']; ownerId: Board['ownerId']};
 
-export const createDiscussion = async ({
-	name,
-	ownerId,
-}: CreateDiscussionRequest): Promise<Discussion> => {
+export const createBoard = async ({title, ownerId}: CreateBoardRequest): Promise<Board> => {
 	const response = await api.post(
-		`${BASE_URL}/api/discussions`,
-		{name, ownerId},
+		`${BASE_URL}/api/boards`,
+		{title, ownerId},
 		{withCredentials: true},
 	);
 
 	return response.data;
 };
 
-export const getDiscussions = async (): Promise<Discussion[]> => {
-	const response = await api.get(`${BASE_URL}/api/discussions`, {withCredentials: true});
+export const getBoards = async (): Promise<Board[]> => {
+	const response = await api.get(`${BASE_URL}/api/boards`, {withCredentials: true});
 
 	return response.data;
 };
 
-export const deleteDiscussion = async (id: Discussion['id']) => {
-	const response = await api.delete(`${BASE_URL}/api/discussions/${id}`, {withCredentials: true});
+export const deleteBoard = async (id: Board['id']) => {
+	const response = await api.delete(`${BASE_URL}/api/boards/${id}`, {withCredentials: true});
 
 	return response.data;
 };

@@ -2,30 +2,30 @@ import {useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
 
 import {useAuth} from '@/store/useAuth';
-import {useDiscussions} from '@/store/useDiscussions';
+import {useBoards} from '@/store/useBoards';
 
-import {CreateDiscussion} from './CreateDiscassion';
-import {DiscussionsList} from './DiscussionsList';
+import {BoardsList} from './BoardsList';
+import {CreateBoard} from './CreateBoard';
 import * as Styled from './SideMenu.styled';
 
 export const SideMenu = ({open}: {open: boolean}) => {
 	const {isAuth} = useAuth();
 
 	const {search} = useLocation();
-	const {setCurrentDiscussionId} = useDiscussions();
+	const {setCurrentBoardId} = useBoards();
 
 	const params = Object.fromEntries(new URLSearchParams(search));
 
 	useEffect(() => {
-		setCurrentDiscussionId(params.id);
-	}, [params.id, setCurrentDiscussionId]);
+		setCurrentBoardId(params.id);
+	}, [params.id, setCurrentBoardId]);
 
 	return (
 		<Styled.Selector $open={open}>
 			{isAuth && (
 				<>
-					<CreateDiscussion />
-					<DiscussionsList />
+					<CreateBoard />
+					<BoardsList />
 				</>
 			)}
 		</Styled.Selector>

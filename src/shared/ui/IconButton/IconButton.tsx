@@ -8,7 +8,7 @@ type IconButtonType = {
 	size?: keyof typeof sizes;
 	withTheme?: boolean;
 	color?: string;
-	innerRef?: Ref<HTMLButtonElement>;
+	ref?: Ref<HTMLButtonElement>;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const IconButton = ({
@@ -16,11 +16,11 @@ export const IconButton = ({
 	size = 'medium',
 	withTheme = false,
 	color,
-	innerRef,
+	ref,
 	...props
 }: IconButtonType) => {
 	return (
-		<Styled.IconButton $size={size} $withTheme={withTheme} ref={innerRef} $color={color} {...props}>
+		<Styled.IconButton $size={size} $withTheme={withTheme} ref={ref} $color={color} {...props}>
 			{children}
 		</Styled.IconButton>
 	);
