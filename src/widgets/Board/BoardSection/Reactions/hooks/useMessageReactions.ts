@@ -19,30 +19,41 @@ export const useMessageReactions = (messageId: string, sectionId: string) => {
 
 			const {isSelected, reaction} = variables;
 
-			const previousData = queryClient.getQueryData<Message[]>(queryKey);
+			const previousData = queryClient.getQueryData<{messages: Message[]}>(queryKey);
 
-			queryClient.setQueryData(queryKey, (old: Message[]) => {
-				if (!old) return [];
+			queryClient.setQueryData(queryKey, (old: {messages: Message[]}) => {
+				if (!old) return {messages: []};
 
-				return old.map((msg) => {
-					if (msg.id !== messageId) return msg;
+				return {
+					messges: old.messages.map((msg) => {
+						if (msg.id !== messageId) return msg;
 
-					const newReactions = msg.reactions
-						.map((r) => {
-							if (r.id !== reaction.id) return r;
+						const newReactions = msg.reactions
+							.map((r) => {
+								if (r.id !== reaction.id) return r;
 
-							return {...r, count: isSelected ? r.count - 1 : r.count + 1, isSelected: !isSelected};
-						})
-						.filter((r) => r.count > 0);
+								return {
+									...r,
+									count: isSelected ? r.count - 1 : r.count + 1,
+									isSelected: !isSelected,
+								};
+							})
+							.filter((r) => r.count > 0);
 
-					const isNewReaction = !msg.reactions.some((r) => r.id === reaction.id);
+						const isNewReaction = !msg.reactions.some((r) => r.id === reaction.id);
 
-					if (!isSelected && isNewReaction) {
-						newReactions.push({value: reaction.value, id: reaction.id, isSelected: true, count: 1});
-					}
+						if (!isSelected && isNewReaction) {
+							newReactions.push({
+								value: reaction.value,
+								id: reaction.id,
+								isSelected: true,
+								count: 1,
+							});
+						}
 
-					return {...msg, reactions: newReactions};
-				});
+						return {...msg, reactions: newReactions};
+					}),
+				};
 			});
 
 			return {previousData};

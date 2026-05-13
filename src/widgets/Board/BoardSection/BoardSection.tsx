@@ -37,17 +37,17 @@ export const BoardSection = ({title, color, id}: Section) => {
 				messages: Message[];
 			};
 
-			queryClient.setQueryData(['messages', sourceSectionId], (old: Message[]) =>
-				old.filter((message) => message.id !== messageId),
-			);
+			queryClient.setQueryData(['messages', sourceSectionId], (old: {messages: Message[]}) => ({
+				messages: old.messages.filter((message) => message.id !== messageId),
+			}));
 
-			queryClient.setQueryData(['messages', dto.sectionId], (old: Message[]) => {
+			queryClient.setQueryData(['messages', dto.sectionId], (old: {messages: Message[]}) => {
 				const message = {
 					...previousSourceData.messages.find((message) => message.id === messageId),
 					waiting: true,
 				};
 				if (!old) return [message];
-				return [...old, message];
+				return {messages: [...old.messages, message]};
 			});
 
 			return {previousSourceData, previousTargetData, sourceSectionId, sectionId: dto.sectionId};
