@@ -27,11 +27,15 @@ export const EditMessageTextArea = ({
 		onMutate: (variables) => {
 			const {messageId} = variables;
 
-			const previousData = queryClient.getQueryData(['messages', sectionId]) as Message[];
+			const previousData = queryClient.getQueryData(['messages', sectionId]) as {
+				messages: Message[];
+			};
 
-			queryClient.setQueryData(['messages', sectionId], (old: Message[]) =>
-				old.map((message) => (message.id === messageId ? {...message, text: editedText} : message)),
-			);
+			queryClient.setQueryData(['messages', sectionId], (old: {messages: Message[]}) => ({
+				messages: old.messages.map((message) =>
+					message.id === messageId ? {...message, text: editedText} : message,
+				),
+			}));
 
 			return {previousData, sectionId};
 		},
