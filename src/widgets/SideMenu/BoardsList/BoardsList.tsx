@@ -22,7 +22,7 @@ export const BoardsList = () => {
 		navigate({pathname: '/', search: createSearchParams({id: id ?? ''}).toString()});
 	};
 
-	const transitions = useTransition(boardsData ?? [], {
+	const transitions = useTransition(boardsData?.boards ?? [], {
 		key: (item: Board) => item.id,
 		from: {x: '-20rem', opacity: 0},
 		enter: {x: '0rem', opacity: 1},

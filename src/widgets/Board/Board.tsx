@@ -41,7 +41,7 @@ export const Board = () => {
 		return <Styled.EmptyBoard>Выберите обсуждение из списка или создайте новое</Styled.EmptyBoard>;
 	}
 
-	if (isAuth && !sectionsData.length && !isFetching) {
+	if (isAuth && !sectionsData.sections.length && !isFetching) {
 		return (
 			<Styled.EmptyBoard>
 				<AddSectionsModal />
@@ -51,7 +51,7 @@ export const Board = () => {
 
 	return (
 		<Styled.Board>
-			{sectionsData.map((section) => (
+			{sectionsData.sections.map((section) => (
 				<BoardSection key={section.id} {...section} />
 			))}
 		</Styled.Board>

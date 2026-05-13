@@ -16,11 +16,13 @@ export const DeleteMessage = ({messageId, sectionId}: DeleteMessageProps) => {
 		onMutate: (variables) => {
 			const {messageId} = variables;
 
-			const previousData = queryClient.getQueryData(['messages', sectionId]) as Message[];
+			const previousData = queryClient.getQueryData(['messages', sectionId]) as {
+				messages: Message[];
+			};
 
-			queryClient.setQueryData(['messages', sectionId], (old: Message[]) =>
-				old.filter((message) => message.id !== messageId),
-			);
+			queryClient.setQueryData(['messages', sectionId], (old: {messages: Message[]}) => ({
+				messages: old.messages.filter((message) => message.id !== messageId),
+			}));
 
 			return {previousData, sectionId};
 		},

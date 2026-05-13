@@ -14,7 +14,7 @@ export const createBoard = async ({title, ownerId}: CreateBoardRequest): Promise
 	return response.data;
 };
 
-export const getBoards = async (): Promise<Board[]> => {
+export const getBoards = async (): Promise<{boards: Board[]}> => {
 	const response = await api.get(`${BASE_URL}/api/boards`, {withCredentials: true});
 
 	return response.data;

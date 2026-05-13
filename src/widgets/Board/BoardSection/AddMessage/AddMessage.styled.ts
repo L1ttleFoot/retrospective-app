@@ -5,7 +5,7 @@ export const Wrapper = styled.div<{$color?: string}>`
   justify-content: space-between;
   position: relative;
   min-width: 150px;
-  height: 100px;
+  height: 120px;
   padding: 10px;
   font-size: 16px;
   display: flex;
