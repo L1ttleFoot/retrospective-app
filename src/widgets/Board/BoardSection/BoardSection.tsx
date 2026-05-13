@@ -29,12 +29,13 @@ export const BoardSection = ({title, color, id}: Section) => {
 		onMutate: async (variables) => {
 			const {messageId, dto, sourceSectionId} = variables;
 
-			const previousTargetData = queryClient.getQueryData(['messages', dto.sectionId]) as Message[];
+			const previousTargetData = queryClient.getQueryData(['messages', dto.sectionId]) as {
+				messages: Message[];
+			};
 
-			const previousSourceData = queryClient.getQueryData([
-				'messages',
-				sourceSectionId,
-			]) as Message[];
+			const previousSourceData = queryClient.getQueryData(['messages', sourceSectionId]) as {
+				messages: Message[];
+			};
 
 			queryClient.setQueryData(['messages', sourceSectionId], (old: Message[]) =>
 				old.filter((message) => message.id !== messageId),
@@ -42,7 +43,7 @@ export const BoardSection = ({title, color, id}: Section) => {
 
 			queryClient.setQueryData(['messages', dto.sectionId], (old: Message[]) => {
 				const message = {
-					...previousSourceData.find((message) => message.id === messageId),
+					...previousSourceData.messages.find((message) => message.id === messageId),
 					waiting: true,
 				};
 				if (!old) return [message];
@@ -78,7 +79,7 @@ export const BoardSection = ({title, color, id}: Section) => {
 			>
 				{({isDraggingOver, ...props}) => (
 					<Styled.BoardSectionBody {...props} $isDraggingOver={isDraggingOver}>
-						<MessagesList messagesData={messagesData} color={color} />
+						<MessagesList messages={messagesData.messages} color={color} />
 
 						{showInput && (
 							<AddMessage sectionId={id} handleShowInput={handleShowInput} color={color} />

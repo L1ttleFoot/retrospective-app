@@ -21,12 +21,13 @@ export const AddMessage = ({sectionId, handleShowInput, color}: AddItemType) => 
 		onMutate: (variables) => {
 			const {text, sectionId} = variables;
 
-			const previousData = queryClient.getQueryData(['messages', sectionId]) as Message[];
+			const previousData = queryClient.getQueryData(['messages', sectionId]) as {
+				messages: Message[];
+			};
 
-			queryClient.setQueryData(['messages', sectionId], (old: Message[]) => [
-				...old,
-				{text, sectionId, id: 'tempId', reactions: []},
-			]);
+			queryClient.setQueryData(['messages', sectionId], (old: {messages: Message[]}) => ({
+				messages: [...old.messages, {text, sectionId, id: 'tempId', reactions: []}],
+			}));
 
 			return {previousData, sectionId};
 		},

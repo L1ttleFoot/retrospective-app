@@ -36,7 +36,7 @@ export const createMessage = async ({
 	return response.data;
 };
 
-export const getMessages = async (sectionId: Section['id']): Promise<Message[]> => {
+export const getMessages = async (sectionId: Section['id']): Promise<{messages: Message[]}> => {
 	const response = await api.get(`${BASE_URL}/api/messages/${sectionId}`);
 
 	return response.data;

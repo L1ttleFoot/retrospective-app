@@ -10,7 +10,7 @@ export const useBoardData = () => {
 	const {data: sectionsData, isFetching} = useQuery({
 		queryKey: ['sections', currentBoardId],
 		queryFn: () => getSections(currentBoardId),
-		initialData: [],
+		initialData: {sections: []},
 		enabled: !!currentBoardId,
 	});
 
