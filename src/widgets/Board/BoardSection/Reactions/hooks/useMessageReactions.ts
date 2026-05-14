@@ -25,7 +25,7 @@ export const useMessageReactions = (messageId: string, sectionId: string) => {
 				if (!old) return {messages: []};
 
 				return {
-					messges: old.messages.map((msg) => {
+					messages: old.messages.map((msg) => {
 						if (msg.id !== messageId) return msg;
 
 						const newReactions = msg.reactions
