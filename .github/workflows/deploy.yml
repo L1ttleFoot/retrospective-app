@@ -8,6 +8,7 @@ on:
 jobs:
   run-tests:
     uses: ./.github/workflows/unit-tests.yml 
+    secrets: inherit
   deploy:
     runs-on: self-hosted
     needs: run-tests
