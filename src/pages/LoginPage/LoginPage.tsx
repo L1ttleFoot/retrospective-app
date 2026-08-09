@@ -56,7 +56,7 @@ export const LoginPage = () => {
 						{...register('password', {required: true})}
 					/>
 
-					{error && <Styled.Error>Неправильно введена почта или пароль</Styled.Error>}
+					{error && <Styled.ErrorMessage>Неправильно введена почта или пароль</Styled.ErrorMessage>}
 					<Button type="submit" disabled={!isValid} fullWidth>
 						Войти
 					</Button>

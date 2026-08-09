@@ -12,6 +12,7 @@ import {LoginPage} from '../pages/LoginPage';
 import {MainPage} from '../pages/MainPage';
 import {SomeTestPage} from '../pages/SomeTestPage';
 import {Test} from '../pages/TestPage';
+import {ThreeJS} from '../pages/ThreeJs';
 
 export function Router() {
 	return (
@@ -25,7 +26,8 @@ export function Router() {
 			<Route path={ROUTES.TEST} element={<Test />} />
 			<Route path={ROUTES.HOME} element={<MainPage />} />
 			<Route path={ROUTES.FORBIDDEN} element={<ForbidenPage />} />
-			<Route path={'/some-test'} element={<SomeTestPage />} />
+			<Route path={'/test1'} element={<SomeTestPage />} />
+			<Route path={'/three'} element={<ThreeJS />} />
 			<Route path="*" element={<NotFoundPage />} />
 		</Routes>
 	);

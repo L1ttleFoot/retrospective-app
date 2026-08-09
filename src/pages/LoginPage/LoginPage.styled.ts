@@ -39,7 +39,7 @@ export const Form = styled.form`
   gap: 15px;
 `;
 
-export const Error = styled.div`
+export const ErrorMessage = styled.div`
   color: ${({theme}) => theme.colors.error};
   font-size: 12px;
   margin: 0px 0px 5px 0px;
