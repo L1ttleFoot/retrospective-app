@@ -6,9 +6,14 @@ on:
       - master
 
 jobs:
+  run-tests:
+    uses: ./.github/workflows/unit-tests.yml 
   deploy:
-    runs-on: self-hosted  
+    runs-on: self-hosted
+    needs: run-tests
     steps:
+      - name: Проверяем статус
+        run: echo "Тесты завершились со статусом ${{ needs.run-tests.outputs.test_result }}"
       - name: Pull and Restart Docker Containers
         run: |
           cd /home/pi/projects/retrospective/retrospective-app 

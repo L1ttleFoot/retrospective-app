@@ -1,7 +1,13 @@
 name: Unit Tests
 on:
   push:
-    branches: [ "**" ] 
+    branches:
+      - '**'      
+      - '!master'
+  workflow_call:  
+    outputs:
+      test_result:
+        value: ${{ jobs.unit-test.result }}
 
 jobs:
   unit-test:
