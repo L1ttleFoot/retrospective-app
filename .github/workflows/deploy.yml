@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Pull and Restart Docker Containers
         run: |
-          cd /home/pi/retrospective/retrospective-app 
+          cd /home/pi/projects/retrospective/retrospective-app 
           
           git pull
           
