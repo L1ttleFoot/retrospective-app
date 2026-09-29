@@ -6,7 +6,9 @@ import {ThemeProvider} from 'styled-components';
 import {GlobalStyle} from '@/src/GlobalStyles';
 import ErrorBoundary from '@/src/shared/ErrorBoundary/ErrorBoundary';
 import {useTheme} from '@/store/useTheme';
+import {toasts} from '@/store/useToasts';
 import {AuthInit} from '@/ui/AuthInit';
+import {ToastsContainer} from '@/ui/Toast';
 
 import {theme, themePallets} from '../theme';
 import {Router} from './Router';
@@ -36,6 +38,7 @@ export function App() {
 		<ThemeProvider theme={{...theme, ...themePalette, currentTheme}}>
 			<QueryClientProvider client={queryClient}>
 				<GlobalStyle />
+				<ToastsContainer />
 				<ErrorBoundary>
 					<BrowserRouter>
 						<AuthInit>

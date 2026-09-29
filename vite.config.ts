@@ -20,7 +20,25 @@ export default defineConfig({
         }),
         svgr(),
     ],
-    server: {open: true, port: 3000, allowedHosts: ['raspberry-pi.local', 'localhost', '127.0.0.1'],},
+    server: {
+        open: true, 
+        port: 3000, 
+        host: true,
+        watch: {
+            usePolling: true
+        }, 
+        allowedHosts: ['raspberry-pi.local', 'localhost', '127.0.0.1'],
+        hmr: {
+            clientPort: 3000
+        },
+        proxy: {
+            '/api': { 
+                target: 'http://go-app:8080',
+                changeOrigin: true,
+                secure: false,
+            }
+    }
+    },
     build: {outDir: path.resolve(__dirname, './build'), emptyOutDir: true},
     resolve: {
         alias: {

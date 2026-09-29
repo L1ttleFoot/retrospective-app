@@ -15,8 +15,6 @@ export const BoardsItem = styled(animated.div)<{$isCurrent?: boolean}>`
   gap: 5px;
   border: ${({$isCurrent, theme}) => ($isCurrent ? `2px solid ${theme.colors.primary}` : `2px solid transparent`)};
 
-  
-
   ${({theme, $isCurrent}) =>
 		theme.currentTheme === 'win98' &&
 		`

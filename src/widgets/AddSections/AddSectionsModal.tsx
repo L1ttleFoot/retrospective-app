@@ -16,7 +16,6 @@ export const AddSectionsModal = () => {
 					<Backdrop onClose={handleClose}>
 						<AddSections handleClose={handleClose} />
 					</Backdrop>
-					,
 				</Portal>
 			)}
 		</>
