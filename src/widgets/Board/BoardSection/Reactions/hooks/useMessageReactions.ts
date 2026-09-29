@@ -4,6 +4,7 @@ import {Reaction} from '@/src/shared/types/models';
 
 import {handleReaction} from '../../api';
 import {Message} from '../../BoardSection.types';
+import {toasts} from '@/store/useToasts';
 
 export const useMessageReactions = (messageId: string, sectionId: string) => {
 	const queryClient = useQueryClient();

@@ -20,8 +20,8 @@ export const AppBar = () => {
 
 	const {open, handleClose, toggleOpen} = useModal();
 
-	const handleLogout = () => {
-		logout();
+	const handleLogout = async () => {
+		await logout();
 		navigate('/');
 	};
 

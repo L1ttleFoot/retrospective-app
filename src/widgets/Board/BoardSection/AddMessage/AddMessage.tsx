@@ -4,6 +4,7 @@ import {ChangeEvent, useState} from 'react';
 import {createMessage} from '../api';
 import {Message} from '../BoardSection.types';
 import * as Styled from './AddMessage.styled';
+import {toasts} from '@/store/useToasts';
 
 type AddItemType = {sectionId: string; handleShowInput: (value: boolean) => void; color: string};
 
@@ -30,6 +31,9 @@ export const AddMessage = ({sectionId, handleShowInput, color}: AddItemType) => 
 			}));
 
 			return {previousData, sectionId};
+		},
+		onError: () => {
+			toasts.error('Произошла ошибка');
 		},
 		onSuccess: (data) => {
 			localStorage.setItem('authorId', data.authorId);

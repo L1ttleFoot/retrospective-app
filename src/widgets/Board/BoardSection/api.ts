@@ -37,13 +37,13 @@ export const createMessage = async ({
 };
 
 export const getMessages = async (sectionId: Section['id']): Promise<{messages: Message[]}> => {
-	const response = await api.get(`${BASE_URL}/api/messages/${sectionId}`);
+	const response = await api.get(`${BASE_URL}/api/sections/${sectionId}/messages`);
 
 	return response.data;
 };
 
 export const updateMessage = async ({messageId, dto}: updateMessageProps): Promise<Message[]> => {
-	const response = await axios.post(`${BASE_URL}/api/messages/${messageId}/update`, dto);
+	const response = await axios.patch(`${BASE_URL}/api/messages/${messageId}`, dto);
 
 	return response.data;
 };

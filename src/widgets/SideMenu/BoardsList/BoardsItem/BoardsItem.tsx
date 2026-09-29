@@ -32,11 +32,16 @@ export const BoardsItem = (props: BoardItem) => {
 
 			const previousData = queryClient.getQueryData(['boards']) as Board[];
 
-			queryClient.setQueryData(['boards'], (old: Board[]) =>
-				old.filter((board) => board.id !== id),
-			);
+			queryClient.setQueryData(['boards'], (old: {boards: Board[]}) => ({
+				boards: old.boards.filter((board) => board.id !== id),
+			}));
 
 			return {previousData, id};
+		},
+		onError: (_err, _id, context) => {
+			if (context?.previousData) {
+				queryClient.setQueryData(['boards'], context.previousData);
+			}
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({queryKey: ['boards']});

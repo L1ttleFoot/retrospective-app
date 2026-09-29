@@ -12,7 +12,7 @@ type AuthStore = {
 	userData?: UserDataType;
 	isAuth: boolean;
 	setUserData: (userData: UserDataType) => void;
-	logout: () => void;
+	logout: () => Promise<void>;
 	checkAuth: () => void;
 };
 
@@ -24,10 +24,12 @@ export const useAuth = create<AuthStore>()(
 			setUserData: (userData) => set(() => ({userData, isAuth: !!userData})),
 			logout: async () => {
 				try {
-					await api.get(`${BASE_URL}/api/auth/logout`, {withCredentials: true});
-					set(() => ({userData: undefined, isAuth: false}));
+					await api.post(`${BASE_URL}/api/auth/logout`, {withCredentials: true});
 				} catch (error) {
 					console.error('Failed to logout', error);
+				} finally {
+					set(() => ({userData: undefined, isAuth: false}));
+					useAuth.persist.clearStorage();
 				}
 			},
 			checkAuth: async () => {

@@ -8,11 +8,10 @@ type DndStore = {
 	setSourceSectionId: (id: string) => void;
 };
 
-export const useDnd = () =>
-	create<DndStore>()((set) => ({
-		draggingId: undefined,
-		sourceSectionId: undefined,
-		destinationSectionId: undefined,
-		setDraggingId: (id: string) => set(() => ({draggingId: id})),
-		setSourceSectionId: (id: string) => set(() => ({sourceSectionId: id})),
-	}));
+export const useDnd = create<DndStore>()((set) => ({
+	draggingId: undefined,
+	sourceSectionId: undefined,
+	destinationSectionId: undefined,
+	setDraggingId: (id: string) => set(() => ({draggingId: id})),
+	setSourceSectionId: (id: string) => set(() => ({sourceSectionId: id})),
+}));
