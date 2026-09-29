@@ -1,9 +1,10 @@
+import {useTransition} from '@react-spring/web';
+
 import {ToastItemType, useToast} from '@/store/useToasts';
 
+import {Portal} from '../Portal';
 import * as Styled from './Toast.styled';
 import {ToastItem} from './ToastItem';
-import {Portal} from '../Portal';
-import {useTransition} from '@react-spring/web';
 
 export const ToastsContainer = () => {
 	const toasts = useToast((state) => state.toasts);

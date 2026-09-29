@@ -1,16 +1,7 @@
-import {ToastItemType} from '@/store/useToasts';
 import {animated} from '@react-spring/web';
-import styled, {keyframes} from 'styled-components';
+import styled from 'styled-components';
 
-const slideIn = keyframes`
-    from {
-        transform: translateX(120%);
-        opacity: 0;
-    } to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-`;
+import {ToastItemType} from '@/store/useToasts';
 
 export const AnimatedItemWrapper = animated.div;
 
@@ -20,8 +11,6 @@ export const ToastCard = styled.div<{$type: ToastItemType['toastType']}>`
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     font-size: 14px;
-
-    animation: ${slideIn} 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     
     background-color: ${({$type, theme}) => {
 			const isDark = theme.currentTheme === 'dark';
