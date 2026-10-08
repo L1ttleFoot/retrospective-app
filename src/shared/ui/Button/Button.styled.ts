@@ -4,6 +4,7 @@ export const Button = styled.button<{$fullWidth?: boolean; $variant?: 'primary' 
   display: flex;
   align-items: center;
   justify-content: center;
+  gap:10px;
   max-width: ${({$fullWidth}) => ($fullWidth ? undefined : '180px')};
   width: 100%;
   height: 45px;

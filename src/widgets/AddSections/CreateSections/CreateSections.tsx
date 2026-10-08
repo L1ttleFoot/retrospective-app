@@ -7,6 +7,8 @@ import {v4} from 'uuid';
 import {useBoards} from '@/store/useBoards';
 import {useTemplates} from '@/store/useTemplates';
 import {Button} from '@/ui/Button';
+import {Divider} from '@/ui/Divider';
+import {Header} from '@/ui/Header/Header';
 import {IconButton} from '@/ui/IconButton';
 import {Input} from '@/ui/Input';
 
@@ -21,7 +23,7 @@ type CreateSectionsProps = {handleClose: () => void};
 export type SectionsForm = {sections: Section[]};
 
 export const CreateSections = ({handleClose}: CreateSectionsProps) => {
-	const client = useQueryClient();
+	const queryClient = useQueryClient();
 	const {currentBoardId} = useBoards();
 	const {templatesData} = useSectionsTemplatesData();
 	const selectedTemplate = useTemplates((state) => state.selectedTemplate);
@@ -34,12 +36,13 @@ export const CreateSections = ({handleClose}: CreateSectionsProps) => {
 		reset,
 		formState: {errors, touchedFields},
 	} = useFormContext<SectionsForm>();
+
 	const {fields, append, remove} = useFieldArray({control, name: 'sections'});
 	const watchedSections = useWatch({control, name: 'sections'});
 
 	useEffect(() => {
 		if (selectedTemplate && templatesData) {
-			const template = templatesData.find((t) => t.id === selectedTemplate);
+			const template = templatesData.templates.find((t) => t.id === selectedTemplate);
 			if (template) {
 				reset({
 					sections: template.sections.map((s) => ({
@@ -55,8 +58,13 @@ export const CreateSections = ({handleClose}: CreateSectionsProps) => {
 
 	const {mutate} = useMutation({
 		mutationFn: createSections,
+		onMutate: (variables) => {
+			queryClient.setQueryData(['sections', currentBoardId], () => ({
+				sections: variables.sections,
+			}));
+		},
 		onSuccess: () => {
-			client.invalidateQueries({queryKey: ['sections', currentBoardId]});
+			queryClient.invalidateQueries({queryKey: ['sections', currentBoardId]});
 		},
 	});
 
@@ -77,17 +85,20 @@ export const CreateSections = ({handleClose}: CreateSectionsProps) => {
 	};
 
 	return (
-		<Styled.ModalForm onSubmit={handleSubmit(onSubmit)}>
-			<div>
-				<h2>Настройка полей</h2>
-
+		<Styled.TemplateForm onSubmit={handleSubmit(onSubmit)}>
+			<Header
+				title="Настройка секций"
+				subtitle="Выбор названия и цвета для каждой секции"
+				level={2}
+			/>
+			<Styled.SectionsConfig>
 				{fields.map((field, index) => {
 					const isTouched = touchedFields.sections?.[index]?.title;
 					const isEmpty = !watchedSections[index]?.title;
 					const hasError = !!errors.sections?.[index]?.title;
 
 					return (
-						<Styled.SectionNameInput key={field.id}>
+						<Styled.SectionConfigRow key={field.id}>
 							<Input
 								id={`section-${index}-title`}
 								{...register(`sections.${index}.title`, {required: true})}
@@ -99,26 +110,32 @@ export const CreateSections = ({handleClose}: CreateSectionsProps) => {
 								index={index}
 								setColor={setColor}
 							/>
+
 							<IconButton onClick={() => remove(index)} size="verySmall" withTheme={true}>
 								<X />
 							</IconButton>
-						</Styled.SectionNameInput>
+						</Styled.SectionConfigRow>
 					);
 				})}
 
-				<Button variant="outline" type="button" fullWidth style={{width: 225}} onClick={onAdd}>
-					<PlusCircle />
+				<Button variant="outline" type="button" fullWidth onClick={onAdd}>
+					<PlusCircle /> Добавить секцию
 				</Button>
-			</div>
+			</Styled.SectionsConfig>
+
+			<Divider />
+
 			<Styled.ControlButtons>
 				{/* <Button type="button" onClick={onAdd}>
 					Добавить поле
 				</Button> */}
 
-				<Button type="submit" fullWidth>
-					Создать поля
+				<Button variant="outline" onClick={handleClose}>
+					Отмена
 				</Button>
+
+				<Button type="submit">Создать поля</Button>
 			</Styled.ControlButtons>
-		</Styled.ModalForm>
+		</Styled.TemplateForm>
 	);
 };

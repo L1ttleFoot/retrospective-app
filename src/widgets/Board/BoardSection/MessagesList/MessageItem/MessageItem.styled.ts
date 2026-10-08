@@ -16,7 +16,7 @@ export const MessageItem = styled.div<{$color?: string; $isBeingDragged?: boolea
   border-radius: 10px;
   border: 2px solid ${({$color}) => $color};
   background: ${({theme}) => theme.backgroundThird};
-  box-shadow: 0 4px 16px 0 rgba(61, 72, 108, 0.16);
+  box-shadow: ${({theme}) => theme.boxShadow};
   word-wrap: break-word;
   overflow-y: auto;
   opacity: ${({$isBeingDragged}) => ($isBeingDragged ? 0.6 : 1)};

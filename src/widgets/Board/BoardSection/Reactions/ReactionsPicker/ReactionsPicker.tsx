@@ -1,5 +1,5 @@
 import {autoUpdate, flip, offset, shift, useFloating} from '@floating-ui/react-dom';
-import {Smile} from 'lucide-react';
+import {SmilePlus} from 'lucide-react';
 
 import {useModal} from '@/src/shared/hooks/useModal';
 import {Reaction} from '@/src/shared/types/models';
@@ -51,7 +51,7 @@ export const ReactionsPicker = ({
 	return (
 		<>
 			<IconButton size="verySmall" onClick={toggleOpen} ref={refs.setReference}>
-				<Smile />
+				<SmilePlus />
 			</IconButton>
 
 			{open && (

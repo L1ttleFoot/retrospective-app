@@ -60,15 +60,17 @@ export const ToastCard = styled.div<{$type: ToastItemType['toastType']}>`
 `;
 
 export const ToastMessage = styled.div`
-    color:inherit
+    color:inherit;
 `;
 
 export const ToastsContainer = styled.div`
-    position: fixed;
+	position: fixed;
     right: 30px;
     bottom:30px;
 
     display: flex;
-  flex-direction: column;
-  gap: 10px; 
+  	flex-direction: column;
+  	gap: 10px; 
+
+	z-index: 9999;
 `;

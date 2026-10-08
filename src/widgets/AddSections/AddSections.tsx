@@ -2,6 +2,8 @@ import {FormProvider, useForm} from 'react-hook-form';
 import {v4} from 'uuid';
 
 import {useBoards} from '@/store/useBoards';
+import {Divider} from '@/ui/Divider';
+import {Header} from '@/ui/Header/Header';
 
 import * as Styled from './AddSections.styled';
 import {colorsList} from './ColorPicker/ColorPicker.consts';
@@ -27,7 +29,10 @@ export const AddSections = ({handleClose}: AddSectionsProps) => {
 	return (
 		<FormProvider {...methods}>
 			<Styled.AddSections>
-				<SectionsTemplates />
+				<Header title="Создание секций" subtitle="Настройка структуры доски" />
+				{/* <Divider />
+				<SectionsTemplates /> */}
+				<Divider />
 				<CreateSections handleClose={handleClose} />
 			</Styled.AddSections>
 		</FormProvider>

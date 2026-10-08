@@ -9,7 +9,7 @@ export const AdminDashboard = styled.div`
   gap: 20px;
   border-radius: 10px;
   background: ${({theme}) => theme.backgroundSecond};
-  box-shadow: 0 4px 16px 0 rgba(61, 72, 108, 0.16);
+  box-shadow: ${({theme}) => theme.boxShadow};
 
   @media screen and (max-width: 660px) {
     flex-direction: column;

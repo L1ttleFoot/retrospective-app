@@ -1,10 +1,11 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {ChangeEvent, useState} from 'react';
 
+import {toasts} from '@/store/useToasts';
+
 import {createMessage} from '../api';
 import {Message} from '../BoardSection.types';
 import * as Styled from './AddMessage.styled';
-import {toasts} from '@/store/useToasts';
 
 type AddItemType = {sectionId: string; handleShowInput: (value: boolean) => void; color: string};
 

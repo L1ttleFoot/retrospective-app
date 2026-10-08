@@ -2,14 +2,15 @@ import styled from 'styled-components';
 
 export const AddSections = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     border-radius: 10px;
     background-color: ${({theme}) => theme.backgroundThird};
-    box-shadow: 0 4px 16px 0 rgba(61, 72, 108, 0.16);
-    padding: 20px;
-    height: 500px;
-    align-items: flex-start;
-    gap:15px;
+    box-shadow: ${({theme}) => theme.boxShadow};
+    padding: 12px 24px;
+    width: 600px;
+    
+    height: 650px; 
+    max-height: 800px;
 
     animation: slideUp .3s cubic-bezier(0.00,0.00,0.20,1.00) forwards;
 

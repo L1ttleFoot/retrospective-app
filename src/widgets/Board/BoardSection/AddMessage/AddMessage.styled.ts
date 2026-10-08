@@ -13,7 +13,7 @@ export const Wrapper = styled.div<{$color?: string}>`
   border-radius: 10px;
   border: 2px dashed ${({$color}) => $color};
   background: ${({theme}) => theme.backgroundThird};
-  box-shadow: 0 4px 16px 0 rgba(61, 72, 108, 0.16);
+  box-shadow: ${({theme}) => theme.boxShadow};
   word-wrap: break-word;
   overflow-y: auto;
 

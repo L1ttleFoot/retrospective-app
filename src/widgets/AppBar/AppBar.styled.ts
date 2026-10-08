@@ -9,7 +9,7 @@ export const AppBar = styled.div`
   align-items: center;
   gap: 5px;
   background: ${({theme}) => theme.backgroundSecond};
-  box-shadow: 0 4px 16px 0 rgba(61, 72, 108, 0.16);
+  box-shadow: ${({theme}) => theme.boxShadow};
 
   //box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   //box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;

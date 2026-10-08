@@ -12,7 +12,7 @@ export const Input = styled.input<{$error?: boolean}>`
   height: 45px;
   padding: 8px;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.28;
   box-sizing: border-box;
   background-color: transparent;

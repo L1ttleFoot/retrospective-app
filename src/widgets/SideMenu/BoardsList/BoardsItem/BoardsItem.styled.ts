@@ -8,12 +8,12 @@ export const BoardsItem = styled(animated.div)<{$isCurrent?: boolean}>`
   display: flex;
   flex-direction: row;
   border-radius: 10px;
-  background: ${({theme}) => theme.backgroundThird};
-  box-shadow: 2px 4px 4px 0 rgba(61, 72, 108, 0.16);
+  background: ${({theme}) => theme.backgroundFourth};
+  box-shadow: ${({theme}) => theme.boxShadow};
   cursor: pointer;
   align-items: center;
   gap: 5px;
-  border: ${({$isCurrent, theme}) => ($isCurrent ? `2px solid ${theme.colors.primary}` : `2px solid transparent`)};
+  border: 2px solid ${({$isCurrent, theme}) => ($isCurrent ? `${theme.colors.primary}` : `transparent`)};
 
   ${({theme, $isCurrent}) =>
 		theme.currentTheme === 'win98' &&

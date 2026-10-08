@@ -4,7 +4,7 @@ import api from '@/src/api/axios';
 import {Template, TemplateSection} from './AddSections.types';
 import {SectionsForm} from './CreateSections/CreateSections';
 
-type createTemplatesProps = {
+type createTemplatesRequest = {
 	title: Template['title'];
 	sections: Pick<TemplateSection, 'title' | 'color'>[];
 };
@@ -15,12 +15,14 @@ export const createSections = async ({sections}: SectionsForm) => {
 	return response.data;
 };
 
-export const createTemplate = async (data: createTemplatesProps): Promise<Template[]> => {
+export const createTemplate = async (data: createTemplatesRequest): Promise<Template[]> => {
 	const response = await api.post(`${BASE_URL}/api/templates`, data, {withCredentials: true});
 	return response.data;
 };
 
-export const getTemplates = async (): Promise<Template[]> => {
+type getTemplatesResponse = {templates: Template[]};
+
+export const getTemplates = async (): Promise<getTemplatesResponse> => {
 	const response = await api.get(`${BASE_URL}/api/templates`, {withCredentials: true});
 	return response.data;
 };

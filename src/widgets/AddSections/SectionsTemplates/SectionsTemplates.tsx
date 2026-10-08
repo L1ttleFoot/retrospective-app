@@ -1,13 +1,18 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {Bookmark} from 'lucide-react';
 import {useState} from 'react';
 import {useFormContext} from 'react-hook-form';
 
+import {toasts} from '@/store/useToasts';
 import {Box} from '@/ui/Box';
 import {Button} from '@/ui/Button';
+import {Divider} from '@/ui/Divider';
+import {Header} from '@/ui/Header/Header';
 import {Input} from '@/ui/Input';
 
 import {createTemplate} from '../api';
 import {SectionsForm} from '../CreateSections/CreateSections';
+import {CreateTemplate} from './CreateTemplate';
 import * as Styled from './SectionsTemplates.styled';
 import {TemplatesList} from './TemplatesList/TemplatesList';
 
@@ -28,6 +33,7 @@ export const SectionsTemplates = () => {
 			setTemplateTitle('');
 			setIsTouched(false);
 			client.invalidateQueries({queryKey: ['templates']});
+			toasts.success('Шаблон успешно сохранен');
 		},
 	});
 
@@ -50,7 +56,8 @@ export const SectionsTemplates = () => {
 
 	return (
 		<Styled.SectionsTemplates>
-			<h2>Шаблоны</h2>
+			<Header title="Ваши шаблоны" subtitle="Сохраненные шаблоны секций" level={2} />
+
 			<Box m="10px 0 10px 0">
 				<Input
 					id="template-title"
@@ -61,10 +68,21 @@ export const SectionsTemplates = () => {
 					placeholder="Название шаблона"
 				/>
 			</Box>
-			<Button onClick={handleSaveTemplate} fullWidth>
+
+			<div>тут кароч будет выпадающий спимсрк</div>
+
+			<TemplatesList />
+
+			<Divider />
+
+			<Button onClick={handleSaveTemplate} fullWidth variant="outline">
+				<Bookmark />
 				Сохранить как шаблон
 			</Button>
-			<TemplatesList />
+
+			<Divider />
+
+			<CreateTemplate />
 		</Styled.SectionsTemplates>
 	);
 };
