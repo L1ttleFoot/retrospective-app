@@ -25,15 +25,15 @@ export const CurrentReactions = ({
 
 	return (
 		<>
-			{reactions.map(({value, count, isSelected, id}) => (
+			{reactions.map(({name, char, count, isSelected}) => (
 				<Styled.CurrentReactions
-					key={value}
-					onClick={() => handleClickReaction(isSelected, {value, id})}
+					key={char}
+					onClick={() => handleClickReaction(isSelected, {name, char})}
 					$isSelected={isSelected}
 					$color={color}
 					$isMoreThenOne={count > 1}
 				>
-					<Styled.ReactionValue>{value}</Styled.ReactionValue>
+					<Styled.ReactionValue>{char}</Styled.ReactionValue>
 					{count > 1 && <Styled.ReactionCount>{count}</Styled.ReactionCount>}
 				</Styled.CurrentReactions>
 			))}

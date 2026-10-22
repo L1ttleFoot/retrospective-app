@@ -45,6 +45,11 @@ declare module '*.png' {
     __ENV__?: Record<string, string>;
   }
   
+  declare module '*.css.ts' {
+    const content: Record<string, string>;
+    export default content;
+  }
+
 
   interface TelegramWebApp {
   initData: string;

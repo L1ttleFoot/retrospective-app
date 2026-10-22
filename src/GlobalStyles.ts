@@ -3,7 +3,7 @@ import {createGlobalStyle} from 'styled-components';
 export const GlobalStyle = createGlobalStyle`
    
     * {
-        font-family: ${({theme}) => (theme.currentTheme === 'win98' ? "'Pixel', sans-serif" : "'Roboto', Arial, sans-serif")};
+        font-family: 'Roboto', Arial, sans-serif;
         color: ${({theme}) => theme.color};
     }
 

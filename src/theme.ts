@@ -37,19 +37,4 @@ export const lightPalette = {
 	boxShadow: '0 4px 16px 0 rgba(61, 72, 108, 0.16)',
 };
 
-export const windows98Palette = {
-	backgroundPrimary: '#008080',
-	backgroundSecond: 'silver',
-	backgroundThird: 'silver',
-	backgroundFourth: 'silver',
-	color: '#000',
-	borderColor: ' #FFFFFF1A',
-	colorSecond: 'rgba(0, 0, 0, 0.6)',
-	disabled: '#f5f5f7',
-};
-
-export const themePallets = {
-	light: lightPalette,
-	dark: darkPalette,
-	win98: windows98Palette,
-} as const;
+export const themePallets = {light: lightPalette, dark: darkPalette} as const;

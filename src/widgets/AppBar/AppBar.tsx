@@ -13,6 +13,7 @@ import {Spacer} from '@/ui/Spacer';
 
 import {SideMenu} from '../SideMenu';
 import * as Styled from './AppBar.styled';
+import {Settings} from './components/Settings';
 
 export const AppBar = () => {
 	const navigate = useNavigate();
@@ -48,7 +49,6 @@ export const AppBar = () => {
 	const themes = [
 		{label: 'Светлая', value: 'light'},
 		{label: 'Темная', value: 'dark'},
-		//{label: 'Windows 98', value: 'win98'},
 	] as const;
 
 	return (
@@ -74,7 +74,7 @@ export const AppBar = () => {
 
 				{isAuth && <div>{username}</div>}
 
-				{themes.map((theme) => (
+				{/* {themes.map((theme) => (
 					<Radio
 						key={theme.value}
 						value={theme.value}
@@ -83,7 +83,9 @@ export const AppBar = () => {
 						onChange={handleChange}
 						label={theme.label}
 					/>
-				))}
+				))} */}
+
+				<Settings />
 
 				{isAuth ? (
 					<IconButton

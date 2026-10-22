@@ -28,12 +28,13 @@ export const AddMessage = ({sectionId, handleShowInput, color}: AddItemType) => 
 			};
 
 			queryClient.setQueryData(['messages', sectionId], (old: {messages: Message[]}) => ({
-				messages: [...old.messages, {text, sectionId, id: 'tempId', reactions: []}],
+				messages: [...old.messages, {text, sectionId, id: 'tempId', pinnedAt: null, reactions: []}],
 			}));
 
 			return {previousData, sectionId};
 		},
-		onError: () => {
+		onError: (_err, _vars, ctx) => {
+			if (ctx) queryClient.setQueryData(['messages', ctx.sectionId], ctx.previousData);
 			toasts.error('Произошла ошибка');
 		},
 		onSuccess: (data) => {
@@ -49,8 +50,7 @@ export const AddMessage = ({sectionId, handleShowInput, color}: AddItemType) => 
 				handleShowInput(false);
 				return;
 			}
-			const authorId = localStorage.getItem('authorId');
-			mutate({text, sectionId, authorId});
+			mutate({text, sectionId});
 			handleShowInput(false);
 		}
 		if (e.key === 'Escape') {

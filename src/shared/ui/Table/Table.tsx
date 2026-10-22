@@ -1,4 +1,4 @@
-import * as Styled from './Table.styled';
+import * as style from './Table.css';
 
 export type TableProps = {data: Record<string, string | number | object>[]};
 
@@ -11,23 +11,25 @@ export const Table = ({data}: TableProps) => {
 	const values = data.map((item) => Object.values(item).map((item) => item.toString()));
 
 	return (
-		<Styled.Table>
-			<Styled.Head>
-				<Styled.Row>
+		<table className={style.table}>
+			<thead>
+				<tr>
 					{headers.map((head) => (
-						<Styled.HeadCell key={head}>{head}</Styled.HeadCell>
+						<th key={head} className={style.headCell}>
+							{head}
+						</th>
 					))}
-				</Styled.Row>
-			</Styled.Head>
-			<Styled.Body>
+				</tr>
+			</thead>
+			<tbody>
 				{values.map((row) => (
-					<Styled.Row>
+					<tr>
 						{row.map((cell) => (
-							<Styled.Cell>{cell}</Styled.Cell>
+							<td className={style.cell}>{cell}</td>
 						))}
-					</Styled.Row>
+					</tr>
 				))}
-			</Styled.Body>
-		</Styled.Table>
+			</tbody>
+		</table>
 	);
 };

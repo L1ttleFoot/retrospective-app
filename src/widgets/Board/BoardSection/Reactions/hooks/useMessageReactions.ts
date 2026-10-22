@@ -1,10 +1,10 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 
 import {Reaction} from '@/src/shared/types/models';
+import {toasts} from '@/store/useToasts';
 
 import {handleReaction} from '../../api';
 import {Message} from '../../BoardSection.types';
-import {toasts} from '@/store/useToasts';
 
 export const useMessageReactions = (messageId: string, sectionId: string) => {
 	const queryClient = useQueryClient();
@@ -12,13 +12,13 @@ export const useMessageReactions = (messageId: string, sectionId: string) => {
 	const queryKey = ['messages', sectionId];
 
 	return useMutation({
-		mutationFn: async ({reaction}: {isSelected?: boolean; reaction: Reaction}) => {
+		mutationFn: async ({reaction}: {reaction: Reaction; isSelected?: boolean}) => {
 			return handleReaction({reaction, messageId});
 		},
 		onMutate: async (variables) => {
 			await queryClient.cancelQueries({queryKey});
 
-			const {isSelected, reaction} = variables;
+			const {reaction, isSelected} = variables;
 
 			const previousData = queryClient.getQueryData<{messages: Message[]}>(queryKey);
 
@@ -31,7 +31,7 @@ export const useMessageReactions = (messageId: string, sectionId: string) => {
 
 						const newReactions = msg.reactions
 							.map((r) => {
-								if (r.id !== reaction.id) return r;
+								if (r.name !== reaction.name) return r;
 
 								return {
 									...r,
@@ -41,12 +41,12 @@ export const useMessageReactions = (messageId: string, sectionId: string) => {
 							})
 							.filter((r) => r.count > 0);
 
-						const isNewReaction = !msg.reactions.some((r) => r.id === reaction.id);
+						const isNewReaction = !msg.reactions.some((r) => r.name === reaction.name);
 
 						if (!isSelected && isNewReaction) {
 							newReactions.push({
-								value: reaction.value,
-								id: reaction.id,
+								name: reaction.name,
+								char: reaction.char,
 								isSelected: true,
 								count: 1,
 							});
@@ -58,6 +58,11 @@ export const useMessageReactions = (messageId: string, sectionId: string) => {
 			});
 
 			return {previousData};
+		},
+		onError(err, _var, ctx) {
+			if (ctx) queryClient.setQueryData(queryKey, ctx.previousData);
+
+			toasts.error('Доступ ограничен', 'У вас нет прав для выполнения этого действия.');
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({queryKey});

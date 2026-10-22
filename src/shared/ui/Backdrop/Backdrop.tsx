@@ -1,6 +1,6 @@
 import {ReactNode} from 'react';
 
-import * as Styled from './Backdrop.styled';
+import {backdropRecipe} from './Backdrop.css';
 
 type BackdropProps = {onClose: () => void; children?: ReactNode; isTransparent?: boolean};
 
@@ -13,8 +13,8 @@ export const Backdrop = ({onClose, children, isTransparent = false}: BackdropPro
 	};
 
 	return (
-		<Styled.Backdrop onClick={handleBackdrop} $isTransparent={isTransparent}>
+		<div className={backdropRecipe({isTransparent})} onClick={handleBackdrop}>
 			{children}
-		</Styled.Backdrop>
+		</div>
 	);
 };

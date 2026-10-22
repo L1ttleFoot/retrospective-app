@@ -1,15 +1,15 @@
 import {AppBar} from '@/src/widgets/AppBar';
 import {Board} from '@/src/widgets/Board';
 
-import * as Styled from './MainPage.styled';
+import * as style from './MainPage.css';
 
 export const MainPage = () => {
 	return (
-		<Styled.Wrapper>
+		<div className={style.wrapper}>
 			<AppBar />
-			<Styled.Main>
+			<div className={style.main}>
 				<Board />
-			</Styled.Main>
-		</Styled.Wrapper>
+			</div>
+		</div>
 	);
 };

@@ -13,25 +13,7 @@ api.interceptors.request.use((config) => {
 		return config;
 	}
 
-	const guestId = localStorage.getItem('authorId');
-
-	if (guestId) {
-		config.headers['x-guest-id'] = guestId;
-	}
-
 	return config;
-});
-
-api.interceptors.response.use((response) => {
-	const guestId = response.headers['x-guest-id'];
-
-	const {isAuth} = useAuth.getState();
-
-	if (guestId && !isAuth) {
-		localStorage.setItem('authorId', guestId);
-	}
-
-	return response;
 });
 
 async function refreshAuthToken() {
@@ -65,5 +47,11 @@ api.interceptors.response.use(
 		return Promise.reject(error);
 	},
 );
+
+export const authClient = axios.create({
+	baseURL: BASE_URL,
+	withCredentials: true,
+	headers: {'Content-Type': 'application/json'},
+});
 
 export default api;

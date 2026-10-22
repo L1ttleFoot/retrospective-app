@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import {colorsList} from './ColorPicker.consts';
 
 export const ColorPicker = styled.div<{color: string}>`
-  min-width: 20px;
-  min-height: 20px;
+  min-width: 24px;
+  min-height: 24px;
   background-color: ${({color}) => color || colorsList.gray};
   border-radius: 5px;
   cursor: pointer;

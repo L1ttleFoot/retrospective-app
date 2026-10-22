@@ -7,7 +7,7 @@ export const AddSections = styled.div`
     background-color: ${({theme}) => theme.backgroundThird};
     box-shadow: ${({theme}) => theme.boxShadow};
     padding: 12px 24px;
-    width: 600px;
+    width: 500px;
     
     height: 650px; 
     max-height: 800px;

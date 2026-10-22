@@ -27,7 +27,7 @@ export const ReactionsPicker = ({
 }: ReactionPickerProps) => {
 	const activeReactions = reactions.reduce<string[]>((acc, curr) => {
 		if (curr.isSelected) {
-			acc.push(curr.id);
+			acc.push(curr.name);
 		}
 
 		return acc;
@@ -50,7 +50,7 @@ export const ReactionsPicker = ({
 
 	return (
 		<>
-			<IconButton size="verySmall" onClick={toggleOpen} ref={refs.setReference}>
+			<IconButton size="verySmall" onClick={toggleOpen} ref={refs.setReference} withTheme>
 				<SmilePlus />
 			</IconButton>
 
@@ -63,10 +63,10 @@ export const ReactionsPicker = ({
 						>
 							{enabledReactions.map((reaction: Reaction) => (
 								<ReactionItem
-									key={reaction.id}
-									reaction={reaction.value}
+									key={reaction.name}
+									reaction={reaction.char}
 									onClick={() =>
-										handleSelectReaction(reaction, activeReactions.includes(reaction.id))
+										handleSelectReaction(reaction, activeReactions.includes(reaction.name))
 									}
 								/>
 							))}

@@ -25,7 +25,7 @@ export const IconButton = styled.button<{
     height: 100%;
     //fill: ${({theme, $withTheme}) => ($withTheme ? theme.color : 'none')};
     & * {
-      stroke: ${({$color, theme, $withTheme}) => ($withTheme ? theme.color : $color)};
+      stroke: ${({$color, theme, $withTheme}) => ($withTheme ? theme.color : $color ? $color : theme.colors.primary)};
     }
   }
 `;

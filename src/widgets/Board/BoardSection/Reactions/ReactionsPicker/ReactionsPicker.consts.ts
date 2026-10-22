@@ -1,9 +1,11 @@
 //export const reactionList = ['😂', '😀', '😎', '🤡', '💀', '🤬', '👏', '👍', '👎', '🔥', '❤️', '👀'];
 
 export const reactionList = [
-	{id: 'thumbsUp', value: '👍'},
-	{id: 'thumbsDown', value: '👎'},
-	{id: 'fire', value: '🔥'},
+	{name: 'thumbsUp', char: '👍'},
+	{name: 'thumbsDown', char: '👎'},
+	{name: 'fire', char: '🔥'},
 ] as const;
 
 export const reactionObj = {thumbsUp: '👍', thumbsDown: '👎', fire: '🔥'} as const;
+
+export type reactionObjType = keyof typeof reactionObj;

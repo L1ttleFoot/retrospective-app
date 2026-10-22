@@ -1,17 +1,19 @@
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {useEffect} from 'react';
 import {BrowserRouter} from 'react-router-dom';
-import {ThemeProvider} from 'styled-components';
 
-import {GlobalStyle} from '@/src/GlobalStyles';
 import ErrorBoundary from '@/src/shared/ErrorBoundary/ErrorBoundary';
 import {useTheme} from '@/store/useTheme';
-import {toasts} from '@/store/useToasts';
 import {AuthInit} from '@/ui/AuthInit';
 import {ToastsContainer} from '@/ui/Toast';
 
-import {theme, themePallets} from '../theme';
+import {theme} from '../theme';
+import {themes} from '../theme.css';
 import {Router} from './Router';
+import '@/src/GlobalStyles.css';
+import {useEffect} from 'react';
+import {ThemeProvider} from 'styled-components';
+
+import {themePallets} from '../theme';
 
 const queryClient = new QueryClient({
 	defaultOptions: {queries: {refetchOnWindowFocus: false, retry: 0}},
@@ -21,6 +23,8 @@ export function App() {
 	const {currentTheme} = useTheme();
 
 	const themePalette = themePallets[currentTheme];
+
+	const activeThemeClass = themes[currentTheme] || themes.light;
 
 	/* useEffect(() => {
 		if (window.Telegram?.WebApp) {
@@ -34,10 +38,14 @@ export function App() {
 		}
 	}, []); */
 
+	useEffect(() => {
+		document.body.classList.remove(themes.light, themes.dark);
+		document.body.classList.add(activeThemeClass);
+	}, [activeThemeClass]);
+
 	return (
 		<ThemeProvider theme={{...theme, ...themePalette, currentTheme}}>
 			<QueryClientProvider client={queryClient}>
-				<GlobalStyle />
 				<ToastsContainer />
 				<ErrorBoundary>
 					<BrowserRouter>

@@ -42,34 +42,6 @@ export const RadioStyled = styled.span<{checked: boolean; disabled?: boolean}>`
     cursor: default;
   }
 
-  ${({theme, checked, disabled}) =>
-		theme.currentTheme === 'win98' &&
-		`
-        background: silver;
-        border: none;
-        
-        box-shadow: ${
-					checked
-						? 'inset -1px -1px #fff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px grey'
-						: 'inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf'
-				};
-        box-sizing: border-box;
-
-        &::after {
-            background-color: transparent;
-            border: 2px solid #000;
-            width: 6px;
-            height: 6px;
-        }
-
-        &:disabled {
-            background: #C0C0C0;
-            box-shadow: inset 1px 1px 0px #FFFFFF, inset -1px -1px 0px #808080;
-            &::after {
-                border-color: #808080;
-            }
-        }
-    `}
 `;
 
 export const RadioLabel = styled.label<{disabled?: boolean}>`
@@ -80,10 +52,4 @@ export const RadioLabel = styled.label<{disabled?: boolean}>`
   line-height: 1.25;
   font-weight: 500;
   cursor: ${({disabled}) => (disabled ? 'default' : 'pointer')};
-
-  ${({theme}) =>
-		theme.currentTheme === 'win98' &&
-		`
-        color: #222;
-    `}
 `;

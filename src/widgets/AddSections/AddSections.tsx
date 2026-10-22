@@ -27,14 +27,22 @@ export const AddSections = ({handleClose}: AddSectionsProps) => {
 	});
 
 	return (
-		<FormProvider {...methods}>
-			<Styled.AddSections>
-				<Header title="Создание секций" subtitle="Настройка структуры доски" />
-				{/* <Divider />
+		<div style={{display: 'flex', gap: 10}}>
+			<FormProvider {...methods}>
+				<Styled.AddSections>
+					<Header title="Создание секций" subtitle="Настройка структуры доски" />
+					{/* <Divider />
 				<SectionsTemplates /> */}
-				<Divider />
-				<CreateSections handleClose={handleClose} />
-			</Styled.AddSections>
-		</FormProvider>
+					<Divider />
+					<CreateSections handleClose={handleClose} />
+				</Styled.AddSections>
+			</FormProvider>
+
+			<FormProvider {...methods}>
+				<Styled.AddSections>
+					<SectionsTemplates />
+				</Styled.AddSections>
+			</FormProvider>
+		</div>
 	);
 };

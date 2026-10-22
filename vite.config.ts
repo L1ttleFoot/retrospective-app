@@ -3,6 +3,7 @@ import path from 'path';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import { configDefaults, defineConfig } from 'vitest/config';
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 
 export default defineConfig({
     test: {
@@ -13,6 +14,7 @@ export default defineConfig({
         'tests/**',  ]
     },
     plugins: [
+        vanillaExtractPlugin(),
         react({
             babel: {
                 plugins: [['babel-plugin-styled-components', {displayName: true, fileName: false}]],

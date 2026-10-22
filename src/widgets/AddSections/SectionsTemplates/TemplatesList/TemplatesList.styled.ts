@@ -6,7 +6,6 @@ export const TemplatesList = styled.div`
     gap: 10px;
     width:100%;
     margin-top:10px;
-
     position: relative;
 `;
 
@@ -27,14 +26,7 @@ export const TemplateItem = styled.div<{$isSelected?: boolean}>`
 
   border-color: ${({theme}) => theme.borderColor};
   
-  ${({theme, $isSelected}) =>
-		theme.currentTheme === 'win98' &&
-		`
-        border-radius: 0px;
-        border: none;
-        box-shadow: inset -1px -1px ${$isSelected ? theme.colors.primary : '#0a0a0a'}, inset 1px 1px #dfdfdf, inset -2px -2px ${$isSelected ? theme.colors.primary : 'grey'}, inset 2px 2px #fff;
-      }
-    `}
+ 
 `;
 
 export const DD = styled.div`

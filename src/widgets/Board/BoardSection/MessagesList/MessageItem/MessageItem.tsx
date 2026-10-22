@@ -12,6 +12,7 @@ import {ReactionsPicker} from '../../Reactions/ReactionsPicker';
 import {reactionList} from '../../Reactions/ReactionsPicker/ReactionsPicker.consts';
 import {DeleteMessage} from './../DeleteMessage';
 import {EditMessage, EditMessageTextArea} from '../EditMessage';
+import {PinMessage} from '../PinMessage';
 import * as Styled from './MessageItem.styled';
 
 export type BoardSection = {
@@ -19,6 +20,7 @@ export type BoardSection = {
 	sectionId: Section['id'];
 	text: Message['text'];
 	color: Message['color'];
+	pinnedAt: Message['pinnedAt'];
 	isBeingDragged?: boolean;
 	reactions: Message['reactions'];
 	authorId: Message['authorId'];
@@ -30,6 +32,7 @@ export const MessageItem = (props: BoardSection) => {
 		id,
 		text,
 		color,
+		pinnedAt,
 		sectionId,
 		authorId,
 		ownerId,
@@ -51,7 +54,7 @@ export const MessageItem = (props: BoardSection) => {
 
 	if (isEdit) {
 		return (
-			<Styled.MessageItem $color={color}>
+			<Styled.MessageItem $color={color} $isPinned={false}>
 				<EditMessageTextArea
 					text={text}
 					handleEditField={handleEditField}
@@ -67,9 +70,11 @@ export const MessageItem = (props: BoardSection) => {
 
 	const allowedActions = (isAuthor || isOwner) && id !== 'tempId';
 
+	const isPinned = Boolean(pinnedAt);
+
 	return (
 		<Styled.MessageWrapper {...other} draggable={allowedActions && isDraggable}>
-			<Styled.MessageItem $color={color} $isBeingDragged={isBeingDragged}>
+			<Styled.MessageItem $color={color} $isBeingDragged={isBeingDragged} $isPinned={isPinned}>
 				<Styled.MessageItemText>{text}</Styled.MessageItemText>
 			</Styled.MessageItem>
 
@@ -83,6 +88,8 @@ export const MessageItem = (props: BoardSection) => {
 					>
 						<GripVertical />
 					</IconButton>
+
+					<PinMessage pinnedAt={pinnedAt} messageId={id} sectionId={sectionId} />
 					<EditMessage handleClick={handleEditField} />
 					<DeleteMessage messageId={id} sectionId={sectionId} />
 				</Styled.ActionsArea>

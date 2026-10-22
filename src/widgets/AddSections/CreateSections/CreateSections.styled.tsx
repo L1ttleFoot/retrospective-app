@@ -9,13 +9,7 @@ export const TemplateForm = styled.form`
 
   flex: 1;
 
-  ${({theme}) =>
-		theme.currentTheme === 'win98' &&
-		`
-        border-radius: 0px;
-        box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #dfdfdf, inset -2px -2px grey, inset 2px 2px #fff;
-        }
-    `}
+ 
 `;
 
 export const SectionsConfig = styled.div`

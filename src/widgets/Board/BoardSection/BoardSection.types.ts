@@ -8,10 +8,11 @@ export type Message = {
 	text: string;
 	createdAt: Date;
 	updatedAt: Date;
+	pinnedAt: Date | null;
 	color: string;
 	reactions: UserReaction[];
 	authorId: string;
 	ownerId: Board['ownerId'];
 };
 
-export type UserReaction = {value: string; id: string; count: number; isSelected: boolean};
+export type UserReaction = {name: string; char: string; count: number; isSelected: boolean};

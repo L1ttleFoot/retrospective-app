@@ -1,13 +1,14 @@
 import {ToastItemType} from '@/store/useToasts';
 
-import * as Styled from './Toast.styled';
+import * as style from './Toast.css';
 
 type ToastItemProps = {toast: ToastItemType};
 
 export const ToastItem = ({toast}: ToastItemProps) => {
 	return (
-		<Styled.ToastCard $type={toast.toastType}>
-			<Styled.ToastMessage>{toast.message}</Styled.ToastMessage>
-		</Styled.ToastCard>
+		<div className={style.toastCard({type: toast.toastType})}>
+			<div className={style.toastMessage}>{toast.message}</div>
+			{toast.description && <div className={style.toastDescription}>{toast.description}</div>}
+		</div>
 	);
 };

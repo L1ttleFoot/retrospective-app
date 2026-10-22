@@ -1,10 +1,9 @@
-import * as Styled from './Button.styled';
+import clsx from 'clsx';
 
-type ButtonType = {
-	fullWidth?: boolean;
-	variant?: 'outline';
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+import {type ButtonVariants, buttonRecipe} from './Button.css';
 
-export const Button = ({fullWidth, variant, ...props}: ButtonType) => {
-	return <Styled.Button {...props} $fullWidth={fullWidth} $variant={variant} />;
+type ButtonProps = ButtonVariants & React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+export const Button = ({fullWidth, variant, ...props}: ButtonProps) => {
+	return <button className={clsx(buttonRecipe({fullWidth, variant}))} {...props} />;
 };

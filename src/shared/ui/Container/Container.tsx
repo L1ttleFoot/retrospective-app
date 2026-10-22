@@ -1,9 +1,9 @@
 import {ReactNode} from 'react';
 
-import * as Styled from './Container.styled';
+import * as style from './Container.css';
 
 type ContainerProps = {children: ReactNode};
 
 export const Container = ({children}: ContainerProps) => {
-	return <Styled.Container>{children}</Styled.Container>;
+	return <div className={style.container}>{children}</div>;
 };

@@ -1,7 +1,7 @@
-import * as Styled from './ToggleButton.styled';
+import * as style from './ToggleButton.css';
 
 type ToggleButtonProps = {value: boolean; onToggle: () => void};
 
 export const ToggleButton = ({value, onToggle}: ToggleButtonProps) => {
-	return <Styled.ToggleButton $value={value} onClick={onToggle}></Styled.ToggleButton>;
+	return <button className={style.toggleButton({value})} onClick={onToggle}></button>;
 };

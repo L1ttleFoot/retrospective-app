@@ -9,7 +9,7 @@ export const CurrentReactions = styled.div<{
   align-items: flex-end;
   font-size: 14px;
   border-radius: 8px;
-  padding: ${({$isMoreThenOne}) => ($isMoreThenOne ? '2px 6px 2px 2px' : '2px')};;
+  padding: ${({$isMoreThenOne}) => ($isMoreThenOne ? '0px 6px 2px 2px' : '0px 2px 2px 2px')};;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   user-select: none;

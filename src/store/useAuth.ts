@@ -1,16 +1,16 @@
 import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
 
-import {BASE_URL} from '@/consts/api';
 import api from '@/src/api/axios';
 
 import {Role} from '../shared/types/models';
 
-type UserDataType = {id: string; username: string; token: string; roles: Role[]};
+type UserDataType = {id: string; username: string; token: string; roles: Role[]; isGuest: boolean};
 
 type AuthStore = {
 	userData?: UserDataType;
 	isAuth: boolean;
+	isReady: boolean;
 	setUserData: (userData: UserDataType) => void;
 	logout: () => Promise<void>;
 	checkAuth: () => void;
@@ -21,10 +21,11 @@ export const useAuth = create<AuthStore>()(
 		(set) => ({
 			userData: undefined,
 			isAuth: false,
+			isReady: false,
 			setUserData: (userData) => set(() => ({userData, isAuth: !!userData})),
 			logout: async () => {
 				try {
-					await api.post(`${BASE_URL}/api/auth/logout`, {withCredentials: true});
+					await api.post('/api/auth/logout', {withCredentials: true});
 				} catch (error) {
 					console.error('Failed to logout', error);
 				} finally {
@@ -34,11 +35,13 @@ export const useAuth = create<AuthStore>()(
 			},
 			checkAuth: async () => {
 				try {
-					const response = await api.get(`${BASE_URL}/api/auth/refresh`, {withCredentials: true});
+					const response = await api.get('/api/auth/refresh', {withCredentials: true});
 					set(() => ({userData: response.data, isAuth: true}));
 				} catch (error) {
 					console.error('Failed to refresh auth', error);
 					set(() => ({userData: undefined, isAuth: false}));
+				} finally {
+					set({isReady: true});
 				}
 			},
 		}),

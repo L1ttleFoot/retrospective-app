@@ -1,9 +1,9 @@
-import {useTransition} from '@react-spring/web';
+import {animated, useTransition} from '@react-spring/web';
 
 import {ToastItemType, useToast} from '@/store/useToasts';
 
 import {Portal} from '../Portal';
-import * as Styled from './Toast.styled';
+import * as style from './Toast.css';
 import {ToastItem} from './ToastItem';
 
 export const ToastsContainer = () => {
@@ -19,13 +19,13 @@ export const ToastsContainer = () => {
 
 	return (
 		<Portal portalId="toast-root">
-			<Styled.ToastsContainer>
+			<div className={style.toastsContainer}>
 				{transitions((styles, item) => (
-					<Styled.AnimatedItemWrapper style={styles}>
+					<animated.div style={styles}>
 						<ToastItem toast={item} />
-					</Styled.AnimatedItemWrapper>
+					</animated.div>
 				))}
-			</Styled.ToastsContainer>
+			</div>
 		</Portal>
 	);
 };

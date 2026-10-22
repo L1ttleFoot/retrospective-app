@@ -1,9 +1,9 @@
-import * as Styled from './LoadingSpiner.styled';
+import * as style from './LoadingSpiner.css';
 
 export const LoadingSpiner = () => {
 	return (
-		<Styled.Wrapper>
-			<Styled.LoadingSpiner />
-		</Styled.Wrapper>
+		<div className={style.wrapper}>
+			<div className={style.spinner} />
+		</div>
 	);
 };

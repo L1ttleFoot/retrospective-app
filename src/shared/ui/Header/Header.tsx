@@ -1,14 +1,15 @@
 import {ReactNode} from 'react';
 
-import * as Styled from './Header.styled';
+import * as style from './Header.css';
+import {mainTitleVariants} from './Header.css';
 
-type HeaderProps = {title: string; subtitle?: ReactNode; level?: number};
+type HeaderProps = {title: string; subtitle?: ReactNode} & mainTitleVariants;
 
-export const Header = ({title, subtitle, level = 1}: HeaderProps) => {
+export const Header = ({title, subtitle, level}: HeaderProps) => {
 	return (
-		<Styled.Title>
-			<Styled.MainTitle $level={level}>{title}</Styled.MainTitle>
-			{subtitle && <Styled.SubTitle>{subtitle}</Styled.SubTitle>}
-		</Styled.Title>
+		<div className={style.header}>
+			<div className={style.mainTitle({level})}>{title}</div>
+			{subtitle && <div className={style.subTitle}>{subtitle}</div>}
+		</div>
 	);
 };

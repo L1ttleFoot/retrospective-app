@@ -46,38 +46,4 @@ export const Button = styled.button<{$fullWidth?: boolean; $variant?: 'primary' 
       stroke: ${({theme}) => theme.colors.primary};
     }
   }
-
-  ${({theme}) =>
-		theme.currentTheme === 'win98' &&
-		`
-        background: silver;
-        border: none;
-        border-radius: 0;
-        box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
-        box-sizing: border-box;
-        color: transparent;
-        min-height: 23px;
-        min-width: 75px;
-        padding: 0 12px;
-        text-shadow: 0 0 #222;
-
-        &:focus {
-            outline: 1px dotted #000;
-            outline-offset: -4px;
-        }
-
-        &:not(:disabled):active {
-            box-shadow: inset -1px -1px #fff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px grey;
-            text-shadow: 1px 1px #222;
-        }
-
-        &:disabled {
-            background: #C0C0C0;
-            color: #808080;
-            cursor: default;
-            box-shadow: inset 1px 1px 0px #FFFFFF, inset -1px -1px 0px #808080;
-            text-shadow: 1px 1px 0 #fff;
-        }
-      }
-    `}
 `;

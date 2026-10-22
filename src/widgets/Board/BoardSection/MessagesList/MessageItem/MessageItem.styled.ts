@@ -4,7 +4,11 @@ export const MessageWrapper = styled.div`
   position: relative;
 `;
 
-export const MessageItem = styled.div<{$color?: string; $isBeingDragged?: boolean}>`
+export const MessageItem = styled.div<{
+	$color?: string;
+	$isBeingDragged?: boolean;
+	$isPinned: boolean;
+}>`
   display: flex;
   justify-content: space-between;
   position: relative;
@@ -15,7 +19,8 @@ export const MessageItem = styled.div<{$color?: string; $isBeingDragged?: boolea
   flex-direction: column;
   border-radius: 10px;
   border: 2px solid ${({$color}) => $color};
-  background: ${({theme}) => theme.backgroundThird};
+  background: ${({theme, $isPinned, $color}) =>
+		$isPinned && $color ? `color-mix(in srgb, ${$color} 35%, transparent)` : theme.backgroundThird};
   box-shadow: ${({theme}) => theme.boxShadow};
   word-wrap: break-word;
   overflow-y: auto;
@@ -27,14 +32,7 @@ export const MessageItem = styled.div<{$color?: string; $isBeingDragged?: boolea
         width: 100%;
     } */
 
-  ${({theme, $color}) =>
-		theme.currentTheme === 'win98' &&
-		`
-        border-radius: 0px;
-        border: none;
-        box-shadow: inset -1px -1px ${$color}, inset 1px 1px #dfdfdf, inset -2px -2px ${$color}, inset 2px 2px #fff;
-        }
-    `}
+ 
 `;
 
 export const MessageItemText = styled.div``;

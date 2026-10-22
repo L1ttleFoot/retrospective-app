@@ -43,29 +43,7 @@ export const TabStyled = styled.span<{checked: boolean; disabled?: boolean}>`
     cursor: default;
   }
 
-  ${({theme, checked, disabled}) =>
-		theme.currentTheme === 'win98' &&
-		`
-        background: silver;
-        border: none;
-        
-        box-sizing: border-box;
-
-        &::after {
-            background-color: transparent;
-            border: 2px solid #000;
-            width: 6px;
-            height: 6px;
-        }
-
-        &:disabled {
-            background: #C0C0C0;
-            box-shadow: inset 1px 1px 0px #FFFFFF, inset -1px -1px 0px #808080;
-            &::after {
-                border-color: #808080;
-            }
-        }
-    `}
+  
 `;
 
 export const TabLabel = styled.label<{disabled?: boolean}>`
@@ -77,9 +55,4 @@ export const TabLabel = styled.label<{disabled?: boolean}>`
   font-weight: 500;
   cursor: ${({disabled}) => (disabled ? 'default' : 'pointer')};
 
-  ${({theme}) =>
-		theme.currentTheme === 'win98' &&
-		`
-        color: #222;
-    `}
 `;

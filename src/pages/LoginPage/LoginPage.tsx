@@ -9,7 +9,7 @@ import {Button} from '@/ui/Button';
 import {Input} from '@/ui/Input';
 import {TextLink} from '@/ui/TextLink/TextLink';
 
-import * as Styled from './LoginPage.styled';
+import * as style from './LoginPage.css';
 
 type Inputs = {username: string; password: string};
 
@@ -36,10 +36,10 @@ export const LoginPage = () => {
 	};
 
 	return (
-		<Styled.Wrapper>
-			<Styled.FormWrapper>
+		<div className={style.wrapper}>
+			<div className={style.formWarpper}>
 				{isAuth && <Navigate to="/" />}
-				<Styled.Form onSubmit={handleSubmit(onSubmit)}>
+				<form className={style.form} onSubmit={handleSubmit(onSubmit)}>
 					<Input
 						id="login"
 						required
@@ -56,17 +56,17 @@ export const LoginPage = () => {
 						{...register('password', {required: true})}
 					/>
 
-					{error && <Styled.ErrorMessage>Неправильно введена почта или пароль</Styled.ErrorMessage>}
+					{error && <div className={style.errorMessage}>Неправильно введена почта или пароль</div>}
 					<Button type="submit" disabled={!isValid} fullWidth>
 						Войти
 					</Button>
-				</Styled.Form>
+				</form>
 
-				<Styled.Footer>
+				<div className={style.footer}>
 					Нет аккаунта?
 					<TextLink to={'/register'}>Зарегистрируйтесь</TextLink>
-				</Styled.Footer>
-			</Styled.FormWrapper>
-		</Styled.Wrapper>
+				</div>
+			</div>
+		</div>
 	);
 };

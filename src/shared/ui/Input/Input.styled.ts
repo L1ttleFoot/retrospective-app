@@ -32,15 +32,6 @@ export const Input = styled.input<{$error?: boolean}>`
     color: ${({theme}) => theme.colorSecond};
   }
 
-  ${({theme}) =>
-		theme.currentTheme === 'win98' &&
-		`
-        background-color: #fff;
-        border-radius: 0px;
-        border: none;
-        box-shadow:  inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
-      }
-    `}
 `;
 
 export const Label = styled.label`
