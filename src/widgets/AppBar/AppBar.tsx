@@ -4,11 +4,9 @@ import {useNavigate} from 'react-router-dom';
 import {ROUTES} from '@/consts/routes';
 import {useModal} from '@/src/shared/hooks/useModal';
 import {useAuth} from '@/store/useAuth';
-import {theme, useTheme} from '@/store/useTheme';
 import {Backdrop} from '@/ui/Backdrop';
 import {IconButton} from '@/ui/IconButton';
 import {Portal} from '@/ui/Portal';
-import {Radio} from '@/ui/Radio';
 import {Spacer} from '@/ui/Spacer';
 
 import {SideMenu} from '../SideMenu';
@@ -38,18 +36,7 @@ export const AppBar = () => {
 		navigate(ROUTES.TEST);
 	};
 
-	const {currentTheme, changeTheme} = useTheme();
-
 	const username = userData?.username;
-
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		changeTheme(event.target.value as theme);
-	};
-
-	const themes = [
-		{label: 'Светлая', value: 'light'},
-		{label: 'Темная', value: 'dark'},
-	] as const;
 
 	return (
 		<>

@@ -1,6 +1,7 @@
 import {AxiosError} from 'axios';
 import {useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
+import {useNavigate} from 'react-router-dom';
 
 import {BASE_URL} from '@/consts/api';
 import axios from '@/src/api/axios';
@@ -23,6 +24,8 @@ export const RegisterPage = () => {
 		defaultValues: {username: '', password: '', confirmPassword: ''},
 	});
 
+	const navigate = useNavigate();
+
 	const [error, setError] = useState<{error: string | undefined}>({error: undefined});
 
 	const errorsMessages = Object.values(errors);
@@ -30,6 +33,7 @@ export const RegisterPage = () => {
 	const onSubmit: SubmitHandler<RegisterInputs> = async ({username, password}) => {
 		try {
 			await axios.post(`${BASE_URL}/api/auth/register`, {username, password});
+			navigate('/login');
 		} catch (e) {
 			if ((e as AxiosError).response?.data) {
 				setError(
@@ -73,10 +77,10 @@ export const RegisterPage = () => {
 						type="password"
 					/>
 
-					{error && <Styled.Error>{error.error}</Styled.Error>}
+					{error && <Styled.ErrorMessage>{error.error}</Styled.ErrorMessage>}
 					{!!errorsMessages.length &&
 						errorsMessages.map((error) => (
-							<Styled.Error key={error.message}>{error.message}</Styled.Error>
+							<Styled.ErrorMessage key={error.message}>{error.message}</Styled.ErrorMessage>
 						))}
 					<Button type="submit" disabled={!isValid}>
 						Создать аккаунт

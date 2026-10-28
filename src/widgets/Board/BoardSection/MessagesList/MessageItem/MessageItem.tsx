@@ -5,6 +5,7 @@ import {useAuth} from '@/store/useAuth';
 import {Board} from '@/store/useBoards';
 import {DraggableChildrenProps} from '@/ui/DND/Draggable/DraggableOnDrag';
 import {IconButton} from '@/ui/IconButton';
+import {can} from '@/utils/can';
 
 import {Message, Section} from '../../BoardSection.types';
 import {CurrentReactions} from '../../Reactions/CurrentReactions';
@@ -65,43 +66,51 @@ export const MessageItem = (props: BoardSection) => {
 		);
 	}
 
-	const isAuthor = authorId === localStorage.getItem('authorId');
-	const isOwner = ownerId === userData?.id;
-
-	const allowedActions = (isAuthor || isOwner) && id !== 'tempId';
-
 	const isPinned = Boolean(pinnedAt);
 
+	const ctx = {userId: userData?.id, ownerId, authorId};
+	const isRealMessage = id !== 'tempId';
+	const canMove = isRealMessage && can('message.move', ctx);
+	const canEdit = isRealMessage && can('message.edit', ctx);
+	const canDelete = isRealMessage && can('message.delete', ctx);
+	const canPin = isRealMessage && can('message.pin', ctx);
+	const canReact = isRealMessage && can('message.react', ctx);
+	const hasActions = canMove || canEdit || canDelete || canPin;
+
 	return (
-		<Styled.MessageWrapper {...other} draggable={allowedActions && isDraggable}>
+		<Styled.MessageWrapper {...other} draggable={canMove && isDraggable}>
 			<Styled.MessageItem $color={color} $isBeingDragged={isBeingDragged} $isPinned={isPinned}>
 				<Styled.MessageItemText>{text}</Styled.MessageItemText>
 			</Styled.MessageItem>
 
-			{allowedActions && (
+			{hasActions && (
 				<Styled.ActionsArea $color={color} aria-label="actions area">
-					<IconButton
-						size="medium"
-						onMouseEnter={() => setIsDraggable(true)}
-						onMouseLeave={() => setIsDraggable(false)}
-						color="white"
-					>
-						<GripVertical />
-					</IconButton>
+					{canMove && (
+						<IconButton
+							size="medium"
+							onMouseEnter={() => setIsDraggable(true)}
+							onMouseLeave={() => setIsDraggable(false)}
+							color="white"
+						>
+							<GripVertical />
+						</IconButton>
+					)}
 
-					<PinMessage pinnedAt={pinnedAt} messageId={id} sectionId={sectionId} />
-					<EditMessage handleClick={handleEditField} />
-					<DeleteMessage messageId={id} sectionId={sectionId} />
+					{canPin && <PinMessage pinnedAt={pinnedAt} messageId={id} sectionId={sectionId} />}
+					{canEdit && <EditMessage handleClick={handleEditField} />}
+					{canDelete && <DeleteMessage messageId={id} sectionId={sectionId} />}
 				</Styled.ActionsArea>
 			)}
 
 			<Styled.ReactionsArea>
-				<ReactionsPicker
-					reactions={reactions}
-					messageId={id}
-					sectionId={sectionId}
-					enabledReactions={reactionList}
-				/>
+				{canReact && (
+					<ReactionsPicker
+						reactions={reactions}
+						messageId={id}
+						sectionId={sectionId}
+						enabledReactions={reactionList}
+					/>
+				)}
 				<CurrentReactions
 					reactions={reactions}
 					color={color}

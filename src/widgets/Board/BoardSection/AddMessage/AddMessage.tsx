@@ -37,8 +37,7 @@ export const AddMessage = ({sectionId, handleShowInput, color}: AddItemType) => 
 			if (ctx) queryClient.setQueryData(['messages', ctx.sectionId], ctx.previousData);
 			toasts.error('Произошла ошибка');
 		},
-		onSuccess: (data) => {
-			localStorage.setItem('authorId', data.authorId);
+		onSuccess: () => {
 			setText('');
 			queryClient.invalidateQueries({queryKey: ['messages', sectionId]});
 		},

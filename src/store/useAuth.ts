@@ -13,7 +13,7 @@ type AuthStore = {
 	isReady: boolean;
 	setUserData: (userData: UserDataType) => void;
 	logout: () => Promise<void>;
-	checkAuth: () => void;
+	checkAuth: () => Promise<void>;
 };
 
 export const useAuth = create<AuthStore>()(

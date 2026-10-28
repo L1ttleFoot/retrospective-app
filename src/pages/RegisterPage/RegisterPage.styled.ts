@@ -31,9 +31,10 @@ export const Form = styled.form`
   align-items: center;
   flex-direction: column;
   padding: 25px;
+	gap: 15px;
 `;
 
-export const Error = styled.div`
+export const ErrorMessage = styled.div`
   color: ${({theme}) => theme.colors.error};
   font-size: 12px;
   margin: 0px 0px 5px 0px;
