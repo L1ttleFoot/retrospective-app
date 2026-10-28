@@ -1,7 +1,3 @@
-import {useQueryClient} from '@tanstack/react-query';
-import {useEffect} from 'react';
-
-import {BASE_URL} from '@/consts/api';
 import {useAuth} from '@/store/useAuth';
 import {useBoards} from '@/store/useBoards';
 
@@ -9,6 +5,7 @@ import {AddSectionsModal} from '../AddSections';
 import * as Styled from './Board.styled';
 import {BoardSection} from './BoardSection';
 import {useBoardData} from './useBoardData';
+import {useBoardEvents} from './useBoardEvents';
 
 export const Board = () => {
 	const {sectionsData, isFetching} = useBoardData();
@@ -17,21 +14,7 @@ export const Board = () => {
 
 	const {currentBoardId} = useBoards();
 
-	const queryClient = useQueryClient();
-
-	useEffect(() => {
-		const eventSource = new EventSource(`${BASE_URL}/api/event/`);
-
-		eventSource.onmessage = (event) => {
-			console.log(event.type, event.data);
-
-			const payload = JSON.parse(event.data);
-
-			queryClient.invalidateQueries({queryKey: Object.values(payload)});
-		};
-
-		return () => eventSource.close();
-	}, [queryClient]);
+	useBoardEvents(currentBoardId);
 
 	if (!isAuth && !currentBoardId) {
 		return <Styled.EmptyBoard>Для продолжения авторизуйтесь</Styled.EmptyBoard>;
