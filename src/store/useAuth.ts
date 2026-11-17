@@ -1,7 +1,7 @@
 import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
 
-import api from '@/src/api/axios';
+import api, {authClient} from '@/src/api/axios';
 
 import {Role} from '../shared/types/models';
 
@@ -25,7 +25,7 @@ export const useAuth = create<AuthStore>()(
 			setUserData: (userData) => set(() => ({userData, isAuth: !!userData})),
 			logout: async () => {
 				try {
-					await api.post('/api/auth/logout', {withCredentials: true});
+					await authClient.post('/api/auth/logout');
 				} catch (error) {
 					console.error('Failed to logout', error);
 				} finally {

@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import api from '@/src/api/axios';
 import {Reaction} from '@/src/shared/types/models';
 
@@ -36,13 +34,13 @@ export const getMessages = async (sectionId: Section['id']): Promise<{messages: 
 };
 
 export const updateMessage = async ({messageId, dto}: updateMessageProps): Promise<Message[]> => {
-	const response = await axios.patch(`/api/messages/${messageId}`, dto);
+	const response = await api.patch(`/api/messages/${messageId}`, dto);
 
 	return response.data;
 };
 
 export const deleteMessage = async ({messageId}: deleteMessageProps) => {
-	const response = await axios.delete(`/api/messages/${messageId}`);
+	const response = await api.delete(`/api/messages/${messageId}`);
 
 	return response.data;
 };
@@ -52,11 +50,11 @@ export const handleReaction = async ({messageId, reaction}: handleReactionProps)
 };
 
 export const pinMessage = async ({messageId}: pinMessageProps) => {
-	await axios.post(`/api/messages/${messageId}/pin`);
+	await api.post(`/api/messages/${messageId}/pin`);
 };
 
 export const unpinMessage = async ({messageId}: unpinMessageProps) => {
-	const response = await axios.post(`api/messages/${messageId}/unpin`);
+	const response = await api.post(`/api/messages/${messageId}/unpin`);
 
 	return response.data;
 };

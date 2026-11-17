@@ -75,12 +75,29 @@ export const ActionsArea = styled.div<{$color?: string}>`
 	transition: width 0.2s ease;
   word-break: break-word;
 
+  &::before {
+    content: '⋮';
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
   &:hover {
     width: 30px;
   }
 
+  &:hover::before {
+    display: none;
+  }
+
   & button {
     flex-shrink: 0;
+    touch-action: none;
     width: 18px;
     height: 18px;
     color: white;

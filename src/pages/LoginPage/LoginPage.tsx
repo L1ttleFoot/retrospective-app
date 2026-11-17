@@ -2,8 +2,7 @@ import {useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {Navigate} from 'react-router-dom';
 
-import {BASE_URL} from '@/consts/api';
-import axios from '@/src/api/axios';
+import api from '@/src/api/axios';
 import {useAuth} from '@/store/useAuth';
 import {Button} from '@/ui/Button';
 import {Input} from '@/ui/Input';
@@ -24,11 +23,12 @@ export const LoginPage = () => {
 
 	const [error, setError] = useState(false);
 
+	const returnUrl = sessionStorage.getItem('returnUrl') || '/';
+
 	const onSubmit: SubmitHandler<Inputs> = async (data) => {
 		try {
-			const response = await axios.post(`${BASE_URL}/api/auth/login`, data, {
-				withCredentials: true,
-			});
+			const response = await api.post('/api/auth/login', data, {withCredentials: true});
+			sessionStorage.removeItem('returnUrl');
 			setUserData(response.data);
 		} catch (_e) {
 			setError(true);
@@ -38,7 +38,7 @@ export const LoginPage = () => {
 	return (
 		<div className={style.wrapper}>
 			<div className={style.formWarpper}>
-				{isAuth && <Navigate to="/" />}
+				{isAuth && <Navigate to={returnUrl} replace />}
 				<form className={style.form} onSubmit={handleSubmit(onSubmit)}>
 					<Input
 						id="login"

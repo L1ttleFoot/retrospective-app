@@ -18,7 +18,7 @@ api.interceptors.request.use((config) => {
 
 async function refreshAuthToken() {
 	try {
-		const response = await api.get(`${BASE_URL}/api/auth/refresh`, {withCredentials: true});
+		const response = await authClient.get('/api/auth/refresh');
 		const {setUserData} = useAuth.getState();
 		setUserData(response.data);
 		return response.data;

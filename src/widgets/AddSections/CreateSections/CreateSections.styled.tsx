@@ -9,7 +9,6 @@ export const TemplateForm = styled.form`
 
   flex: 1;
 
- 
 `;
 
 export const SectionsConfig = styled.div`

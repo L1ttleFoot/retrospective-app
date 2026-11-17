@@ -1,5 +1,5 @@
 import {ChartColumn, LogIn, LogOut, Menu, User} from 'lucide-react';
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 import {ROUTES} from '@/consts/routes';
 import {useModal} from '@/src/shared/hooks/useModal';
@@ -15,6 +15,7 @@ import {Settings} from './components/Settings';
 
 export const AppBar = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const {logout, userData, isAuth} = useAuth();
 
 	const {open, handleClose, toggleOpen} = useModal();
@@ -25,6 +26,8 @@ export const AppBar = () => {
 	};
 
 	const handleLogin = () => {
+		const currentUrl = `${location.pathname}${location.search}`;
+		sessionStorage.setItem('returnUrl', currentUrl);
 		navigate(ROUTES.LOGIN);
 	};
 
@@ -62,15 +65,15 @@ export const AppBar = () => {
 				{isAuth && <div>{username}</div>}
 
 				{/* {themes.map((theme) => (
-					<Radio
-						key={theme.value}
-						value={theme.value}
-						name={'theme'}
-						checked={currentTheme === theme.value}
-						onChange={handleChange}
-						label={theme.label}
-					/>
-				))} */}
+						<Radio
+							key={theme.value}
+							value={theme.value}
+							name={'theme'}
+							checked={currentTheme === theme.value}
+							onChange={handleChange}
+							label={theme.label}
+						/>
+					))} */}
 
 				<Settings />
 

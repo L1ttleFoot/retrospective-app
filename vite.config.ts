@@ -17,7 +17,10 @@ export default defineConfig({
         vanillaExtractPlugin(),
         react({
             babel: {
-                plugins: [['babel-plugin-styled-components', {displayName: true, fileName: false}]],
+                plugins: [
+                    'babel-plugin-react-compiler',
+                    ['babel-plugin-styled-components', {displayName: true, fileName: false}],
+                ],
             },
         }),
         svgr(),

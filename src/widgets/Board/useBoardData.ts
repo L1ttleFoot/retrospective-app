@@ -7,12 +7,16 @@ import {getSections} from './api';
 export const useBoardData = () => {
 	const {currentBoardId} = useBoards();
 
-	const {data: sectionsData, isFetching} = useQuery({
+	const {
+		data: sectionsData,
+		isFetching,
+		error,
+	} = useQuery({
 		queryKey: ['sections', currentBoardId],
-		queryFn: () => getSections(currentBoardId),
+		queryFn: () => getSections(currentBoardId ?? ''),
 		initialData: {sections: []},
 		enabled: !!currentBoardId,
 	});
 
-	return {sectionsData, isFetching};
+	return {sectionsData, isFetching, error};
 };

@@ -1,69 +1,61 @@
-import {CSSProperties, DragEvent, MutableRefObject, ReactElement, useRef, useState} from 'react';
+import {DragEvent, ReactElement, useContext, useRef, useState} from 'react';
+
+import {DropContext} from '../DropContext';
 
 export type DroppableChildrenProps = {
-	ref: MutableRefObject<HTMLDivElement | null>;
-	style: CSSProperties;
+	ref: (element: HTMLDivElement | null) => void;
+	'data-drop-id': string;
 	onDragOver: (event: DragEvent<HTMLDivElement>) => void;
 	onDragEnter: (event: DragEvent<HTMLDivElement>) => void;
 	onDragLeave: (event: DragEvent<HTMLDivElement>) => void;
-	onDragEnd: (event: DragEvent<HTMLDivElement>) => void;
 	onDrop: (event: DragEvent<HTMLDivElement>) => void;
 	isDraggingOver: boolean;
 };
 
-type DroppableProps = {
-	children: (props: DroppableChildrenProps) => ReactElement;
-	dropId: string;
-	onDrop: (draggableId: string, dropId: string, sourceDropId: string) => void;
-};
+type DroppableProps = {children: (props: DroppableChildrenProps) => ReactElement; dropId: string};
 
-export const DroppableOnDrag = ({children, dropId, onDrop}: DroppableProps) => {
+export const DroppableOnDrag = ({children, dropId}: DroppableProps) => {
 	const dropRef = useRef<HTMLDivElement | null>(null);
+	const onDrop = useContext(DropContext);
+	const [isDraggingOver, setIsDraggingOver] = useState(false);
 
-	const [draggingOverId, setDraggingOverId] = useState<string>();
+	const setDropRef = (element: HTMLDivElement | null) => {
+		dropRef.current = element;
+	};
 
 	const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
 		event.preventDefault();
 	};
 
-	const handleDragEnter = (event: DragEvent<HTMLDivElement>, id: string) => {
+	const handleDragEnter = (event: DragEvent<HTMLDivElement>) => {
 		event.preventDefault();
-
-		setDraggingOverId(id);
+		setIsDraggingOver(true);
 	};
 
 	const handleDragLeave = (event: DragEvent<HTMLDivElement>) => {
-		event.preventDefault();
-
 		if (dropRef.current && !dropRef.current.contains(event.relatedTarget as Node)) {
-			setDraggingOverId(undefined);
+			setIsDraggingOver(false);
 		}
-	};
-
-	const handleDragEnd = (e: DragEvent<HTMLDivElement>) => {
-		e.preventDefault();
-		setDraggingOverId(undefined);
 	};
 
 	const handleDrop = (event: DragEvent<HTMLDivElement>) => {
+		event.preventDefault();
+		setIsDraggingOver(false);
+
 		const draggableId = event.dataTransfer.getData('draggableItemId');
 		const sourceDropId = event.dataTransfer.getData('sourceDropId');
-		setDraggingOverId(undefined);
-		if (sourceDropId === dropId) {
-			return;
-		}
+		if (!draggableId || sourceDropId === dropId) return;
 
 		onDrop(draggableId, dropId, sourceDropId);
 	};
 
 	return children({
-		ref: dropRef,
+		ref: setDropRef,
+		'data-drop-id': dropId,
 		onDragOver: handleDragOver,
-		onDragEnter: (e) => handleDragEnter(e, dropId),
+		onDragEnter: handleDragEnter,
 		onDragLeave: handleDragLeave,
-		onDragEnd: handleDragEnd,
 		onDrop: handleDrop,
-		isDraggingOver: draggingOverId === dropId,
-		style: {},
+		isDraggingOver,
 	});
 };

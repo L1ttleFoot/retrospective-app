@@ -77,7 +77,7 @@ export const CreateSections = ({handleClose}: CreateSectionsProps) => {
 	};
 
 	const onAdd = () => {
-		append({title: '', id: v4(), color: '#adb5bd', boardId: currentBoardId});
+		append({title: '', id: v4(), color: '#adb5bd', boardId: currentBoardId ?? ''});
 	};
 
 	const setColor = (index: number, color: string) => {

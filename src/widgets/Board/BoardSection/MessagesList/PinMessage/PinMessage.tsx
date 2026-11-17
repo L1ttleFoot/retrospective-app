@@ -5,35 +5,22 @@ import {IconButton} from '@/ui/IconButton';
 
 import {pinMessage, unpinMessage} from '../../api';
 import {Message} from '../../BoardSection.types';
+import {sortMessages} from '../../sortMessages';
 
 type PinMessageProps = {pinnedAt: Date | null; messageId: string; sectionId: string};
-
-const sortMessages = (messagesList: Message[]) => {
-	const pinned = messagesList.filter((m) => m.pinnedAt);
-	const unpinned = messagesList.filter((m) => !m.pinnedAt);
-
-	unpinned.sort((a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime());
-
-	pinned.sort(
-		(a, b) =>
-			new Date(a.pinnedAt ?? new Date()).getTime() - new Date(b.pinnedAt ?? new Date()).getTime(),
-	);
-
-	return [...pinned, ...unpinned];
-};
 
 export const PinMessage = ({pinnedAt, messageId, sectionId}: PinMessageProps) => {
 	const queryClient = useQueryClient();
 
+	const queryKey = ['messages', sectionId];
+
 	const {mutate} = useMutation({
 		mutationFn: pinnedAt ? unpinMessage : pinMessage,
 		onMutate: () => {
-			const previousData = queryClient.getQueryData(['messages', sectionId]) as {
-				messages: Message[];
-			};
+			const previousData = queryClient.getQueryData(queryKey) as {messages: Message[]};
 
 			if (previousData) {
-				queryClient.setQueryData(['messages', sectionId], (old: {messages: Message[]}) => {
+				queryClient.setQueryData(queryKey, (old: {messages: Message[]}) => {
 					const updatedData = old.messages.map((m) => {
 						if (m.id === messageId) {
 							return {...m, pinnedAt: pinnedAt ? null : new Date()};
@@ -47,8 +34,11 @@ export const PinMessage = ({pinnedAt, messageId, sectionId}: PinMessageProps) =>
 
 			return {previousData};
 		},
+		onError: (_err, _vars, ctx) => {
+			if (ctx?.previousData) queryClient.setQueryData(queryKey, ctx.previousData);
+		},
 		onSettled: () => {
-			queryClient.invalidateQueries({queryKey: ['messages', sectionId]});
+			queryClient.invalidateQueries({queryKey: queryKey});
 		},
 	});
 
@@ -58,7 +48,7 @@ export const PinMessage = ({pinnedAt, messageId, sectionId}: PinMessageProps) =>
 	};
 
 	return (
-		<IconButton onClick={handleClick} size="verySmall" color="white" aria-label="delete message">
+		<IconButton onClick={handleClick} size="verySmall" color="white" aria-label="pin message">
 			{pinnedAt ? <PinOff /> : <Pin />}
 		</IconButton>
 	);

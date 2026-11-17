@@ -12,6 +12,7 @@ jobs:
   deploy:
     runs-on: self-hosted
     needs: run-tests
+    if: needs.run-tests.result == 'success'
     steps:
       - name: Проверяем статус
         run: echo "Тесты завершились со статусом ${{ needs.run-tests.outputs.test_result }}"

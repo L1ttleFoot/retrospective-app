@@ -39,19 +39,19 @@ export const MessageItem = (props: BoardSection) => {
 		ownerId,
 		isBeingDragged,
 		ref,
-		onDragOver,
+		onDragStart,
+		onPointerDown,
 		reactions,
-		...other
 	} = props;
 
 	const {userData} = useAuth();
 
 	const [isEdit, setIsEdit] = useState(false);
+	const [isDraggable, setIsDraggable] = useState(false);
 
 	const handleEditField = (value: boolean) => {
 		setIsEdit(value);
 	};
-	const [isDraggable, setIsDraggable] = useState(false);
 
 	if (isEdit) {
 		return (
@@ -78,7 +78,7 @@ export const MessageItem = (props: BoardSection) => {
 	const hasActions = canMove || canEdit || canDelete || canPin;
 
 	return (
-		<Styled.MessageWrapper {...other} draggable={canMove && isDraggable}>
+		<Styled.MessageWrapper ref={ref} draggable={canMove && isDraggable} onDragStart={onDragStart}>
 			<Styled.MessageItem $color={color} $isBeingDragged={isBeingDragged} $isPinned={isPinned}>
 				<Styled.MessageItemText>{text}</Styled.MessageItemText>
 			</Styled.MessageItem>
@@ -87,9 +87,10 @@ export const MessageItem = (props: BoardSection) => {
 				<Styled.ActionsArea $color={color} aria-label="actions area">
 					{canMove && (
 						<IconButton
-							size="medium"
+							onPointerDown={onPointerDown}
 							onMouseEnter={() => setIsDraggable(true)}
 							onMouseLeave={() => setIsDraggable(false)}
+							size="medium"
 							color="white"
 						>
 							<GripVertical />

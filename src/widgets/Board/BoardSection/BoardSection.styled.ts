@@ -35,8 +35,12 @@ export const BoardSectionBody = styled.div<{$isDraggingOver: boolean}>`
 		`
     background:rgba(0,128,128,0.1);
     min-height:120px;
-    
   `};
+
+  &[data-over='true'] {
+    background: rgba(0, 128, 128, 0.1);
+    min-height: 120px;
+  }
 
   @media screen and (max-width: 955px) {
     justify-content: center;

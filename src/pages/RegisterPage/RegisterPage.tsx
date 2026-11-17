@@ -3,8 +3,7 @@ import {useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
 
-import {BASE_URL} from '@/consts/api';
-import axios from '@/src/api/axios';
+import api from '@/src/api/axios';
 import {Button} from '@/ui/Button';
 import {Input} from '@/ui/Input';
 import {TextLink} from '@/ui/TextLink/TextLink';
@@ -32,7 +31,7 @@ export const RegisterPage = () => {
 
 	const onSubmit: SubmitHandler<RegisterInputs> = async ({username, password}) => {
 		try {
-			await axios.post(`${BASE_URL}/api/auth/register`, {username, password});
+			await api.post('/api/auth/register', {username, password});
 			navigate('/login');
 		} catch (e) {
 			if ((e as AxiosError).response?.data) {
