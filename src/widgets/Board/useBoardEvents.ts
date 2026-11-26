@@ -22,7 +22,7 @@ export const useBoardEvents = (boardId: string | null | undefined) => {
 	useEffect(() => {
 		if (!boardId) return;
 
-		const eventSource = new EventSource(`${BASE_URL}/api/boards/${boardId}/events`);
+		const eventSource = new EventSource(`${BASE_URL}/api/events/boards/${boardId}`);
 
 		for (const [name, getKeys] of Object.entries(MESSAGE_EVENTS)) {
 			eventSource.addEventListener(name, (event) => {

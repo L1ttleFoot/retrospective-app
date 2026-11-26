@@ -6,6 +6,7 @@ import {DropContext} from '@/ui/DND/DropContext';
 import {ErrorState} from '@/ui/ErrorState';
 
 import {AddSectionsModal} from '../AddSections';
+import * as style from './Board.css';
 import * as Styled from './Board.styled';
 import {BoardSection} from './BoardSection';
 import {updateMessage} from './BoardSection/api';
@@ -58,6 +59,15 @@ export const Board = () => {
 
 			return {previousSourceData, previousTargetData, sourceSectionId, sectionId: dto.sectionId};
 		},
+		onError: (_error, _variables, context) => {
+			if (!context) return;
+
+			queryClient.setQueryData(['messages', context.sourceSectionId], context.previousSourceData);
+			queryClient.setQueryData(
+				['messages', context.sectionId],
+				context.previousTargetData ?? {messages: []},
+			);
+		},
 		onSuccess: (_, varibles) => {
 			queryClient.invalidateQueries({queryKey: ['messages', varibles.sourceSectionId]});
 			queryClient.invalidateQueries({queryKey: ['messages', varibles.dto.sectionId]});
@@ -90,11 +100,14 @@ export const Board = () => {
 
 	return (
 		<DropContext.Provider value={handleDrop}>
-			<Styled.Board>
-				{sectionsData.sections.map((section) => (
-					<BoardSection key={section.id} {...section} />
-				))}
-			</Styled.Board>
+			<div className={style.board}>
+				<div className={style.title}>{sectionsData.boardTitle}</div>
+				<div className={style.sections}>
+					{sectionsData.sections.map((section) => (
+						<BoardSection key={section.id} {...section} />
+					))}
+				</div>
+			</div>
 		</DropContext.Provider>
 	);
 };

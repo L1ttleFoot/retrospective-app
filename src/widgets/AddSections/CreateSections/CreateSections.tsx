@@ -60,6 +60,7 @@ export const CreateSections = ({handleClose}: CreateSectionsProps) => {
 		mutationFn: createSections,
 		onMutate: (variables) => {
 			queryClient.setQueryData(['sections', currentBoardId], () => ({
+				boardTitle: '',
 				sections: variables.sections,
 			}));
 		},

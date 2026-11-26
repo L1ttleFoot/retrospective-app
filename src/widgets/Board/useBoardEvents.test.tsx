@@ -40,7 +40,7 @@ describe('useBoardEvents', () => {
 		renderHook(() => useBoardEvents('b1'), {wrapper});
 
 		const es = FakeEventSource.instances[0];
-		expect(es.url).toContain('/api/boards/b1/events');
+		expect(es.url).toContain('/api/events/boards/b1');
 
 		es.listeners['message.moved']({
 			data: JSON.stringify({sectionId: 's2', fromSectionId: 's1'}),

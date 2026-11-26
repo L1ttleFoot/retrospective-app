@@ -22,13 +22,7 @@ const renderWithRoutes = () =>
 
 const setUser = (roleValue: string) =>
 	useAuth.setState({
-		userData: {
-			id: '1',
-			username: 'test',
-			token: 't',
-			isGuest: false,
-			roles: [{id: 1, value: roleValue}],
-		},
+		userData: {id: '1', username: 'test', token: 't', isGuest: false, roles: [roleValue]},
 	});
 
 describe('ProtectedRoute', () => {

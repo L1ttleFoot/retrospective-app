@@ -18,8 +18,6 @@ export const Board = styled.div`
     flex-direction: column;
     justify-content: flex-start;
   }
-
- 
 `;
 
 export const EmptyBoard = styled.div`
@@ -33,5 +31,4 @@ export const EmptyBoard = styled.div`
   border-radius: 10px;
   background: ${({theme}) => theme.backgroundSecond};
   box-shadow: ${({theme}) => theme.boxShadow};
-
 `;

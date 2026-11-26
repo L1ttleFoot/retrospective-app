@@ -33,7 +33,10 @@ describe('useBoardData', () => {
 		server.use(
 			http.get('*/api/boards/:boardId/sections', ({request, params}) => {
 				requested.push(new URL(request.url).pathname);
-				return HttpResponse.json({sections: [{id: `${params.boardId}-s1`, title: 'Good'}]});
+				return HttpResponse.json({
+					boardTitle: `Board ${params.boardId}`,
+					sections: [{id: `${params.boardId}-s1`, title: 'Good'}],
+				});
 			}),
 		);
 		useBoards.setState({currentBoardId: 'b1'});
@@ -41,11 +44,14 @@ describe('useBoardData', () => {
 
 		const {result} = renderHook(() => useBoardData(), {wrapper});
 
-		expect(result.current.sectionsData).toEqual({sections: []});
+		expect(result.current.sectionsData).toEqual({boardTitle: '', sections: []});
 		expect(result.current.isFetching).toBe(true);
 
 		await waitFor(() =>
-			expect(result.current.sectionsData).toEqual({sections: [{id: 'b1-s1', title: 'Good'}]}),
+			expect(result.current.sectionsData).toEqual({
+				boardTitle: 'Board b1',
+				sections: [{id: 'b1-s1', title: 'Good'}],
+			}),
 		);
 		expect(result.current.isFetching).toBe(false);
 		expect(result.current.error).toBeNull();
@@ -69,7 +75,7 @@ describe('useBoardData', () => {
 
 		expect(calls).toBe(0);
 		expect(result.current.isFetching).toBe(false);
-		expect(result.current.sectionsData).toEqual({sections: []});
+		expect(result.current.sectionsData).toEqual({boardTitle: '', sections: []});
 	});
 
 	it('при смене currentBoardId в store запрашивает секции новой доски', async () => {
@@ -77,20 +83,33 @@ describe('useBoardData', () => {
 		server.use(
 			http.get('*/api/boards/:boardId/sections', ({request, params}) => {
 				requested.push(new URL(request.url).pathname);
-				return HttpResponse.json({sections: [{id: `${params.boardId}-s1`}]});
+				return HttpResponse.json({
+					boardTitle: `Board ${params.boardId}`,
+					sections: [{id: `${params.boardId}-s1`}],
+				});
 			}),
 		);
 		useBoards.setState({currentBoardId: 'b1'});
 		const {wrapper} = createWrapper();
 		const {result} = renderHook(() => useBoardData(), {wrapper});
 
-		await waitFor(() => expect(result.current.sectionsData).toEqual({sections: [{id: 'b1-s1'}]}));
+		await waitFor(() =>
+			expect(result.current.sectionsData).toEqual({
+				boardTitle: 'Board b1',
+				sections: [{id: 'b1-s1'}],
+			}),
+		);
 
 		act(() => {
 			useBoards.getState().setCurrentBoardId('b2');
 		});
 
-		await waitFor(() => expect(result.current.sectionsData).toEqual({sections: [{id: 'b2-s1'}]}));
+		await waitFor(() =>
+			expect(result.current.sectionsData).toEqual({
+				boardTitle: 'Board b2',
+				sections: [{id: 'b2-s1'}],
+			}),
+		);
 		expect(requested).toHaveLength(2);
 		expect(requested[1]).toMatch(/\/api\/boards\/b2\/sections$/);
 	});
@@ -109,6 +128,6 @@ describe('useBoardData', () => {
 		await waitFor(() => expect(result.current.error).not.toBeNull());
 		expect((result.current.error as AxiosError).response?.status).toBe(500);
 		expect(result.current.isFetching).toBe(false);
-		expect(result.current.sectionsData).toEqual({sections: []});
+		expect(result.current.sectionsData).toEqual({boardTitle: '', sections: []});
 	});
 });

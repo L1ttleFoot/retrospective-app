@@ -14,7 +14,7 @@ export const useBoardData = () => {
 	} = useQuery({
 		queryKey: ['sections', currentBoardId],
 		queryFn: () => getSections(currentBoardId ?? ''),
-		initialData: {sections: []},
+		initialData: {boardTitle: '', sections: []},
 		enabled: !!currentBoardId,
 	});
 

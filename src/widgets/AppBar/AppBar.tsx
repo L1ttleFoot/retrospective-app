@@ -50,13 +50,17 @@ export const AppBar = () => {
 							<Menu />
 						</IconButton>
 
-						<IconButton size="small" onClick={handleNavigate} color={'#52b788'}>
-							<User />
-						</IconButton>
+						{userData?.roles.includes('ADMIN') && (
+							<>
+								<IconButton size="small" onClick={handleNavigate} color={'#52b788'}>
+									<User />
+								</IconButton>
 
-						<IconButton size="small" onClick={handleNavigateTest} color={'#52b788'}>
-							<ChartColumn />
-						</IconButton>
+								<IconButton size="small" onClick={handleNavigateTest} color={'#52b788'}>
+									<ChartColumn />
+								</IconButton>
+							</>
+						)}
 					</>
 				)}
 

@@ -93,6 +93,7 @@ describe('перенос карточки между секциями (инте�
 		server.use(
 			http.get('*/api/boards/:boardId/sections', () =>
 				HttpResponse.json({
+					boardTitle: 'Test board',
 					sections: [
 						{id: 's1', title: 'Первая', color: '#ffd700', boardId: 'b1'},
 						{id: 's2', title: 'Вторая', color: '#00ff00', boardId: 'b1'},
@@ -119,6 +120,77 @@ describe('перенос карточки между секциями (инте�
 		});
 
 		await waitFor(() => expect(patches).toEqual([{id: 'm1', body: {sectionId: 's2'}}]));
+		useBoards.setState({currentBoardId: undefined});
+	});
+
+	it('показывает ошибку, если не удалось загрузить секции доски', async () => {
+		vi.stubGlobal(
+			'EventSource',
+			class {
+				addEventListener() {}
+				close() {}
+			},
+		);
+		server.use(
+			http.get('*/api/boards/:boardId/sections', () =>
+				HttpResponse.json({message: 'failed'}, {status: 500}),
+			),
+		);
+		useBoards.setState({currentBoardId: 'b1'});
+
+		render(<Board />);
+
+		expect(await screen.findByRole('alert')).toHaveTextContent(
+			'Ошибка на стороне сервера. Попробуйте позже',
+		);
+		useBoards.setState({currentBoardId: undefined});
+	});
+
+	it('возвращает карточку в исходную секцию при ошибке PATCH', async () => {
+		const patches: string[] = [];
+		vi.stubGlobal(
+			'EventSource',
+			class {
+				addEventListener() {}
+				close() {}
+			},
+		);
+		server.use(
+			http.get('*/api/boards/:boardId/sections', () =>
+				HttpResponse.json({
+					boardTitle: 'Test board',
+					sections: [
+						{id: 's1', title: 'Первая', color: '#ffd700', boardId: 'b1'},
+						{id: 's2', title: 'Вторая', color: '#00ff00', boardId: 'b1'},
+					],
+				}),
+			),
+			http.patch('*/api/messages/:messageId', ({params}) => {
+				patches.push(params.messageId as string);
+				return HttpResponse.json({message: 'failed'}, {status: 500});
+			}),
+		);
+		useBoards.setState({currentBoardId: 'b1'});
+
+		render(<Board />);
+
+		await screen.findByText('text-m1');
+		const source = document.querySelector('[data-drop-id="s1"]') as HTMLElement;
+		const target = document.querySelector('[data-drop-id="s2"]') as HTMLElement;
+		const grip = within(screen.getByLabelText('actions area')).getAllByRole('button')[0];
+		elementUnderPointer = target;
+
+		await act(async () => {
+			fireEvent.pointerDown(grip, {clientX: 0, clientY: 0, button: 0, pointerId: 1});
+			fireEvent.pointerMove(window, {clientX: 40, clientY: 20, pointerId: 1});
+			fireEvent.pointerUp(window, {clientX: 40, clientY: 20, pointerId: 1});
+		});
+
+		await waitFor(() => expect(patches).toEqual(['m1']));
+		await waitFor(() => {
+			expect(within(source).getByText('text-m1')).toBeInTheDocument();
+			expect(within(target).queryByText('text-m1')).not.toBeInTheDocument();
+		});
 		useBoards.setState({currentBoardId: undefined});
 	});
 });
